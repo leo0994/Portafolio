@@ -1,21 +1,29 @@
 ---
 import Header from "../components/Header.astro";
 import "../styles/global.css";
+import "../styles/header.css";
+import "@fontsource/work-sans/400.css";
+import Footer from "../components/Footer.astro";
+
+
+const { description, title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/icons/iconPortafolioBlanco.png" />
+    <meta name="description" content={description}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="src/icons/LogoPlasmaCeleste.png" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="stylesheet" href="/styles/global.css" />
-    <title>Leo Portafolio </title>
+    <title>Leo Portafolio</title>
   </head>
   <body>
-    <Header   />
+    <Header />
     <slot />
+    <Footer />
+    <div class="h-10"></div>
+    <script type="module" src="/src/js/language.js"></script>
   </body>
 </html>
-

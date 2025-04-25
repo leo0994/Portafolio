@@ -1,14 +1,60 @@
-<header class="flex justify-between items-center py-3 w-[1120px]">
-  <img
-    class="rounded-full w-12 h-12"
-    src="https://avatars.githubusercontent.com/u/80069598?v=4"
-    alt="leo photo"
-  />
+<header>
+  <div
+    class="header-container flex justify-center py-5 w-full xl:w-[1120] items-center gap-4"
+  >
+    <!-- Logo en video -->
+    <video
+    class="w-60 h-26 rounded-full border-4 border-white shadow-lg object-cover mr-6 ml-2"
+    autoplay
+    loop
+    muted
+    playsinline
+  >
+  
+  
+      <source src="/videos/LogoFavorito1.mp4" type="video/mp4" />
+      Tu navegador no soporta videos.
+    </video>
 
-  <nav class="flex flex-row gap-x10">
-    <a href="/">Home</a>
-    <a href="/">About</a>
-    <a href="/">Proyects</a>
-    <a href="/">Contact</a>
-  </nav>
+    <!-- Botón menú hamburguesa -->
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+
+    <!-- Menú de navegación para escritorio -->
+    <nav class="hidden md:flex gap-6 relative" id="desktop-nav">
+      <a href="/" class="nav-link" data-i18n="inicio">Inicio</a>
+      <a href="#experiencia" class="nav-link" data-i18n="experiencia">Experiencia</a>
+      <a href="#proyectos" class="nav-link" data-i18n="proyectos">Proyectos</a>
+      <a href="#contacto" class="nav-link" data-i18n="contacto">Contacto</a>
+      <!-- Botón para cambiar idioma -->
+      <button
+        id="language-toggle"
+        class="ml-4 px-3 py-1 text-white bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition duration-300"
+      >
+        EN
+      </button>
+      <div class="underline"></div>
+    </nav>
+
+    <!-- Menú de navegación móvil -->
+    <nav
+    id="mobile-menu"
+    class="hidden fixed top-0 right-0 h-screen w-64 bg-black/90 text-white flex-col p-6 transform translate-x-full transition-transform duration-300 ease-in-out"
+  >
+  
+      <button id="close-menu" class="self-end text-2xl">✖</button>
+      <a href="/top" class="py-3 text-lg" data-i18n="inicio">Inicio</a>
+      <a href="/projects" class="py-3 text-lg" data-i18n="proyectos">Proyectos</a>
+      <a href="/about" class="py-3 text-lg" data-i18n="experiencia">Experiencia</a>
+      <a href="/contact" class="py-3 text-lg" data-i18n="contacto">Contacto</a>
+
+      <!-- Botón idioma móvil -->
+      <button
+        id="language-toggle-mobile"
+        
+        class="mt-6 px-3 py-1 text-white bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition duration-300"
+      >
+        EN
+      </button>
+    </nav>
+  </div>
 </header>

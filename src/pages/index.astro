@@ -1,13 +1,80 @@
 ---
+import Badge from "../components/Badge.astro";
 import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import "../styles/global.css";
+import "../styles/layout.css";
+import LinkedinInIcon from "../icons/Linkedin.astro";
+import GithubInIcon from "../icons/Github.astro";
+import SocialPill from "../components/SocialPill.astro";
+import FileCVico from "../icons/FileCVico.astro";
+import Emailico from "../icons/Emailico.astro";
+import Experience from "../components/Experience.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import Briefcase from "../icons/Briefcase.astro";
+import DevLogoAnimado from "../icons/DevLogoAnimado.astro";
+import Proyectos from "../components/Proyectos.astro";
+import Contacto from "../components/Contacto.astro";
 ---
 
-<Layout>
+<Layout
+  title="Portafolio leoDev - Desarrollador y Programador Web"
+  description="Portafolio leo Dev - Desarrollador y Programador Web."
+>
   <main>
-    <h1>Portafolio Creacion LeoDev</h1>
-    
+    <SectionContainer class="py-44 pb-44">
+      <h1
+        class="text-white text-5xl font-bold flex flex-col items-center gap-y-4 pb-4"
+        data-i18n="saludo_principal"
+      >
+        Hola, Soy Leo Barrantes
+        <Badge class="text-sm bg-blue-600 text-white px-3 py-1 rounded-lg" data-i18n="disponible">
+          Disponible para trabajar
+        </Badge>
+      </h1>
+
+      <h2 class="text-2xl text-wrap py-2 flex items-center gap-x-8">
+        <DevLogoAnimado class="w-9 h-9" />
+        <p data-i18n="descripcion_principal">
+          Desarrollador de Software
+          <br />+ 3 años de experiencia. De San José, Costa Rica.
+        </p>
+      </h2>
+
+      <div class="flex items-center gap-x-4 gap-y-4 mt-6 flex-wrap">
+        <SocialPill href="https://www.linkedin.com/in/leo-barrantes-928aa122a">
+          <LinkedinInIcon class="w-6 h-6" />
+          <span data-i18n="linkedin">LinkedIn</span>
+        </SocialPill>
+
+        <SocialPill href="https://github.com/leo0994">
+          <GithubInIcon class="w-6 h-6" />
+          <span data-i18n="github">Github</span>
+        </SocialPill>
+
+        <SocialPill href="/src/cv/LeoBarrantesCV_English.pdf" target="_blank">
+          <FileCVico class="w-6 h-6" />
+          <span data-i18n="ingles">Inglés</span>
+        </SocialPill>
+
+        <SocialPill href="/src/cv/LeoBarrantesCV_Español.pdf" target="_blank">
+          <FileCVico class="w-6 h-6" />
+          <span data-i18n="espanol">Español</span>
+        </SocialPill>
+      </div>
+    </SectionContainer>
+
+    <!-- 🔹 Sección de Experiencia con el Timeline -->
+    <SectionContainer id="experiencia" class="py-44 pb-44">
+      <h2
+        class="text-[rgb(240,240,240)] text-4xl font-semibold mb-6 flex gap-x-2 items-center"
+      >
+        <Briefcase class="size-9" />
+        <span data-i18n="experiencia_laboral">Experiencia laboral</span>
+      </h2>
+      <Experience />
+    </SectionContainer>
+
+    <Proyectos />
+    <Contacto />
   </main>
 </Layout>

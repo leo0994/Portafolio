@@ -1,5 +1,11 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
+import i18nextIntegration from "astro-i18next";
+import i18nConfig from "./src/i18n/config.js";
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+    integrations: [
+        tailwind(),
+        i18nextIntegration({ config: i18nConfig })
+    ]
+});

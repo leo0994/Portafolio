@@ -1,0 +1,15 @@
+/* src/styles/layout.css */
+
+/* Estilos para la sección principal del contenido */
+main {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 960px; /* Limita el ancho máximo para mejor legibilidad en pantallas grandes */
+  margin: 0 auto; /* Centra el contenido horizontalmente */
+  padding: 2rem; /* Agrega un espaciado interno alrededor del contenido */
+}
+
+/* Estilos para los títulos principales */
+h1 {
+  font-size: 2.5rem; /* Aumenta el tamaño del texto para destacar los títulos */
+  color: rgb(255, 255, 255); /* Establece el color del texto en blanco para mayor contraste */
+}

@@ -1,0 +1,75 @@
+<section id="contacto" class="max-w-4xl mx-auto px-6 py-24">
+  <h2 class="text-white text-3xl font-bold flex items-center gap-x-4 mb-8">
+    <img
+      src="/src/icons/ContactoPlasma.png"
+      alt="Imagen de contacto"
+      class="w-8 h-8 object-cover"
+    />
+    Trabajemos juntos hagamos realidad tu proyecto!
+  </h2>
+
+  <form
+    action="https://formspree.io/f/xkgrndrq"
+    method="POST"
+    class="bg-transparent p-6 rounded-xl border border-white/10 shadow-md space-y-4"
+  >
+    <div class="flex flex-col md:flex-row gap-4">
+      <input
+        type="text"
+        name="nombre"
+        placeholder="Nombre"
+        required
+        class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      />
+      <input
+        type="text"
+        name="apellido"
+        placeholder="Apellido"
+        required
+        class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      />
+    </div>
+    <div class="flex flex-col md:flex-row gap-4">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      />
+      <input
+        type="tel"
+        name="telefono"
+        placeholder="Teléfono"
+        required
+        class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      />
+    </div>
+    <textarea
+      name="mensaje"
+      placeholder="Escribe tu propuesta de proyecto..."
+      required
+      class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
+      rows="4"
+    ></textarea>
+
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="rounded-full border border-white/10 px-6 py-2 bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition duration-300"
+      >
+        Enviar mensaje
+      </button>
+    </div>
+  </form>
+  <div id="modal-exito" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white text-black rounded-lg p-6 shadow-xl text-center space-y-4">
+      <h2 class="text-2xl font-bold">¡Mensaje enviado!</h2>
+      <p>Gracias por contactarme, te responderé pronto.</p>
+      <button onclick="cerrarModal()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        Cerrar
+      </button>
+    </div>
+  </div>
+  
+</section>

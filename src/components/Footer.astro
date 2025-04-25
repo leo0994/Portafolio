@@ -1,0 +1,123 @@
+---
+// Importación de íconos
+import LinkedinInIcon from "../icons/Linkedin.astro";
+import GithubInIcon from "../icons/Github.astro";
+import Emailico from "../icons/Emailico.astro";
+import FileCVico from "../icons/FileCVico.astro";
+import "../styles/footer.css";
+---
+
+
+<footer class="w-full mt-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Contenedor del footer -->
+    <div
+      class="w-full border border-white/20 rounded-xl p-5 flex flex-col md:flex-row items-start justify-between gap-4 bg-transparent"
+    >
+      <!-- Logo igual al del header -->
+      <div class="footer-logo-pill">
+        <video autoplay loop muted playsinline>
+          <source src="/videos/LogoFavorito1.mp4" type="video/mp4" />
+          Tu navegador no soporta videos.
+        </video>
+      </div>
+
+      <!-- Botones -->
+      <div
+        class="flex flex-wrap justify-center md:justify-end gap-4 w-full md:w-auto mt-2 md:mt-4"
+      >
+        <a
+          href="https://www.linkedin.com/in/leo-barrantes-928aa122a"
+          class="rounded-full border border-white/10 flex items-center gap-x-2 py-2 px-4 bg-white/5 hover:scale-110 hover:bg-white/10 transition"
+          target="_blank"
+        >
+          <LinkedinInIcon class="w-5 h-5 text-white" />
+          <span class="text-white font-semibold" data-i18n="linkedin">LinkedIn</span>
+        </a>
+
+        <a
+          href="https://github.com/leo0994"
+          class="rounded-full border border-white/10 flex items-center gap-x-2 py-2 px-4 bg-white/5 hover:scale-110 hover:bg-white/10 transition"
+          target="_blank"
+        >
+          <GithubInIcon class="w-5 h-5 text-white" />
+          <span class="text-white font-semibold" data-i18n="github">Github</span>
+        </a>
+
+        <a
+          href="/src/cv/LeoBarrantesCV_English.pdf"
+          target="_blank"
+          class="rounded-full border border-white/10 flex items-center gap-x-2 py-2 px-4 bg-white/5 hover:scale-110 hover:bg-white/10 transition"
+        >
+          <FileCVico class="w-5 h-5 text-white" />
+          <span class="text-white font-semibold" data-i18n="cv_english">Inglés</span>
+        </a>
+
+        <a
+          href="/src/cv/LeoBarrantesCV_Español.pdf"
+          target="_blank"
+          class="rounded-full border border-white/10 flex items-center gap-x-2 py-2 px-4 bg-white/5 hover:scale-110 hover:bg-white/10 transition"
+        >
+          <FileCVico class="w-5 h-5 text-white" />
+          <span class="text-white font-semibold" data-i18n="cv_spanish">Español</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Botón ScrollTop con imagen personalizada -->
+    <button
+      id="scrollTopBtn"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="hidden fixed bottom-10 right-4 sm:right-6 z-50 w-36 h-36 flex items-center justify-center border border-white/10 rounded-full bg-white/10 hover:scale-125 hover:bg-white/20 transition-all duration-300"
+      aria-label="Ir arriba"
+    >
+      <img
+        src="/src/imagen/Scroll%20top.png"
+        alt="Scroll to Top"
+        class="w-28 h-28 object-cover rounded-full"
+      />
+    </button>
+  </div>
+
+  <!-- Botón Donación -->
+  <div class="w-full flex justify-center mt-4">
+    <a
+      href="https://www.buymeacoffee.com/leodev"
+      class="rounded-full border border-yellow-400 flex items-center gap-x-2 py-2 px-6 bg-yellow-300/10 hover:scale-110 hover:bg-yellow-300/20 transition"
+      target="_blank"
+    >
+      ☕ <span class="text-yellow-200 font-semibold" data-i18n="coffee">Invítame un café</span>
+    </a>
+  </div>
+
+  <!-- Línea divisoria -->
+  <hr class="my-4 border-white/20" />
+
+  <!-- Derechos -->
+  <div class="text-center text-sm text-white/80 pb-6">
+    © 2025 <strong class="text-white">Leo Barrantes™</strong>. <span data-i18n="rights">Ningún derecho reservado.</span>
+  </div>
+</footer>
+
+<!-- Script: posicionamiento del botón -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (scrollTopBtn) {
+      const baseBottom = 40;
+      const offsetFromFooter = 172;
+
+      window.addEventListener("scroll", () => {
+        const scrolledToBottom =
+          window.innerHeight + window.scrollY >=
+          document.body.scrollHeight - 10;
+
+        scrollTopBtn.style.bottom = scrolledToBottom
+          ? `${offsetFromFooter}px`
+          : `${baseBottom}px`;
+
+        scrollTopBtn.classList.toggle("hidden", window.scrollY <= 100);
+      });
+    }
+  });
+</script>
