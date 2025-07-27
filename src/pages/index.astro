@@ -3,21 +3,19 @@ import Badge from "../components/Badge.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import "../styles/layout.css";
-import LinkedinInIcon from "/icons/LinkedinIn.astro";
-import GithubInIcon from "../icons/Github.astro";
-import SocialPill from "../components/SocialPill.astro";
-import FileCVico from "../icons/FileCVico.astro";
-import Emailico from "../icons/Emailico.astro";
+import LinkedinInIcon from "../icons/linkedin.astro";
+import GithubInIcon from "../icons/github.astro";
+import FileCVico from "../icons/filecvico.astro";
+import Briefcase from "../icons/briefcase.astro";
+import Emailico from "../icons/emailico.astro";
 import Experience from "../components/Experience.astro";
-import SectionContainer from "../components/SectionContainer.astro";
-import Briefcase from "../icons/Briefcase.astro";
-import DevLogoAnimado from "../icons/DevLogoAnimado.astro";
 import Proyectos from "../components/Proyectos.astro";
 import Contacto from "../components/Contacto.astro";
----
 
+import DevLogoAnimado from "../icons/devlogoanimado.astro";
+import SocialPill from "../components/SocialPill.astro";
+import SectionContainer from "../components/SectionContainer.astro";
 <Layout
-  title="Portafolio leoDev - Desarrollador y Programador Web"
   description="Portafolio leo Dev - Desarrollador y Programador Web."
 >
   <main>
@@ -51,19 +49,19 @@ import Contacto from "../components/Contacto.astro";
           <span data-i18n="github">Github</span>
         </SocialPill>
 
-        <SocialPill href="/public/cv/LeoBarrantesCV_English.pdf" target="_blank">
+        <SocialPill href="/cv/leobarrantescv_english.pdf" target="_blank">
           <FileCVico class="w-6 h-6" />
           <span data-i18n="ingles">Inglés</span>
         </SocialPill>
 
-        <SocialPill href="/public/cv/LeoBarrantesCV_Español.pdf" target="_blank">
+        <SocialPill href="/cv/leobarrantescv_español.pdf" target="_blank">
           <FileCVico class="w-6 h-6" />
           <span data-i18n="espanol">Español</span>
         </SocialPill>
       </div>
     </SectionContainer>
 
-    <!-- 🔹 Sección de Experiencia con el Timeline -->
+  
     <SectionContainer id="experiencia" class="py-44 pb-44">
       <h2
         class="text-[rgb(240,240,240)] text-4xl font-semibold mb-6 flex gap-x-2 items-center"
