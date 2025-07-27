@@ -1,11 +1,19 @@
 ---
 // Datos de proyectos
 const projects = [
+   {
+    title: "Mentana",
+    description: "Aplicación con 8 juegos para adultos mayores",
+    tech: ["Spring boot", "Angular", "MVC"],
+    image: "/imagen/digimonApi.jpg",
+    link: "https://github.com/LeoDev/digimon-api",
+    live: "https://digimon.leodev.com",
+  },
   {
     title: "API de Digimon",
     description: "Aplicación en .NET que consume la API de Digimon.",
     tech: ["C#", ".NET", "MVC"],
-    image: "/public/imagen/digimonApi.jpg",
+    image: "/imagen/digimonApi.jpg",
     link: "https://github.com/LeoDev/digimon-api",
     live: "https://digimon.leodev.com",
   },
@@ -13,7 +21,7 @@ const projects = [
     title: "Tic-Tac-Toe en React",
     description: "Juego clásico con lógica optimizada y estilos modernos.",
     tech: ["React", "Tailwind CSS"],
-    image: "/public/imagen/TicTacToeV3.jpg",
+    image: "/imagen/TicTacToeV3.jpg",
     link: "https://github.com/LeoDev/tic-tac-toe",
     live: "https://tic-tac-toe.leodev.com",
   },
@@ -22,7 +30,7 @@ const projects = [
     description:
       "Sistema de reservas de un hotel con autenticación y pagos online.",
     tech: ["Ruby on Rails", "PostgreSQL", "Bootstrap"],
-    image: "/public/imagen/RubiProyecto.jpg",
+    image: "/imagen/RubiProyecto.jpg",
     link: "https://github.com/LeoDev/ruby-space-suites",
     live: "https://rubyspacesuites.leodev.com",
   },
@@ -30,7 +38,7 @@ const projects = [
     title: "Sistema de Farmacia (Spring Boot)",
     description: "Gestión de medicamentos y usuarios con Spring Boot y MVC.",
     tech: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
-    image: "/public/imagen/farmacia.jpg",
+    image: "/imagen/farmacia.jpg",
     link: "https://github.com/LeoDev/farmacia-mvc",
     live: null,
   },
@@ -41,7 +49,7 @@ const projects = [
   <!-- Título con imagen giratoria -->
   <div class="flex justify-center items-center mb-8 gap-4">
     <img
-      src="public/icons/LogoPlasmaCeleste.png"
+      src="/icons/LogoPlasmaCeleste.png"
       alt="Logo animado"
       class="w-12 h-12 animate-spin-slow hover:scale-110 transition duration-300"
     />
