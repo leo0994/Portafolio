@@ -12,6 +12,8 @@
     action="https://formspree.io/f/xkgrndrq"
     method="POST"
     class="bg-transparent p-6 rounded-xl border border-white/10 shadow-md space-y-4"
+    id="contact-form"
+    onsubmit="return mostrarModalExito(event);"
   >
     <div class="flex flex-col md:flex-row gap-4">
       <input
@@ -62,14 +64,35 @@
       </button>
     </div>
   </form>
-  <div id="modal-exito" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div id="modal-exito" class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50">
     <div class="bg-white text-black rounded-lg p-6 shadow-xl text-center space-y-4">
       <h2 class="text-2xl font-bold">¡Mensaje enviado!</h2>
       <p>Gracias por contactarme, te responderé pronto.</p>
-      <button onclick="cerrarModal()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      <button type="button" onclick="cerrarModal()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
         Cerrar
       </button>
     </div>
   </div>
-  
+
+<script>
+  function mostrarModalExito(event: Event) {
+    event.preventDefault();
+    var modal = document.getElementById('modal-exito');
+    if (modal) {
+      modal.classList.remove('hidden');
+    }
+    return false; // Evita el submit tradicional
+  }
+  function cerrarModal() {
+    var modal = document.getElementById('modal-exito');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+    var form = document.getElementById('contact-form');
+    if (form && 'reset' in form) {
+      (form as HTMLFormElement).reset();
+    }
+  }
+</script>
+
 </section>
