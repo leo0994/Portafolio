@@ -26,38 +26,37 @@ function esperarElemento(id, callback) {
   }, 100); // cada 100ms intenta de nuevo
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const aplicarIdioma = () => {
-    actualizarTextos();
-    console.log("🔁 Textos actualizados");
-  };
+function actualizarBotonesIdioma() {
+  const proximoIdioma = i18next.language === "es" ? "EN" : "ES";
+  esperarElemento("language-toggle", (btn) => (btn.innerText = proximoIdioma));
+  esperarElemento("language-toggle-mobile", (btn) => (btn.innerText = proximoIdioma));
+}
 
-  // Detectar y aplicar el idioma guardado
+function toggleIdioma() {
+  const nuevoIdioma = i18next.language === "es" ? "en" : "es";
+  localStorage.setItem("lang", nuevoIdioma);
+  i18next.changeLanguage(nuevoIdioma).then(() => {
+    actualizarTextos();
+    actualizarBotonesIdioma();
+    console.log("🔁 Textos actualizados");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
   const idiomaGuardado = localStorage.getItem("lang") || "es";
   i18next.changeLanguage(idiomaGuardado).then(() => {
-    aplicarIdioma();
+    actualizarTextos();
+    actualizarBotonesIdioma();
   });
-
-  function toggleIdioma() {
-    const nuevoIdioma = i18next.language === "es" ? "en" : "es";
-    localStorage.setItem("lang", nuevoIdioma);
-    i18next.changeLanguage(nuevoIdioma).then(() => {
-      aplicarIdioma();
-      // Actualizar el texto del botón después de cambiar idioma
-      esperarElemento("language-toggle", (btn) => (btn.innerText = nuevoIdioma.toUpperCase()));
-      esperarElemento("language-toggle-mobile", (btn) => (btn.innerText = nuevoIdioma.toUpperCase()));
-    });
-  }
 
   // Asegurarse que ambos botones tengan su evento incluso si están ocultos al inicio
   esperarElemento("language-toggle", (btn) => {
-    btn.innerText = i18next.language === "es" ? "EN" : "ES";
     btn.addEventListener("click", toggleIdioma);
   });
 
   esperarElemento("language-toggle-mobile", (btn) => {
-    btn.innerText = i18next.language === "es" ? "EN" : "ES";
     btn.addEventListener("click", toggleIdioma);
   });
 });
+
 
