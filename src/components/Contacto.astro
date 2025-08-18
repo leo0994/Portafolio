@@ -3,6 +3,11 @@
     <img
       src="/icons/contactoplasma.png"
       alt="Imagen de contacto"
+      width="32"
+      height="32"
+      loading="lazy"
+      decoding="async"
+      onerror="this.onerror=null;this.src='/icons/logoplasmaceleste.png'"
       class="w-8 h-8 object-cover"
     />
     Trabajemos juntos hagamos realidad tu proyecto!
@@ -52,8 +57,7 @@
       placeholder="Escribe tu propuesta de proyecto..."
       required
       class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-      rows="4"
-    ></textarea>
+      rows="4"></textarea>
 
     <div class="flex justify-center">
       <button
@@ -64,35 +68,43 @@
       </button>
     </div>
   </form>
-  <div id="modal-exito" class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50">
-    <div class="bg-white text-black rounded-lg p-6 shadow-xl text-center space-y-4">
+  <div
+    id="modal-exito"
+    class="hidden fixed inset-0 bg-black/50 items-center justify-center z-50"
+  >
+    <div
+      class="bg-white text-black rounded-lg p-6 shadow-xl text-center space-y-4"
+    >
       <h2 class="text-2xl font-bold">¡Mensaje enviado!</h2>
       <p>Gracias por contactarme, te responderé pronto.</p>
-      <button type="button" onclick="cerrarModal()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      <button
+        type="button"
+        onclick="cerrarModal()"
+        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
         Cerrar
       </button>
     </div>
   </div>
 
-<script>
-  function mostrarModalExito(event: Event) {
-    event.preventDefault();
-    var modal = document.getElementById('modal-exito');
-    if (modal) {
-      modal.classList.remove('hidden');
+  <script>
+    function mostrarModalExito(event: Event) {
+      event.preventDefault();
+      var modal = document.getElementById("modal-exito");
+      if (modal) {
+        modal.classList.remove("hidden");
+      }
+      return;
     }
-    return ; 
-  }
-  function cerrarModal() {
-    var modal = document.getElementById('modal-exito');
-    if (modal) {
-      modal.classList.add('hidden');
+    function cerrarModal() {
+      var modal = document.getElementById("modal-exito");
+      if (modal) {
+        modal.classList.add("hidden");
+      }
+      var form = document.getElementById("contact-form");
+      if (form && "reset" in form) {
+        (form as HTMLFormElement).reset();
+      }
     }
-    var form = document.getElementById('contact-form');
-    if (form && 'reset' in form) {
-      (form as HTMLFormElement).reset();
-    }
-  }
-</script>
-
+  </script>
 </section>
