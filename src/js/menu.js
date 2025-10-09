@@ -5,6 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!menuToggle || !mobileMenu || !closeMenu) return;
 
+  // Verificar que GSAP esté disponible
+  if (typeof gsap === 'undefined') {
+    console.error('GSAP no está disponible');
+    return;
+  }
+
   // Mostrar menú (slide in)
   menuToggle.addEventListener("click", () => {
     mobileMenu.classList.remove("hidden");

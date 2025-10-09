@@ -1,12 +1,17 @@
-import { gsap } from "gsap";
-
-console.log("GSAP cargado:", gsap);
+// GSAP ya está disponible globalmente desde el CDN en el HTML
+console.log("GSAP cargado:", typeof gsap !== 'undefined' ? gsap : 'GSAP no encontrado');
 
 document.addEventListener("DOMContentLoaded", () => {
     const nav = document.getElementById("desktop-nav");
     const navLinks = document.querySelectorAll(".nav-link");
 
     if (!nav || navLinks.length === 0) return;
+
+    // Verificar que GSAP esté disponible
+    if (typeof gsap === 'undefined') {
+        console.error('GSAP no está disponible');
+        return;
+    }
 
     const underline = document.createElement("div");
     underline.classList.add("underline-effect");

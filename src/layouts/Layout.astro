@@ -19,12 +19,17 @@ const { description, title } = Astro.props;
 
     <meta name="generator" content={Astro.generator} />
     <title>Leo Portafolio</title>
+    
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
     <Header />
     <slot />
     <Footer />
     <div class="h-10"></div>
-    <script type="module" src="/src/js/language.js"></script>
+    <script type="module" src="../js/language.js"></script>
+    <script type="module" src="../js/menu.js"></script>
+    <script type="module" src="../js/animations.js"></script>
   </body>
 </html>
