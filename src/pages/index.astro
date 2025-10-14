@@ -3,21 +3,20 @@ import Badge from "../components/Badge.astro";
 import Layout from "../layouts/Layout.astro";
 import "../styles/global.css";
 import "../styles/layout.css";
-import LinkedinInIcon from "../icons/Linkedin.astro";
-import GithubInIcon from "../icons/Github.astro";
-import FileCVico from "../icons/FileCVico.astro";
-import Briefcase from "../icons/Briefcase.astro";
-import Emailico from "../icons/Emailico.astro";
+import LinkedinInIcon from "../icons/linkedin.astro";
+import GithubInIcon from "../icons/github.astro";
+import FileCVico from "../icons/filecvico.astro";
+import Briefcase from "../icons/briefcase.astro";
+import Emailico from "../icons/emailico.astro";
 import Experience from "../components/Experience.astro";
 import Proyectos from "../components/Proyectos.astro";
 import Contacto from "../components/Contacto.astro";
-import DevLogoAnimado from "../icons/DevLogoAnimado.astro";
+import DevLogoAnimado from "../icons/devlogoanimado.astro";
 import SocialPill from "../components/SocialPill.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 ---
-<Layout
-  description="Portafolio leo Dev - Desarrollador y Programador Web."
->
+
+<Layout description="Portafolio leo Dev - Desarrollador y Programador Web.">
   <main>
     <SectionContainer class="py-44 pb-44">
       <h1
@@ -25,7 +24,10 @@ import SectionContainer from "../components/SectionContainer.astro";
         data-i18n="saludo_principal"
       >
         Hola, Soy Leo Barrantes
-        <Badge class="text-sm bg-blue-600 text-white px-3 py-1 rounded-lg" data-i18n="disponible">
+        <Badge
+          class="text-sm bg-blue-600 text-white px-3 py-1 rounded-lg"
+          data-i18n="disponible"
+        >
           Disponible para trabajar
         </Badge>
       </h1>
@@ -61,7 +63,6 @@ import SectionContainer from "../components/SectionContainer.astro";
       </div>
     </SectionContainer>
 
-  
     <SectionContainer id="experiencia" class="py-44 pb-44">
       <h2
         class="text-[rgb(240,240,240)] text-4xl font-semibold mb-6 flex gap-x-2 items-center"
