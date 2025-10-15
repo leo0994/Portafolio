@@ -17,7 +17,7 @@ body {
   min-height: 100vh;
 
   /* Fondo */
-  background-image: url("/imagen/portafoliobackground.jpg");
+  background-image: url("/imagen/PortafolioBackground.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
