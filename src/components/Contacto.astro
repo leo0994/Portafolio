@@ -10,7 +10,7 @@
       onerror="this.onerror=null;this.src='/Portafolio/icons/LogoPlasmaCeleste.png'"
       class="w-8 h-8 object-cover"
     />
-    Trabajemos juntos hagamos realidad tu proyecto!
+    <span data-i18n="form_titulo">Trabajemos juntos hagamos realidad tu proyecto!</span>
   </h2>
 
   <form
@@ -25,6 +25,7 @@
         type="text"
         name="nombre"
         placeholder="Nombre"
+        data-i18n="nombre"
         required
         class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       />
@@ -32,6 +33,7 @@
         type="text"
         name="apellido"
         placeholder="Apellido"
+        data-i18n="apellido"
         required
         class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       />
@@ -41,6 +43,7 @@
         type="email"
         name="email"
         placeholder="Email"
+        data-i18n="email"
         required
         class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       />
@@ -48,13 +51,15 @@
         type="tel"
         name="telefono"
         placeholder="Teléfono"
+        data-i18n="telefono"
         required
         class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-2 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       />
     </div>
     <textarea
       name="mensaje"
-      placeholder="Escribe tu propuesta de proyecto..."
+      placeholder="Escribe tu mensaje aquí..."
+      data-i18n="mensaje"
       required
       class="w-full bg-white/5 placeholder-white/70 text-white px-4 py-3 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
       rows="4"></textarea>
@@ -64,7 +69,7 @@
         type="submit"
         class="rounded-full border border-white/10 px-6 py-2 bg-white/10 text-white hover:bg-white/20 hover:scale-110 transition duration-300"
       >
-        Enviar mensaje
+        <span data-i18n="enviar">Enviar mensaje</span>
       </button>
     </div>
   </form>

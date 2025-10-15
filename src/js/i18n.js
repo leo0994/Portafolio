@@ -8,10 +8,10 @@ await i18next.init({
   debug: true,
   resources: {
     es: {
-      translation: await (await fetch("/locales/es/translation.json")).json(),
+      translation: await (await fetch("/Portafolio/locales/es/translation.json")).json(),
     },
     en: {
-      translation: await (await fetch("/locales/en/translation.json")).json(),
+      translation: await (await fetch("/Portafolio/locales/en/translation.json")).json(),
     },
   },
 });
