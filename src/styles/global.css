@@ -3,6 +3,8 @@
 /* Activa el modo oscuro */
 :root {
   color-scheme: light dark;
+  /* Offset global para anclas bajo header fijo */
+  --anchor-offset: 120px;
 }
 
 /* Tailwind CSS */
@@ -49,24 +51,17 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Evita que el header fijo tape los títulos al navegar por anclas */
-#proyectos,
-#contacto {
-  scroll-margin-top: 120px;
+/* Aplica el offset a todas las secciones anclables */
+section[id] {
+  scroll-margin-top: var(--anchor-offset);
 }
 
 @media (min-width: 768px) {
-  #proyectos,
-  #contacto {
-    scroll-margin-top: 140px;
-  }
+  :root { --anchor-offset: 140px; }
 }
 
 @media (min-width: 1024px) {
-  #proyectos,
-  #contacto {
-    scroll-margin-top: 160px; /* aproxima la altura visual del header */
-  }
+  :root { --anchor-offset: 160px; }
 }
 
 @media (prefers-reduce-motion: reduce) {
