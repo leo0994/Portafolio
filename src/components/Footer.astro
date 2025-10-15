@@ -67,19 +67,17 @@ import "../styles/footer.css";
       </div>
     </div>
 
-    <!-- Botón ScrollTop con imagen personalizada -->
+    <!-- Botón ScrollTop con imagen personalizada (centrada) -->
     <button
       id="scrollTopBtn"
       onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-      class="hidden fixed bottom-10 right-4 sm:right-6 z-50 w-36 h-36 items-center justify-center border border-white/10 rounded-full bg-white/10 hover:scale-125 hover:bg-white/20 transition-all duration-300"
+      class="hidden fixed bottom-10 right-4 sm:right-6 z-50 grid place-items-center w-32 h-32 md:w-36 md:h-36 rounded-full transition-all duration-300 hover:scale-110"
       aria-label="Ir arriba"
-    >
-      <img
-        src="/Portafolio/imagen/Scrolltop.png"
-        alt="Scroll to Top"
-        class="w-28 h-28 object-cover rounded-full"
-      />
-    </button>
+      style="
+        background: url('/Portafolio/imagen/Scrolltop.png') center / contain no-repeat;
+        box-shadow: 0 0 24px rgba(0, 172, 255, 0.35);
+      "
+    ></button>
   </div>
 
   <!-- Botón Donación -->
@@ -109,22 +107,31 @@ import "../styles/footer.css";
 <!-- Script: posicionamiento del botón -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    if (scrollTopBtn) {
-      const baseBottom = 40;
-      const offsetFromFooter = 172;
+    const btn = document.getElementById("scrollTopBtn");
+    if (!btn) return;
 
-      window.addEventListener("scroll", () => {
-        const scrolledToBottom =
-          window.innerHeight + window.scrollY >=
-          document.body.scrollHeight - 10;
+    const baseBottom = 40; // px
+    const extra = 16; // separación extra si el footer entra al viewport
 
-        scrollTopBtn.style.bottom = scrolledToBottom
-          ? `${offsetFromFooter}px`
-          : `${baseBottom}px`;
-
-        scrollTopBtn.classList.toggle("hidden", window.scrollY <= 100);
-      });
+    function toggleVisibility() {
+      btn.classList.toggle("hidden", window.scrollY <= 100);
     }
+
+    function adjustBottom() {
+      const footer = document.querySelector("footer");
+      if (!footer) return;
+      const vh = window.innerHeight;
+      const rect = footer.getBoundingClientRect();
+      const overlap = Math.max(0, vh - rect.top);
+      btn.style.bottom = `${baseBottom + (overlap > 0 ? overlap + extra : 0)}px`;
+    }
+
+    toggleVisibility();
+    adjustBottom();
+    window.addEventListener("scroll", () => {
+      toggleVisibility();
+      adjustBottom();
+    });
+    window.addEventListener("resize", adjustBottom);
   });
 </script>
