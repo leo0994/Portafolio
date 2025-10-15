@@ -18,7 +18,7 @@ import SectionContainer from "../components/SectionContainer.astro";
 
 <Layout description="Portafolio leo Dev - Desarrollador y Programador Web.">
   <main>
-    <SectionContainer class="py-44 pb-44">
+  <SectionContainer id="inicio" class="py-44 pb-44">
       <h1
         class="text-white text-5xl font-bold flex flex-col items-center gap-y-4 pb-4"
         data-i18n="saludo_principal"
@@ -69,7 +69,7 @@ import SectionContainer from "../components/SectionContainer.astro";
       </div>
     </SectionContainer>
 
-    <SectionContainer id="experiencia" class="py-44 pb-44">
+  <SectionContainer id="experiencia" class="py-44 pb-44" style="scroll-margin-top: calc(var(--anchor-offset) - 40px);">
       <h2
         class="text-[rgb(240,240,240)] text-4xl font-semibold mb-6 flex gap-x-2 items-center"
       >
