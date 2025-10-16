@@ -33,9 +33,254 @@ const { description, title } = Astro.props;
     <slot />
     <Footer />
     <div class="h-10"></div>
-    <script type="module" src="../js/language.js"></script>
-    <script type="module" src="../js/menu.js"></script>
-    <script type="module" src="../js/animations.js"></script>
-    <script type="module" src="../js/header.js"></script>
   </body>
+
+  <script type="module">
+    import i18next from "https://unpkg.com/i18next@23.4.6/dist/esm/i18next.js";
+
+    // Obtener idioma guardado en localStorage o detectar del navegador
+    const savedLang = localStorage.getItem("lang");
+    const userLang =
+      savedLang || (navigator.language.startsWith("en") ? "en" : "es");
+
+    await i18next.init({
+      lng: userLang,
+      debug: false,
+      resources: {
+        es: {
+          translation: await (
+            await fetch("/Portafolio/locales/es/translation.json")
+          ).json(),
+        },
+        en: {
+          translation: await (
+            await fetch("/Portafolio/locales/en/translation.json")
+          ).json(),
+        },
+      },
+    });
+
+    function actualizarTextos() {
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const clave = el.getAttribute("data-i18n");
+        const traduccion = i18next.t(clave);
+
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          el.setAttribute("placeholder", traduccion);
+        } else {
+          el.innerText = traduccion;
+        }
+      });
+    }
+
+    function esperarElemento(id, callback, maxIntentos = 50) {
+      let intentos = 0;
+      const el = document.getElementById(id);
+      if (el) return callback(el);
+
+      const intervalo = setInterval(() => {
+        intentos++;
+        const el = document.getElementById(id);
+        if (el) {
+          clearInterval(intervalo);
+          callback(el);
+        } else if (intentos >= maxIntentos) {
+          clearInterval(intervalo);
+          console.warn(
+            `Elemento con ID "${id}" no encontrado después de ${maxIntentos} intentos`
+          );
+        }
+      }, 100);
+    }
+
+    function actualizarBotonesIdioma() {
+      const proximoIdioma = i18next.language === "es" ? "EN" : "ES";
+
+      esperarElemento("language-toggle", (btn) => {
+        btn.innerText = proximoIdioma;
+        console.log(
+          "✅ Botón de idioma de escritorio actualizado:",
+          proximoIdioma
+        );
+      });
+
+      esperarElemento("language-toggle-mobile", (btn) => {
+        btn.innerText = proximoIdioma;
+        console.log("✅ Botón de idioma móvil actualizado:", proximoIdioma);
+      });
+    }
+
+    function toggleIdioma() {
+      const nuevoIdioma = i18next.language === "es" ? "en" : "es";
+      console.log(
+        `🔄 Cambiando idioma de ${i18next.language} a ${nuevoIdioma}`
+      );
+
+      localStorage.setItem("lang", nuevoIdioma);
+
+      i18next
+        .changeLanguage(nuevoIdioma)
+        .then(() => {
+          actualizarTextos();
+          actualizarBotonesIdioma();
+          console.log("✅ Textos actualizados al idioma:", nuevoIdioma);
+        })
+        .catch((error) => {
+          console.error("❌ Error al cambiar idioma:", error);
+        });
+    }
+
+    // Esperar a que el DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("🚀 Inicializando sistema de idiomas");
+
+      const idiomaGuardado = localStorage.getItem("lang") || "es";
+      console.log("💾 Idioma guardado en localStorage:", idiomaGuardado);
+
+      i18next
+        .changeLanguage(idiomaGuardado)
+        .then(() => {
+          actualizarTextos();
+          actualizarBotonesIdioma();
+          console.log(
+            "✅ Sistema de idiomas inicializado con:",
+            idiomaGuardado
+          );
+        })
+        .catch((error) => {
+          console.error("❌ Error al inicializar idiomas:", error);
+        });
+
+      esperarElemento("language-toggle", (btn) => {
+        btn.addEventListener("click", toggleIdioma);
+        console.log("✅ Event listener agregado al botón de escritorio");
+      });
+
+      esperarElemento("language-toggle-mobile", (btn) => {
+        btn.addEventListener("click", toggleIdioma);
+        console.log("✅ Event listener agregado al botón móvil");
+      });
+    });
+
+    // Exportar funciones para debugging
+    window.debugLanguage = {
+      toggleIdioma,
+      actualizarTextos,
+      actualizarBotonesIdioma,
+      currentLang: () => i18next.language,
+    };
+  </script>
+
+  <script type="module">
+    // Menu functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const closeMenu = document.getElementById("close-menu");
+
+      if (!menuToggle || !mobileMenu || !closeMenu) return;
+
+      if (typeof gsap === "undefined") {
+        console.error("GSAP no está disponible");
+        return;
+      }
+
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.remove("hidden");
+        mobileMenu.classList.add("flex");
+
+        gsap.to(mobileMenu, {
+          x: "-100%",
+          duration: 0.5,
+          ease: "power2.out",
+        });
+      });
+
+      closeMenu.addEventListener("click", () => {
+        gsap.to(mobileMenu, {
+          x: "100%",
+          duration: 0.5,
+          ease: "power2.in",
+          onComplete: () => {
+            mobileMenu.classList.add("hidden");
+            mobileMenu.classList.remove("flex");
+          },
+        });
+      });
+    });
+  </script>
+
+  <script type="module">
+    // Animations and header functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const nav = document.getElementById("desktop-nav");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const header = document.querySelector("header");
+
+      if (typeof gsap === "undefined") {
+        console.error("GSAP no está disponible para animaciones");
+        return;
+      }
+
+      // Crear underline para animaciones
+      if (nav && navLinks.length > 0) {
+        const underline = document.createElement("div");
+        underline.classList.add("underline-effect");
+        nav.appendChild(underline);
+
+        nav.style.position = "relative";
+
+        gsap.set(underline, { width: "0px", opacity: 0, scaleX: 0.5 });
+
+        navLinks.forEach((link) => {
+          link.addEventListener("mouseenter", (event) => {
+            const linkRect = link.getBoundingClientRect();
+            const navRect = nav.getBoundingClientRect();
+
+            gsap.to(underline, {
+              width: linkRect.width + "px",
+              height: "3px",
+              left: linkRect.left - navRect.left + "px",
+              top: linkRect.bottom - navRect.top - 2 + "px",
+              opacity: 1,
+              background:
+                "linear-gradient(90deg, rgb(0, 81, 107), rgb(255, 255, 255), rgb(0, 81, 107))",
+              boxShadow: "0 0 10px rgb(15, 94, 173)",
+              scaleX: 1.3,
+              duration: 0.3,
+              ease: "power3.out",
+            });
+          });
+
+          link.addEventListener("mouseleave", () => {
+            gsap.to(underline, {
+              width: "0px",
+              opacity: 0,
+              scaleX: 0.5,
+              duration: 0.3,
+              ease: "power3.in",
+            });
+          });
+        });
+      }
+
+      // Actualizar --anchor-offset según la altura del header
+      function setAnchorOffset() {
+        const h = header ? header.getBoundingClientRect().height : 80;
+        const extra = 40;
+        document.documentElement.style.setProperty(
+          "--anchor-offset",
+          `${h + extra}px`
+        );
+      }
+
+      setAnchorOffset();
+      window.addEventListener("resize", setAnchorOffset);
+
+      if (header && "ResizeObserver" in window) {
+        const ro = new ResizeObserver(() => setAnchorOffset());
+        ro.observe(header);
+      }
+    });
+  </script>
 </html>
