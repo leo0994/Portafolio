@@ -7,24 +7,25 @@ import "../styles/footer.css";
 
 <footer class="w-full mt-32 relative">
   <div class="max-w-7xl mx-auto px-6">
-    <!-- Contenedor del footer -->
-    <div
-      class="w-full border border-white/20 rounded-xl p-5 flex flex-col items-center gap-6 bg-transparent"
-    >
-      <!-- Logo superior -->
-      <div class="footer-logo-pill">
-        <video autoplay loop muted playsinline>
-          <source src="/Portafolio/videos/LogoFavorito1.mp4" type="video/mp4" />
-          Tu navegador no soporta videos.
-        </video>
-      </div>
-
-      <!-- Contenedor de botones centrados con scroll top al mismo nivel -->
+    <!-- Contenedor principal: Footer + Botón scroll top al lado -->
+    <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
+      <!-- Contenedor del footer con espacio reservado para visual balance -->
       <div
-        class="w-full flex flex-col sm:flex-row items-center justify-center gap-4"
+        class="flex-1 w-full border border-white/20 rounded-xl p-6 flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent"
       >
-        <!-- Botones principales centrados -->
-        <div class="flex flex-wrap justify-center gap-4">
+        <!-- Logo a la izquierda -->
+        <div class="footer-logo-pill flex-shrink-0">
+          <video autoplay loop muted playsinline>
+            <source
+              src="/Portafolio/videos/LogoFavorito1.mp4"
+              type="video/mp4"
+            />
+            Tu navegador no soporta videos.
+          </video>
+        </div>
+
+        <!-- Botones centrados/derecha -->
+        <div class="flex flex-wrap justify-center lg:justify-end gap-4">
           <a
             href="https://www.linkedin.com/in/leo-barrantes-928aa122a/"
             class="rounded-full border border-white/10 flex items-center gap-x-2 py-2 px-4 bg-white/5 hover:scale-110 hover:bg-white/10 transition"
@@ -69,20 +70,32 @@ import "../styles/footer.css";
             >
           </a>
         </div>
-
-        <!-- Botón ScrollTop al mismo nivel, más pequeño -->
-        <button
-          id="scrollTopBtn"
-          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-          class="flex items-center justify-center w-16 h-16 rounded-full transition-all duration-300 hover:scale-110 ml-0 sm:ml-4"
-          aria-label="Ir arriba"
-          style="
-            background: url('/Portafolio/imagen/Scrolltop.png') center / contain no-repeat;
-            box-shadow: 0 0 20px rgba(0, 172, 255, 0.4);
-          "
-        ></button>
       </div>
     </div>
+
+    <!-- Botón ScrollTop para desktop (posición fija que se adapta) -->
+    <button
+      id="scrollTopBtn"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="hidden lg:flex fixed right-6 z-50 items-center justify-center w-20 h-20 rounded-full transition-all duration-300 hover:scale-110"
+      aria-label="Ir arriba"
+      style="
+        background: url('/Portafolio/imagen/Scrolltop.png') center / contain no-repeat;
+        box-shadow: 0 0 20px rgba(0, 172, 255, 0.4);
+      "
+    ></button>
+
+    <!-- Botón ScrollTop para móviles (posición fija) -->
+    <button
+      id="scrollTopBtnMobile"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+      class="lg:hidden fixed bottom-6 right-6 z-50 flex items-center justify-center w-16 h-16 rounded-full transition-all duration-300 hover:scale-110"
+      aria-label="Ir arriba"
+      style="
+        background: url('/Portafolio/imagen/Scrolltop.png') center / contain no-repeat;
+        box-shadow: 0 0 20px rgba(0, 172, 255, 0.4);
+      "
+    ></button>
 
     <!-- Botón Donación -->
     <div class="w-full flex justify-center mt-6">
@@ -102,39 +115,110 @@ import "../styles/footer.css";
 
     <!-- Derechos -->
     <div class="text-center text-sm text-white/80 pb-6">
-      © 2025 <strong class="text-white">Leo Barrantes™</strong>. <span
-        data-i18n="noReservado">Ningún derecho reservado.</span
-      >
+      © 2025 <strong class="text-white">Leo Barrantes™</strong>.
+      <span data-i18n="noReservado">Ningún derecho reservado.</span>
     </div>
   </div>
 </footer>
 
-<!-- Script simplificado: solo para mostrar/ocultar cuando se hace scroll -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("scrollTopBtn");
-    if (!btn) return;
+<!-- Script para controlar ambos botones -->
+<script is:inline>
+  (function () {
+    function initScrollButton() {
+      const btnDesktop = document.getElementById("scrollTopBtn");
+      const btnMobile = document.getElementById("scrollTopBtnMobile");
+      const footer = document.querySelector("footer");
 
-    // Mostrar/ocultar el botón basado en scroll
-    function toggleVisibility() {
-      if (!btn) return; // Verificación adicional
-
-      if (window.scrollY > 300) {
-        btn.style.opacity = "1";
-        btn.style.visibility = "visible";
-      } else {
-        btn.style.opacity = "0";
-        btn.style.visibility = "hidden";
+      if (!btnDesktop && !btnMobile) {
+        setTimeout(initScrollButton, 100);
+        return;
       }
+
+      // Función para posicionar y mostrar/ocultar los botones
+      function updateButton() {
+        const scrollPosition =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const shouldShow = scrollPosition > 100;
+
+        // Para el botón de desktop
+        if (btnDesktop && footer) {
+          const footerRect = footer.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+
+          // Buscar el contenedor específico del footer (el div con border)
+          const footerContainer = footer.querySelector(".border");
+          const containerRect = footerContainer
+            ? footerContainer.getBoundingClientRect()
+            : footerRect;
+
+          // Calcular si el footer está visible en la pantalla
+          const footerInView = containerRect.top < windowHeight;
+
+          if (footerInView) {
+            // Calcular el centro del contenedor del footer
+            const containerTop = containerRect.top;
+            const containerHeight = containerRect.height;
+            const buttonHeight = 80; // 20 * 4 (w-20 = 80px)
+
+            // Posicionar el botón en el centro vertical del contenedor del footer
+            const buttonTop =
+              containerTop + containerHeight / 2 - buttonHeight / 2;
+
+            btnDesktop.style.position = "fixed";
+            btnDesktop.style.top = buttonTop + "px";
+            btnDesktop.style.bottom = "auto";
+          } else {
+            // Cuando el footer no está visible, mantener fijo en la pantalla
+            btnDesktop.style.position = "fixed";
+            btnDesktop.style.top = "auto";
+            btnDesktop.style.bottom = "100px";
+          }
+
+          btnDesktop.style.opacity = shouldShow ? "1" : "0";
+          btnDesktop.style.visibility = shouldShow ? "visible" : "hidden";
+          btnDesktop.style.pointerEvents = shouldShow ? "auto" : "none";
+          btnDesktop.style.transition =
+            "opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease, bottom 0.3s ease";
+        }
+
+        // Para el botón móvil (siempre fijo)
+        if (btnMobile) {
+          btnMobile.style.opacity = shouldShow ? "1" : "0";
+          btnMobile.style.visibility = shouldShow ? "visible" : "hidden";
+          btnMobile.style.pointerEvents = shouldShow ? "auto" : "none";
+          btnMobile.style.transition =
+            "opacity 0.3s ease, visibility 0.3s ease";
+        }
+      }
+
+      // Inicializar
+      updateButton();
+
+      // Escuchar scroll con throttle
+      let ticking = false;
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (!ticking) {
+            window.requestAnimationFrame(function () {
+              updateButton();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        },
+        { passive: true }
+      );
+
+      // También escuchar resize
+      window.addEventListener("resize", updateButton, { passive: true });
     }
 
-    // Inicialmente oculto
-    btn.style.opacity = "0";
-    btn.style.visibility = "hidden";
-    btn.style.transition = "opacity 0.3s ease, visibility 0.3s ease";
-
-    // Escuchar scroll
-    window.addEventListener("scroll", toggleVisibility);
-    toggleVisibility(); // Verificar estado inicial
-  });
+    // Iniciar
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initScrollButton);
+    } else {
+      initScrollButton();
+    }
+  })();
 </script>

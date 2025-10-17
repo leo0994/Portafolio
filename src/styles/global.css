@@ -53,7 +53,7 @@ html {
 
 /* Aplica el offset a todas las secciones anclables */
 section[id] {
-  scroll-margin-top: var(--anchor-offset);
+  scroll-margin-top: 100px;
 }
 
 @media (min-width: 768px) {

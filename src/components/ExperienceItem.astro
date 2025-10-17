@@ -1,23 +1,31 @@
 ---
 interface Props {
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   link?: string;
-  date: string;
+  dateKey: string;
 }
-const { date, title, link, description } = Astro.props;
+const { dateKey, titleKey, link, descriptionKey } = Astro.props;
 ---
 
 <div
   class="absolute w-3 h-3 bg-[rgb(240,240,240)] rounded-full mt-1.5 -start-1.5 border border-white"
 >
 </div>
-<time class="mb-1 text-sm font-normal leading-none text-[rgb(220,220,220)]">
-  {date}
+<time
+  class="mb-1 text-sm font-normal leading-none text-[rgb(220,220,220)]"
+  data-i18n={dateKey}
+>
+  {dateKey}
 </time>
-<h3 class="text-lg font-semibold text-[rgb(240,240,240)]">{title}</h3>
-<p class="mb-4 text-base font-normal text-[rgb(200,200,200)]">
-  {description}
+<h3 class="text-lg font-semibold text-[rgb(240,240,240)]" data-i18n={titleKey}>
+  {titleKey}
+</h3>
+<p
+  class="mb-4 text-base font-normal text-[rgb(200,200,200)]"
+  data-i18n={descriptionKey}
+>
+  {descriptionKey}
 </p>
 {
   link && (

@@ -2,41 +2,40 @@
 // Datos de proyectos
 const projects = [
   {
-    title: "Mentana",
-    description: "Aplicación con 8 juegos para adultos mayores",
+    titleKey: "proyecto1_titulo",
+    descriptionKey: "proyecto1_descripcion",
     tech: ["Spring boot", "Angular", "MVC"],
     image: "/Portafolio/imagen/mentana.jpg",
     link: "https://github.com/LeoDev/digimon-api",
     live: "https://digimon.leodev.com",
   },
   {
-    title: "API de Digimon",
-    description: "Aplicación en .NET que consume la API de Digimon.",
+    titleKey: "proyecto2_titulo",
+    descriptionKey: "proyecto2_descripcion",
     tech: ["C#", ".NET", "MVC"],
     image: "/Portafolio/imagen/digimonApi.jpg",
     link: "https://github.com/leo0994/digimon-api",
     live: "https://digimon.leodev.com",
   },
   {
-    title: "Tic-Tac-Toe en React",
-    description: "Juego clásico con lógica optimizada y estilos modernos.",
+    titleKey: "proyecto3_titulo",
+    descriptionKey: "proyecto3_descripcion",
     tech: ["React", "Tailwind CSS"],
     image: "/Portafolio/imagen/TicTacToeV3.jpg",
     link: "https://github.com/leo0994/tic-tac-toe",
     live: "https://tic-tac-toe.leodev.com",
   },
   {
-    title: "Ruby Space Suites",
-    description:
-      "Sistema de reservas de un hotel con autenticación y pagos online.",
+    titleKey: "proyecto4_titulo",
+    descriptionKey: "proyecto4_descripcion",
     tech: ["Ruby on Rails", "PostgreSQL", "Bootstrap"],
     image: "/Portafolio/imagen/RubiProyecto.jpg",
     link: "https://github.com/leo0994/ruby-space-suites",
     live: "https://rubyspacesuites.leodev.com",
   },
   {
-    title: "Sistema de Farmacia (Spring Boot)",
-    description: "Gestión de medicamentos y usuarios con Spring Boot y MVC.",
+    titleKey: "proyecto5_titulo",
+    descriptionKey: "proyecto5_descripcion",
     tech: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     image: "/Portafolio/imagen/farmacia.jpg",
     link: "https://github.com/LeoDev/farmacia-mvc",
@@ -45,7 +44,11 @@ const projects = [
 ];
 ---
 
-<section id="proyectos" class="max-w-6xl mx-auto px-4 py-12">
+<section
+  id="proyectos"
+  class="max-w-6xl mx-auto px-4 py-16"
+  style="scroll-margin-top: 100px;"
+>
   <!-- Título con imagen giratoria -->
   <div class="flex justify-center items-center mb-8 gap-4">
     <img
@@ -69,7 +72,7 @@ const projects = [
           <div class="flex flex-col md:flex-row rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
             <img
               src={project.image}
-              alt={project.title}
+              alt={project.titleKey}
               loading="lazy"
               style="max-width:100%;height:auto;"
               class="w-full md:w-1/3 h-48 object-cover rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
@@ -77,10 +80,18 @@ const projects = [
             />
             <div class="p-6 flex flex-col justify-between">
               <div>
-                <h3 class="text-2xl font-semibold text-white">
-                  {project.title}
+                <h3
+                  class="text-2xl font-semibold text-white"
+                  data-i18n={project.titleKey}
+                >
+                  {project.titleKey}
                 </h3>
-                <p class="text-gray-400 text-sm mt-2">{project.description}</p>
+                <p
+                  class="text-gray-400 text-sm mt-2"
+                  data-i18n={project.descriptionKey}
+                >
+                  {project.descriptionKey}
+                </p>
               </div>
               <div class="flex flex-wrap gap-2 mt-3">
                 {project.tech.map((tech) => (
