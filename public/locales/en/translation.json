@@ -31,6 +31,7 @@
     "saludo_principal": "Hi, I'm Leo Barrantes",
     "disponible": "Available to work",
     "descripcion_principal": "Software Developer\n3+ years of experience. From San José, Costa Rica.",
+    "typed_strings": ["Full Stack Developer", "Software Engineer", "Web Developer", "Solutions Architect"],
     "linkedin": "LinkedIn",
     "github": "Github",
     "ingles": "English",

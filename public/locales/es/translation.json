@@ -26,6 +26,7 @@
     "saludo_principal": "Hola, Soy Leo Barrantes",
     "disponible": "Disponible para trabajar",
     "descripcion_principal": "Desarrollador de Software\n+ 3 años de experiencia. De San José, Costa Rica.",
+    "typed_strings": ["Desarrollador Full Stack", "Ingeniero de Software", "Desarrollador Web", "Arquitecto de Soluciones"],
     "experiencia_laboral": "Experiencia laboral",
     "exp1_fecha": "Actualmente ...",
     "exp1_titulo": "Desarrollo aplicaciones Web",

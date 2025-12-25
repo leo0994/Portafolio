@@ -24,10 +24,15 @@ header {
 
 /* Logo */
 header video {
-  border-radius: 50%;
-  width: 140px;
+  border-radius: 45px;
+  width: 240px;
   height: 90px;
   object-fit: cover;
+  object-position: center center;
+  padding: 0;
+  margin-left: 25px;
+  margin-right: 25px;
+  display: block;
 }
 
 /* Menú de navegación */

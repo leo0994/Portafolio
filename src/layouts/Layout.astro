@@ -30,6 +30,12 @@ const { description, title } = Astro.props;
 
     <!-- i18next CDN -->
     <script src="https://unpkg.com/i18next@23.4.6/dist/umd/i18next.js"></script>
+
+    <!-- Typed.js CDN -->
+    <script
+      src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"
+      onload="console.log('✅ Typed.js cargado desde CDN'); window.typedLoaded = true;"
+    ></script>
   </head>
   <body>
     <Header />
@@ -103,6 +109,8 @@ const { description, title } = Astro.props;
           actualizarTextos();
           actualizarBotonesIdioma();
           console.log("✅ Idioma cambiado");
+          // Disparar evento para actualizar Typed.js
+          window.dispatchEvent(new Event("languageChanged"));
         });
       }
 
@@ -243,5 +251,130 @@ const { description, title } = Astro.props;
         ro.observe(header);
       }
     });
+  </script>
+
+  <script is:inline>
+    // Typed.js initialization
+    (function () {
+      let typedInstance = null;
+      let retryCount = 0;
+      const maxRetries = 10;
+
+      function initTyped() {
+        console.log(
+          "🚀 Intentando inicializar Typed.js... (intento " +
+            (retryCount + 1) +
+            ")"
+        );
+        console.log("Typed disponible?", typeof Typed);
+
+        const typedElement = document.getElementById("typed-text");
+
+        if (!typedElement) {
+          console.error("❌ Elemento #typed-text no encontrado");
+          return;
+        }
+
+        console.log("✅ Elemento encontrado:", typedElement);
+
+        if (typeof Typed === "undefined") {
+          retryCount++;
+          if (retryCount < maxRetries) {
+            console.warn(
+              "⏳ Typed.js no está cargado. Reintentando en 300ms... (intento " +
+                retryCount +
+                "/" +
+                maxRetries +
+                ")"
+            );
+            setTimeout(initTyped, 300);
+          } else {
+            console.error(
+              "❌ Typed.js no se pudo cargar después de " +
+                maxRetries +
+                " intentos"
+            );
+          }
+          return;
+        }
+
+        console.log("✅ Typed.js está disponible!");
+        retryCount = 0; // Reset counter
+
+        // Destruir instancia anterior si existe
+        if (typedInstance) {
+          typedInstance.destroy();
+          console.log("🗑️ Instancia anterior destruida");
+        }
+
+        // Limpiar cualquier contenido previo
+        typedElement.textContent = "";
+
+        // Obtener las strings traducidas
+        const currentLang = localStorage.getItem("lang") || "es";
+        let strings = [
+          "Desarrollador Full Stack",
+          "Ingeniero de Software",
+          "Desarrollador Web",
+          "Arquitecto de Soluciones",
+        ];
+
+        if (currentLang === "en") {
+          strings = [
+            "Full Stack Developer",
+            "Software Engineer",
+            "Web Developer",
+            "Solutions Architect",
+          ];
+        }
+
+        console.log("📝 Strings a usar:", strings);
+        console.log("🌐 Idioma actual:", currentLang);
+
+        // Inicializar Typed.js
+        try {
+          typedInstance = new Typed("#typed-text", {
+            strings: strings,
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true,
+            showCursor: true,
+            cursorChar: "|",
+          });
+
+          console.log("✅ Typed.js inicializado correctamente!", typedInstance);
+        } catch (error) {
+          console.error("❌ Error al inicializar Typed.js:", error);
+        }
+      }
+
+      // Función para reiniciar con cambio de idioma
+      window.restartTyped = function () {
+        console.log("🔄 Reiniciando Typed.js...");
+        if (typedInstance) {
+          typedInstance.destroy();
+          typedInstance = null;
+        }
+        setTimeout(initTyped, 100);
+      };
+
+      // Inicializar cuando el DOM esté listo
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
+          console.log("📄 DOM cargado");
+          setTimeout(initTyped, 1500);
+        });
+      } else {
+        console.log("📄 DOM ya estaba cargado");
+        setTimeout(initTyped, 1500);
+      }
+
+      // Reinicializar cuando cambie el idioma
+      window.addEventListener("languageChanged", function () {
+        console.log("🔄 Evento languageChanged recibido");
+        window.restartTyped();
+      });
+    })();
   </script>
 </html>

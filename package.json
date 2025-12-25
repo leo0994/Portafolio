@@ -16,7 +16,8 @@
     "astro": "^5.2.1",
     "astro-i18next": "^1.0.0-beta.21",
     "gsap": "^3.12.7",
-    "i18next": "^25.0.1"
+    "i18next": "^25.0.1",
+    "typed.js": "^2.1.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.0",
