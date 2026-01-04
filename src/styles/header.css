@@ -16,7 +16,6 @@ header {
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   min-height: 80px;
@@ -30,9 +29,9 @@ header video {
   object-fit: cover;
   object-position: center center;
   padding: 0;
-  margin-left: 25px;
-  margin-right: 25px;
+  margin-right: 0;
   display: block;
+  flex-shrink: 0;
 }
 
 /* Menú de navegación */
@@ -40,8 +39,7 @@ nav {
   display: flex;
   gap: 1.5rem;
   justify-content: flex-end;
-  max-width: 60%;
-  padding-right: 10rem;
+  flex: 1;
 }
 
 nav a {

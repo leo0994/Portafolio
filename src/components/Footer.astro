@@ -216,8 +216,12 @@ import "../styles/footer.css";
 
     // Iniciar
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initScrollButton);
+      document.addEventListener("DOMContentLoaded", () => {
+        initThemeMenu();
+        initScrollButton();
+      });
     } else {
+      initThemeMenu();
       initScrollButton();
     }
   })();
