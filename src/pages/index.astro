@@ -19,43 +19,36 @@ import SectionContainer from "../components/SectionContainer.astro";
 <Layout description="Portafolio leo Dev - Desarrollador y Programador Web.">
   <main>
     <SectionContainer id="inicio" class="pt-32 py-16 pb-96">
-      <h1
-        class="text-3xl sm:text-4xl lg:text-5xl font-bold flex flex-col items-center gap-y-4 pb-6"
+      <div
+        class="flex flex-col items-center gap-y-6 text-center max-w-4xl mx-auto"
       >
-        <span id="main-title" class="main-title text-white text-center">
-          <span class="text-gray-300">Hola, Soy </span>
-          <span
-            id="name-text"
-            class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
-            >Leo Barrantes</span
-          >
-        </span>
-      </h1>
-
-      <h2
-        class="text-lg sm:text-xl lg:text-2xl text-wrap py-4 flex items-center justify-center gap-x-4 max-w-3xl mx-auto"
-      >
-        <DevLogoAnimado class="w-10 h-10 flex-shrink-0" />
-        <div class="flex flex-col gap-y-2">
-          <div
-            class="flex items-center gap-x-2 flex-wrap justify-center sm:justify-start"
-          >
-            <span class="text-gray-300 text-base sm:text-lg">Soy</span>
+        <!-- Título principal -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold">
+          <span id="main-title" class="main-title text-white">
+            <span class="text-gray-300">Hola, Soy </span>
             <span
-              id="typed-text"
-              class="text-blue-400 font-semibold text-base sm:text-lg"></span>
-          </div>
-          <p
-            data-i18n="descripcion_principal"
-            class="text-gray-400 text-sm sm:text-base leading-relaxed"
-          >
-            Soy Desarrollador de Software + 3 años de experiencia. De San José,
-            Costa Rica.
-          </p>
-        </div>
-      </h2>
+              id="name-text"
+              class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
+              >Leo Barrantes</span
+            >
+          </span>
+        </h1>
 
-      <div class="flex justify-center mt-6">
+        <!-- Soy + Typed.js -->
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+          <span class="text-gray-300">Soy </span>
+          <span id="typed-text" class="text-blue-400"></span>
+        </h2>
+
+        <!-- Descripción -->
+        <p
+          data-i18n="descripcion_principal"
+          class="text-gray-400 text-lg sm:text-xl leading-relaxed"
+        >
+          3+ años de experiencia. De San José, Costa Rica.
+        </p>
+
+        <!-- Badge -->
         <Badge
           class="text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-full shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105"
           data-i18n="disponible"
