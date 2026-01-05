@@ -35,10 +35,87 @@ import SectionContainer from "../components/SectionContainer.astro";
         </h1>
 
         <!-- Soy + Typed.js -->
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-          <span class="text-gray-300">Soy </span>
-          <span id="typed-text" class="text-blue-400"></span>
-        </h2>
+        <div class="typed-wrapper w-full flex justify-center mt-4">
+          <h2
+            class="text-2xl sm:text-3xl lg:text-4xl font-semibold no-scramble typed-line"
+          >
+            <span class="text-gray-300 mr-2">Soy</span>
+            <span
+              id="typed-text"
+              class="text-blue-400 no-scramble typed-text-content"></span>
+          </h2>
+        </div>
+
+        <style>
+          /* Wrapper principal */
+          .typed-wrapper {
+            min-height: 4rem;
+            display: flex;
+            align-items: center;
+          }
+
+          /* Línea del typed */
+          .typed-line {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+            white-space: nowrap;
+          }
+
+          /* Contenedor del texto con ancho fijo */
+          .typed-text-content {
+            display: inline-block;
+            min-width: 500px;
+            text-align: left;
+            position: relative;
+            vertical-align: baseline;
+          }
+
+          @media (max-width: 640px) {
+            .typed-text-content {
+              min-width: 320px;
+            }
+          }
+
+          /* Ocultar TODOS los cursores generados por Typed.js - más agresivo */
+          .typed-cursor,
+          .typed-cursor--blink,
+          .typed-line .typed-cursor,
+          .typed-text-content .typed-cursor,
+          #typed-text .typed-cursor,
+          span[class*="typed-cursor"] {
+            position: absolute;
+            left: -9999px;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            display: none;
+            visibility: hidden;
+          }
+
+          /* Cursor personalizado con pseudo-elemento */
+          .typed-text-content::after {
+            content: "|";
+            color: rgb(96, 165, 250);
+            display: inline-block;
+            animation: cursor-blink 0.8s step-end infinite;
+            margin-left: 3px;
+            font-weight: 600;
+          }
+
+          @keyframes cursor-blink {
+            0%,
+            50% {
+              opacity: 1;
+            }
+            50.01%,
+            100% {
+              opacity: 0;
+            }
+          }
+        </style>
 
         <!-- Descripción -->
         <p
@@ -113,7 +190,8 @@ import SectionContainer from "../components/SectionContainer.astro";
   </main>
 </Layout>
 
-<script>
+<script is:inline>
+  // @ts-nocheck
   // Efecto líquido en hover sobre el nombre
   const nameText = document.getElementById("name-text");
 
@@ -126,4 +204,107 @@ import SectionContainer from "../components/SectionContainer.astro";
       nameText.classList.remove("liquid-text");
     });
   }
+</script>
+
+<script is:inline>
+  // @ts-nocheck
+  // Typed.js para el efecto de escritura - ejecutar después de que todo esté cargado
+  (function () {
+    let attempts = 0;
+    const maxAttempts = 50;
+    let typedInstance = null;
+
+    function initTyped() {
+      attempts++;
+      const typedElement = document.getElementById("typed-text");
+
+      if (!typedElement) {
+        if (attempts < maxAttempts) {
+          setTimeout(initTyped, 100);
+        }
+        return;
+      }
+
+      if (typeof Typed === "undefined") {
+        if (attempts < maxAttempts) {
+          setTimeout(initTyped, 100);
+        }
+        return;
+      }
+
+      // Destruir instancia previa si existe
+      if (typedInstance) {
+        typedInstance.destroy();
+      }
+
+      // Limpiar cualquier cursor residual
+      const existingCursors = document.querySelectorAll(".typed-cursor");
+      existingCursors.forEach((cursor) => cursor.remove());
+
+      console.log("✅ Inicializando Typed.js");
+
+      try {
+        typedInstance = new Typed("#typed-text", {
+          strings: [
+            "Desarrollador Web",
+            "Desarrollador Frontend",
+            "Desarrollador Backend",
+            "Desarrollador Full Stack",
+            "Ingeniero de Software",
+            "Entusiasta de la Tecnología",
+            "Creador de Experiencias Digitales",
+            "Solucionador de Problemas",
+          ],
+          typeSpeed: 100,
+          backSpeed: 60,
+          backDelay: 3000,
+          startDelay: 1200,
+          loop: true,
+          showCursor: false,
+          cursorChar: "",
+          attr: null,
+          contentType: "text",
+          smartBackspace: true,
+          fadeOut: false,
+          shuffle: false,
+          onStringTyped: function (arrayPos, self) {
+            // Remover cualquier cursor al terminar de escribir
+            setTimeout(() => {
+              const cursors = document.querySelectorAll(".typed-cursor");
+              cursors.forEach((c) => c.remove());
+            }, 50);
+          },
+          onBegin: function (self) {
+            // Remover cursors al comenzar
+            const cursors = document.querySelectorAll(".typed-cursor");
+            cursors.forEach((c) => c.remove());
+          },
+        });
+
+        // Forzar remoción de cursor después de inicializar
+        setTimeout(() => {
+          const cursors = document.querySelectorAll(".typed-cursor");
+          cursors.forEach((c) => c.remove());
+        }, 100);
+
+        console.log("✅ Typed.js inicializado correctamente");
+      } catch (error) {
+        console.error("❌ Error al inicializar Typed.js:", error);
+      }
+    }
+
+    // Esperar a que el loading screen termine
+    window.addEventListener("loadingComplete", () => {
+      setTimeout(initTyped, 100);
+    });
+
+    // Fallback por si el evento no se dispara
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(initTyped, 1200);
+      });
+    } else {
+      setTimeout(initTyped, 1200);
+    }
+  })();
 </script>

@@ -923,10 +923,33 @@ const { description, title } = Astro.props;
         "style",
         "svg",
         "path",
+        "#typed-text", // Excluir el elemento de Typed.js
+        ".typed-cursor", // Excluir el cursor de Typed.js
       ];
 
       // Función para verificar si un elemento debe ser excluido
       function shouldExclude(element) {
+        // Excluir si tiene el id typed-text o es hijo de un elemento con typed
+        if (element.id === "typed-text" || element.closest("#typed-text")) {
+          return true;
+        }
+
+        // Excluir si tiene clase no-scramble o está dentro de un elemento con esa clase
+        if (
+          element.classList.contains("no-scramble") ||
+          element.closest(".no-scramble")
+        ) {
+          return true;
+        }
+
+        // Excluir si tiene atributo data-typed o clase typed-cursor
+        if (
+          element.hasAttribute("data-typed") ||
+          element.classList.contains("typed-cursor")
+        ) {
+          return true;
+        }
+
         // Excluir si es un elemento de la lista
         for (const selector of excludeSelectors) {
           if (element.matches(selector)) return true;
@@ -948,19 +971,19 @@ const { description, title } = Astro.props;
       function scrambleAllText() {
         // Selectores principales de texto (incluyendo nav links del header)
         const textSelectors = [
-          "h1",
-          "h2",
-          "h3",
-          "h4",
-          "h5",
-          "h6",
-          "p",
+          "h1:not(.no-scramble)",
+          "h2:not(.no-scramble)",
+          "h3:not(.no-scramble)",
+          "h4:not(.no-scramble)",
+          "h5:not(.no-scramble)",
+          "h6:not(.no-scramble)",
+          "p:not(.no-scramble)",
           "a.nav-link", // Links de navegación
           "header a", // Todos los enlaces del header
           "#language-toggle", // Botón de idioma desktop
           "#language-toggle-mobile", // Botón de idioma móvil
           "button[id^='language-toggle']", // Cualquier botón de idioma
-          "span:not(.scramble-char)",
+          "span:not(.scramble-char):not(.no-scramble):not(#typed-text):not(.typed-cursor)",
           ".text-scramble",
           "[data-scramble]",
         ];
@@ -1022,6 +1045,10 @@ const { description, title } = Astro.props;
       let activeLogos = 0;
 
       class GhostLogo {
+        element: HTMLImageElement;
+        targetOpacity: number;
+        pulseInterval: number | undefined;
+
         constructor() {
           this.element = document.createElement("img");
           this.element.src = logoSrc;
@@ -1046,12 +1073,14 @@ const { description, title } = Astro.props;
           this.element.style.animation =
             "ghost-elegant-float 25s ease-in-out infinite, ghost-spin-continuous 4s linear infinite";
 
-          container.appendChild(this.element);
+          if (container) {
+            container.appendChild(this.element);
+          }
           activeLogos++;
 
           // Fade in inicial más suave
           setTimeout(() => {
-            this.element.style.opacity = this.targetOpacity;
+            this.element.style.opacity = String(this.targetOpacity);
           }, 200);
 
           // Pulsar: desvanece y aparece continuamente
@@ -1065,7 +1094,7 @@ const { description, title } = Astro.props;
 
             setTimeout(() => {
               // Fade in suave
-              this.element.style.opacity = this.targetOpacity;
+              this.element.style.opacity = String(this.targetOpacity);
             }, 2000);
           }, 6000); // Pulsa cada 6 segundos
         }
@@ -1167,11 +1196,15 @@ const { description, title } = Astro.props;
 
       // Desaparecer el logo después de 1.8 segundos
       setTimeout(() => {
-        loadingScreen.style.opacity = "0";
+        if (loadingScreen) {
+          loadingScreen.style.opacity = "0";
 
-        setTimeout(() => {
-          loadingScreen.style.display = "none";
-        }, 600); // Duración del fade out
+          setTimeout(() => {
+            if (loadingScreen) {
+              loadingScreen.style.display = "none";
+            }
+          }, 600); // Duración del fade out
+        }
       }, 1800); // Logo visible por 1.8 segundos
     })();
   </script>

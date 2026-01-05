@@ -63,6 +63,11 @@
     "proyecto4_titulo": "Ruby Space Suites",
     "proyecto4_descripcion": "Hotel reservation system with authentication and online payments.",
     "proyecto5_titulo": "Pharmacy System (Spring Boot)",
-    "proyecto5_descripcion": "Medication and user management with Spring Boot and MVC."
+    "proyecto5_descripcion": "Medication and user management with Spring Boot and MVC.",
+    "proyecto6_titulo": "Messinger Brain",
+    "proyecto6_descripcion": "WhatsApp automation API with Puppeteer. Enterprise automated messaging system.",
+    "proyecto7_titulo": "Tech-Legal (LLM DeepSeek)",
+    "proyecto7_descripcion": "Development of endpoints, migrations and CRUD for legal AI platform based on DeepSeek LLM.",
+    "proyectoPrivado": "Confidential Project"
   }
   
