@@ -39,3 +39,187 @@ const EXPERIENCE = [
     ))
   }
 </ol>
+
+<script is:inline>
+  (function () {
+    const CHARS =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+    function randomText(length) {
+      return Array(length)
+        .fill(0)
+        .map(() => CHARS[Math.floor(Math.random() * CHARS.length)])
+        .join("");
+    }
+
+    function hackerEffect(element, finalText, duration = 1000, fps = 30) {
+      if (!element || !finalText) return;
+      const frameInterval = 1000 / fps;
+      const totalFrames = Math.ceil(duration / frameInterval);
+      let currentFrame = 0;
+
+      function animate() {
+        currentFrame++;
+        const progress = currentFrame / totalFrames;
+        const revealedCount = Math.floor(progress * finalText.length);
+        let displayText = "";
+
+        for (let i = 0; i < finalText.length; i++) {
+          if (i < revealedCount) {
+            displayText += finalText[i];
+          } else {
+            displayText += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+
+        element.textContent = displayText;
+
+        if (currentFrame < totalFrames) {
+          setTimeout(animate, frameInterval);
+        } else {
+          element.textContent = finalText;
+        }
+      }
+      animate();
+    }
+
+    function waitForI18next(callback, maxAttempts = 50) {
+      let attempts = 0;
+      const check = () => {
+        attempts++;
+        if (window.i18next && window.i18next.isInitialized) {
+          callback();
+        } else if (attempts < maxAttempts) {
+          setTimeout(check, 100);
+        }
+      };
+      check();
+    }
+
+    function scrambleExperienceTexts() {
+      if (!window.i18next) return;
+
+      // Scramble fechas
+      document.querySelectorAll('[id^="typed-exp-date-"]').forEach((span) => {
+        const key = span.getAttribute("data-final");
+        if (key) {
+          const value = window.i18next.t(key);
+          if (value && value !== key) {
+            span.textContent = randomText(value.length);
+            span.classList.add("scrambled");
+            span.setAttribute("data-final-text", value);
+          }
+        }
+      });
+
+      // Scramble títulos
+      document.querySelectorAll('[id^="typed-exp-title-"]').forEach((span) => {
+        const key = span.getAttribute("data-final");
+        if (key) {
+          const value = window.i18next.t(key);
+          if (value && value !== key) {
+            span.textContent = randomText(value.length);
+            span.classList.add("scrambled");
+            span.setAttribute("data-final-text", value);
+          }
+        }
+      });
+
+      // Scramble descripciones
+      const section = document.getElementById("experiencia");
+      if (section) {
+        section.querySelectorAll("p.hacker-text[data-final]").forEach((p) => {
+          const key = p.getAttribute("data-final");
+          if (key) {
+            const value = window.i18next.t(key);
+            if (value && value !== key) {
+              p.textContent = randomText(Math.min(value.length, 100));
+              p.classList.add("scrambled");
+              p.setAttribute("data-final-text", value);
+            }
+          }
+        });
+      }
+    }
+
+    function setupExperienceObserver() {
+      const section = document.getElementById("experiencia");
+      if (!section) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !entry.target.dataset.hackerApplied) {
+              entry.target.dataset.hackerApplied = "true";
+
+              // Efecto en fechas
+              document
+                .querySelectorAll('[id^="typed-exp-date-"]')
+                .forEach((span, index) => {
+                  const finalText = span.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(() => {
+                      hackerEffect(span, finalText, 700, 25);
+                    }, index * 150);
+                  }
+                });
+
+              // Efecto en títulos
+              document
+                .querySelectorAll('[id^="typed-exp-title-"]')
+                .forEach((span, index) => {
+                  const finalText = span.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      () => {
+                        hackerEffect(span, finalText, 900, 25);
+                      },
+                      index * 150 + 100,
+                    );
+                  }
+                });
+
+              // Efecto en descripciones
+              section
+                .querySelectorAll("p.hacker-text[data-final]")
+                .forEach((p, index) => {
+                  const finalText = p.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      () => {
+                        hackerEffect(p, finalText, 1500, 15);
+                      },
+                      index * 200 + 300,
+                    );
+                  }
+                });
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      observer.observe(section);
+    }
+
+    function init() {
+      waitForI18next(() => {
+        scrambleExperienceTexts();
+        setupExperienceObserver();
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+
+    window.addEventListener("languageChanged", () => {
+      const section = document.getElementById("experiencia");
+      if (section) section.removeAttribute("data-hacker-applied");
+      scrambleExperienceTexts();
+      setupExperienceObserver();
+    });
+  })();
+</script>

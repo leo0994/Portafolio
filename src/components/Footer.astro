@@ -8,6 +8,133 @@ import "../styles/footer.css";
 <footer class="w-full mt-32 relative">
   <div class="max-w-4xl mx-auto px-6">
     <!-- Contenedor principal: Footer + Botón scroll top al lado -->
+    <script is:inline>
+      (function () {
+        const CHARS =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+        function randomText(length) {
+          return Array(length)
+            .fill(0)
+            .map(() => CHARS[Math.floor(Math.random() * CHARS.length)])
+            .join("");
+        }
+
+        function hackerEffect(element, finalText, duration = 800, fps = 25) {
+          if (!element || !finalText) return;
+          const frameInterval = 1000 / fps;
+          const totalFrames = Math.ceil(duration / frameInterval);
+          let currentFrame = 0;
+
+          function animate() {
+            currentFrame++;
+            const progress = currentFrame / totalFrames;
+            const revealedCount = Math.floor(progress * finalText.length);
+            let displayText = "";
+
+            for (let i = 0; i < finalText.length; i++) {
+              if (i < revealedCount) {
+                displayText += finalText[i];
+              } else {
+                displayText += CHARS[Math.floor(Math.random() * CHARS.length)];
+              }
+            }
+
+            element.textContent = displayText;
+
+            if (currentFrame < totalFrames) {
+              setTimeout(animate, frameInterval);
+            } else {
+              element.textContent = finalText;
+            }
+          }
+          animate();
+        }
+
+        function waitForI18next(callback, maxAttempts = 50) {
+          let attempts = 0;
+          const check = () => {
+            attempts++;
+            if (window.i18next && window.i18next.isInitialized) {
+              callback();
+            } else if (attempts < maxAttempts) {
+              setTimeout(check, 100);
+            }
+          };
+          check();
+        }
+
+        function scrambleFooterTexts() {
+          if (!window.i18next) return;
+          const footer = document.querySelector("footer");
+          if (footer) {
+            const targets = footer.querySelectorAll("span[data-i18n]");
+            targets.forEach((el) => {
+              const key = el.getAttribute("data-i18n");
+              const finalText = key
+                ? window.i18next.t(key)
+                : el.textContent.trim();
+              if (finalText && finalText.length > 0) {
+                el.setAttribute("data-final-text", finalText);
+                el.textContent = randomText(finalText.length);
+                el.classList.add("hacker-text", "scrambled");
+              }
+            });
+          }
+        }
+
+        function setupFooterObserver() {
+          const footer = document.querySelector("footer");
+          if (!footer) return;
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (
+                  entry.isIntersecting &&
+                  !entry.target.dataset.hackerApplied
+                ) {
+                  entry.target.dataset.hackerApplied = "true";
+
+                  const targets = footer.querySelectorAll("span[data-i18n]");
+                  targets.forEach((el, index) => {
+                    const finalText = el.getAttribute("data-final-text");
+                    if (finalText && finalText.length > 0) {
+                      setTimeout(() => {
+                        hackerEffect(el, finalText, 800, 25);
+                      }, index * 100);
+                    }
+                  });
+                }
+              });
+            },
+            { threshold: 0.3 },
+          );
+
+          observer.observe(footer);
+        }
+
+        function init() {
+          waitForI18next(() => {
+            scrambleFooterTexts();
+            setupFooterObserver();
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+
+        window.addEventListener("languageChanged", () => {
+          const footer = document.querySelector("footer");
+          if (footer) footer.removeAttribute("data-hacker-applied");
+          scrambleFooterTexts();
+          setupFooterObserver();
+        });
+      })();
+    </script>
     <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6">
       <!-- Contenedor del footer con espacio reservado para visual balance -->
       <div
@@ -115,8 +242,12 @@ import "../styles/footer.css";
 
     <!-- Derechos -->
     <div class="text-center text-sm text-white/80 pb-6">
-      © 2025 <strong class="text-white">Leo Barrantes™</strong>.
-      <span data-i18n="noReservado">Ningún derecho reservado.</span>
+      © 2025 <strong class="text-white" data-hacker-exclude
+        >Leo Barrantes™</strong
+      >.
+      <span data-i18n="noReservado" id="footer-noreservado"
+        >Ningún derecho reservado.</span
+      >
     </div>
   </div>
 </footer>
@@ -207,7 +338,7 @@ import "../styles/footer.css";
             ticking = true;
           }
         },
-        { passive: true }
+        { passive: true },
       );
 
       // También escuchar resize

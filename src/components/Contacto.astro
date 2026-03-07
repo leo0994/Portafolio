@@ -10,10 +10,184 @@
       class="w-12 h-12 animate-spin-slow hover:scale-110 transition duration-300"
     />
     <h2 class="text-white text-3xl font-bold text-center">
-      <span data-i18n="form_titulo"
-        >Trabajemos juntos hagamos realidad tu proyecto!</span
-      >
+      <span
+        id="typewriter-contact-heading"
+        class="hacker-text"
+        data-final="form_titulo"></span>
     </h2>
+    <script is:inline>
+      (function () {
+        const CHARS =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+        function randomText(length) {
+          return Array(length)
+            .fill(0)
+            .map(() => CHARS[Math.floor(Math.random() * CHARS.length)])
+            .join("");
+        }
+
+        function typewriterEffect(element, text, speed = 50) {
+          element.textContent = "";
+          let i = 0;
+          function type() {
+            if (i < text.length) {
+              element.textContent += text.charAt(i);
+              i++;
+              setTimeout(type, speed);
+            }
+          }
+          type();
+        }
+
+        function hackerEffectPlaceholder(
+          input,
+          finalText,
+          duration = 700,
+          fps = 25,
+        ) {
+          const frameInterval = 1000 / fps;
+          const totalFrames = Math.ceil(duration / frameInterval);
+          let currentFrame = 0;
+
+          function animate() {
+            currentFrame++;
+            const progress = currentFrame / totalFrames;
+            const revealedCount = Math.floor(progress * finalText.length);
+            let displayText = "";
+
+            for (let i = 0; i < finalText.length; i++) {
+              if (i < revealedCount) {
+                displayText += finalText[i];
+              } else {
+                displayText += CHARS[Math.floor(Math.random() * CHARS.length)];
+              }
+            }
+
+            input.setAttribute("placeholder", displayText);
+
+            if (currentFrame < totalFrames) {
+              setTimeout(animate, frameInterval);
+            } else {
+              input.setAttribute("placeholder", finalText);
+            }
+          }
+          animate();
+        }
+
+        function waitForI18next(callback, maxAttempts = 50) {
+          let attempts = 0;
+          const check = () => {
+            attempts++;
+            if (window.i18next && window.i18next.isInitialized) {
+              callback();
+            } else if (attempts < maxAttempts) {
+              setTimeout(check, 100);
+            }
+          };
+          check();
+        }
+
+        function scrambleContactTexts() {
+          if (!window.i18next) return;
+
+          // Heading
+          const heading = document.getElementById("typewriter-contact-heading");
+          if (heading) {
+            const key = heading.getAttribute("data-final");
+            const text =
+              window.i18next.t(key) ||
+              "Trabajemos juntos hagamos realidad tu proyecto!";
+            heading.textContent = randomText(text.length);
+            heading.classList.add("scrambled");
+            heading.setAttribute("data-final-text", text);
+          }
+
+          // Placeholders
+          const inputs = document.querySelectorAll(
+            "#contact-form input[placeholder], #contact-form textarea[placeholder]",
+          );
+          inputs.forEach((input) => {
+            const key = input.getAttribute("data-i18n");
+            const finalText = key
+              ? window.i18next.t(key)
+              : input.getAttribute("placeholder");
+            if (finalText) {
+              input.setAttribute("placeholder", randomText(finalText.length));
+              input.setAttribute("data-final-placeholder", finalText);
+            }
+          });
+        }
+
+        function setupContactObserver() {
+          const section = document.getElementById("contacto");
+          if (!section) return;
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (
+                  entry.isIntersecting &&
+                  !entry.target.dataset.hackerApplied
+                ) {
+                  entry.target.dataset.hackerApplied = "true";
+
+                  // Typewriter en heading
+                  const heading = document.getElementById(
+                    "typewriter-contact-heading",
+                  );
+                  if (heading) {
+                    const finalText = heading.getAttribute("data-final-text");
+                    if (finalText) {
+                      heading.textContent = "";
+                      typewriterEffect(heading, finalText, 25);
+                    }
+                  }
+
+                  // Hacker en placeholders
+                  const inputs = document.querySelectorAll(
+                    "#contact-form input[placeholder], #contact-form textarea[placeholder]",
+                  );
+                  inputs.forEach((input, index) => {
+                    const finalText = input.getAttribute(
+                      "data-final-placeholder",
+                    );
+                    if (finalText) {
+                      setTimeout(() => {
+                        hackerEffectPlaceholder(input, finalText, 700, 25);
+                      }, index * 100);
+                    }
+                  });
+                }
+              });
+            },
+            { threshold: 0.3 },
+          );
+
+          observer.observe(section);
+        }
+
+        function init() {
+          waitForI18next(() => {
+            scrambleContactTexts();
+            setupContactObserver();
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+
+        window.addEventListener("languageChanged", () => {
+          const section = document.getElementById("contacto");
+          if (section) section.removeAttribute("data-hacker-applied");
+          scrambleContactTexts();
+          setupContactObserver();
+        });
+      })();
+    </script>
   </div>
 
   <form

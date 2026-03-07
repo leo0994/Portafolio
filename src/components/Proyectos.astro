@@ -1,431 +1,811 @@
 ---
 // Datos de proyectos
-const projects = [
+type Project = {
+  titleKey: string;
+  descriptionKey: string;
+  tech: string[];
+  image: string;
+  link: string | null;
+  live: string | null;
+  isPrivate: boolean;
+  type: string;
+  client?: string;
+};
+
+const projects: Project[] = [
   {
-    titleKey: "proyecto1_titulo",
+    titleKey: "adrianPortillaTattoo",
+    descriptionKey: "proyecto_adrian_tattoo_descripcion",
+    tech: ["Astro", "Prisma ORM", "Cloudinary", "Google Auth"],
+    image: "/Portafolio/icons/LogoPlasmaCeleste.png",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Web Portfolio",
+    client: "Adrian Portilla - Tatuador",
+  },
+  {
+    titleKey: "mentana",
     descriptionKey: "proyecto1_descripcion",
-    tech: ["Spring boot", "Angular", "MVC"],
+    tech: ["Spring Boot", "Angular"],
     image: "/Portafolio/imagen/mentana.jpg",
     link: null,
     live: null,
-    isPrivate: true,
-    type: "Proyecto Empresarial",
+    isPrivate: false,
+    type: "Web App",
+    client: "Mentana - Centro Recreativo",
   },
   {
-    titleKey: "proyecto2_titulo",
+    titleKey: "digimonApi",
     descriptionKey: "proyecto2_descripcion",
-    tech: ["C#", ".NET", "MVC"],
+    tech: [".NET", "API"],
     image: "/Portafolio/imagen/digimonApi.jpg",
     link: null,
     live: null,
     isPrivate: true,
-    type: "Proyecto Empresarial",
+    type: "Privado",
   },
   {
-    titleKey: "proyecto6_titulo",
-    descriptionKey: "proyecto6_descripcion",
-    tech: ["Puppeteer", "WhatsApp API", "Node.js", "Automation"],
-    image: "/Portafolio/icons/LogoPlasmaCeleste.png",
+    titleKey: "TicTacToeV2",
+    descriptionKey: "proyecto3_descripcion",
+    tech: ["React", "Tailwind CSS"],
+    image: "/Portafolio/imagen/TicTacToeV2.jpg",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Juego",
+  },
+  {
+    titleKey: "farmacia",
+    descriptionKey: "proyecto5_descripcion",
+    tech: ["Spring Boot", "MVC"],
+    image: "/Portafolio/imagen/farmacia.jpg",
     link: null,
     live: null,
     isPrivate: true,
-    type: "Proyecto Empresarial",
+    type: "Privado",
   },
   {
-    titleKey: "proyecto7_titulo",
-    descriptionKey: "proyecto7_descripcion",
-    tech: ["DeepSeek LLM", "API REST", "Database Migrations", "CRUD"],
-    image: "/Portafolio/icons/LogoPlasmaCeleste.png",
+    titleKey: "RubiProyecto",
+    descriptionKey: "proyecto4_descripcion",
+    tech: ["Ruby on Rails", "Bootstrap"],
+    image: "/Portafolio/imagen/RubiProyecto.jpg",
     link: null,
     live: null,
-    isPrivate: true,
-    type: "Proyecto Empresarial",
+    isPrivate: false,
+    type: "Sistema CRUD",
   },
   {
-    titleKey: "proyecto3_titulo",
+    titleKey: "TicTacToeV3",
     descriptionKey: "proyecto3_descripcion",
     tech: ["React", "Tailwind CSS"],
     image: "/Portafolio/imagen/TicTacToeV3.jpg",
-    link: "https://github.com/leo0994/tic-tac-toe",
-    live: "https://tic-tac-toe.leodev.com",
-    isPrivate: false,
-    type: "Proyecto Personal",
-  },
-  {
-    titleKey: "proyecto4_titulo",
-    descriptionKey: "proyecto4_descripcion",
-    tech: ["Ruby on Rails", "PostgreSQL", "Bootstrap"],
-    image: "/Portafolio/imagen/RubiProyecto.jpg",
-    link: "https://github.com/leo0994/ruby-space-suites",
-    live: "https://rubyspacesuites.leodev.com",
-    isPrivate: false,
-    type: "Proyecto Personal",
-  },
-  {
-    titleKey: "proyecto5_titulo",
-    descriptionKey: "proyecto5_descripcion",
-    tech: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
-    image: "/Portafolio/imagen/farmacia.jpg",
-    link: "https://github.com/LeoDev/farmacia-mvc",
+    link: null,
     live: null,
     isPrivate: false,
-    type: "Proyecto Personal",
+    type: "Juego",
+  },
+  {
+    titleKey: "TicTacToeimagenJuego",
+    descriptionKey: "proyecto3_descripcion",
+    tech: ["React", "Tailwind CSS"],
+    image: "/Portafolio/imagen/TicTacToeimagenJuego.jpg",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Juego",
+  },
+  {
+    titleKey: "PortafolioBackground",
+    descriptionKey: "proyecto6_descripcion",
+    tech: ["Astro", "Tailwind CSS"],
+    image: "/Portafolio/imagen/PortafolioBackground.jpg",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Portafolio",
+  },
+  {
+    titleKey: "LogoPersonalV2Recortado",
+    descriptionKey: "proyecto7_descripcion",
+    tech: ["Diseño", "Branding"],
+    image: "/Portafolio/imagen/LogoPersonalV2Recortado.png",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Logo",
+  },
+  {
+    titleKey: "LogoPlasmaCeleste",
+    descriptionKey: "proyecto8_descripcion",
+    tech: ["Diseño", "Animación"],
+    image: "/Portafolio/imagen/LogoPlasmaCeleste.png",
+    link: null,
+    live: null,
+    isPrivate: false,
+    type: "Logo",
   },
 ];
+
+// Duplicar proyectos para tener más contenido en el carrusel
+const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
 ---
 
 <section
   id="proyectos"
-  class="max-w-6xl mx-auto px-4 py-16 pb-40"
+  class="max-w-[2400px] mx-auto px-4 py-16 pb-40"
   style="scroll-margin-top: 100px;"
 >
-  <!-- Título con imagen giratoria -->
-  <div class="flex justify-center items-center mb-8 gap-4">
+  <!-- Título -->
+  <div class="flex justify-center items-center mb-12 gap-4">
     <img
       src="/Portafolio/icons/LogoPlasmaCeleste.png"
       alt="Logo animado"
       class="w-12 h-12 animate-spin-slow hover:scale-110 transition duration-300"
     />
-    <h2
-      class="text-4xl font-bold text-white text-center"
-      data-i18n="mis_proyectos"
-    >
-      Mis Proyectos
+    <h2 class="text-4xl font-bold text-white text-center">
+      <span
+        id="typed-projects-title"
+        class="hacker-text"
+        data-i18n="mis_proyectos"
+        data-final="Mis Proyectos"></span>
     </h2>
   </div>
 
-  <!-- Carrusel con efecto de difuminado -->
-  <div class="relative overflow-hidden">
-    <!-- Gradientes de difuminado laterales -->
+  <!-- Carrusel de proyectos - 2 filas -->
+  <div class="space-y-6 w-full">
+    <!-- Fila Superior -->
     <div
-      class="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-      style="background: linear-gradient(to right, var(--bg-primary, #0a0e27) 0%, transparent 100%);"
+      class="relative overflow-hidden w-full"
+      style="max-width: 1900px; margin: 0 auto;"
     >
-    </div>
-    <div
-      class="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-      style="background: linear-gradient(to left, var(--bg-primary, #0a0e27) 0%, transparent 100%);"
-    >
-    </div>
+      <!-- Gradiente fade izquierdo -->
+      <div
+        class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#020617] via-[#020617]/80 to-transparent z-10 pointer-events-none"
+      >
+      </div>
+      <!-- Gradiente fade derecho -->
+      <div
+        class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#020617] via-[#020617]/80 to-transparent z-10 pointer-events-none"
+      >
+      </div>
 
-    <!-- Contenedor del carrusel -->
-    <div
-      id="projects-carousel"
-      class="flex gap-6 overflow-x-auto scrollbar-hide py-4"
-      style="scroll-behavior: smooth;"
-    >
-      {
-        projects.map((project) => (
-          <div
-            class={`flex-shrink-0 w-[400px] bg-gradient-to-br rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border ${project.isPrivate ? "from-amber-900/30 to-orange-900/30 border-amber-500/30" : "from-gray-800/50 to-gray-900/50 border-white/10"} backdrop-blur-sm`}
-          >
-            {/* Badge de tipo de proyecto */}
-            <div class="absolute top-3 right-3 z-10">
-              <span
-                class={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${project.isPrivate ? "bg-amber-500/20 text-amber-300 border border-amber-500/50" : "bg-blue-500/20 text-blue-300 border border-blue-500/50"}`}
+      <div
+        class="overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing scroll-smooth py-2"
+        id="carousel-row-1"
+        data-dragging="false"
+      >
+        <div
+          class="flex gap-5 px-20"
+          style="width: max-content; min-width: 1600px;"
+        >
+          {
+            extendedProjects.slice(0, 11).map((project) => (
+              <article
+                class={`w-[280px] flex-shrink-0 group relative rounded-xl overflow-hidden border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${
+                  project.isPrivate
+                    ? "bg-gradient-to-br from-amber-950/40 to-orange-950/40 border-amber-500/30 hover:border-amber-400/60"
+                    : "bg-gradient-to-br from-gray-900/60 to-gray-800/60 border-white/10 hover:border-cyan-500/50"
+                } backdrop-blur-sm`}
               >
-                {project.type}
-              </span>
-            </div>
-
-            <img
-              src={project.image}
-              alt={project.titleKey}
-              loading="lazy"
-              class={`w-full h-52 object-cover rounded-t-xl ${project.isPrivate ? "opacity-80" : ""}`}
-              onerror="this.onerror=null; this.src='/Portafolio/imagen/LogoPlasmaCeleste.png';"
-            />
-            <div class="p-5">
-              <h3
-                class="text-2xl font-semibold text-white mb-2"
-                data-i18n={project.titleKey}
-              >
-                {project.titleKey}
-              </h3>
-              <p
-                class="text-gray-300 text-sm mb-3 line-clamp-2"
-                data-i18n={project.descriptionKey}
-              >
-                {project.descriptionKey}
-              </p>
-
-              {/* Tecnologías */}
-              <div class="flex flex-wrap gap-2 mb-4">
-                {project.tech.map((tech) => (
+                {/* Badge superior */}
+                <div class="absolute top-2 right-2 z-10">
                   <span
-                    class={`px-3 py-1 rounded-full text-xs font-medium ${project.isPrivate ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" : "bg-blue-500/20 text-blue-300 border border-blue-500/30"}`}
-                    data-i18n={tech}
+                    class={`px-2.5 py-1 rounded-full text-xs font-bold backdrop-blur-md shadow-lg ${
+                      project.isPrivate
+                        ? "bg-amber-500/30 text-amber-200 border border-amber-400/50"
+                        : "bg-cyan-500/30 text-cyan-200 border border-cyan-400/50"
+                    }`}
                   >
-                    {tech}
+                    {project.type}
                   </span>
-                ))}
-              </div>
+                </div>
 
-              {/* Enlaces */}
-              <div class="flex justify-between items-center mt-4 pt-4 border-t border-white/10">
-                {project.isPrivate ? (
-                  <div class="flex items-center gap-2 text-amber-400">
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm9 13H6v-8h12v8z" />
-                    </svg>
+                {/* Imagen del proyecto */}
+                <div class="relative h-32 overflow-hidden bg-gradient-to-br from-black/30 to-black/50">
+                  <img
+                    src={project.image}
+                    alt={project.titleKey}
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='/Portafolio/icons/LogoPlasmaCeleste.png';"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
+
+                {/* Contenido del proyecto */}
+                <div class="p-3 flex flex-col">
+                  <div class="space-y-1.5">
+                    {/* Cliente o Tipo de proyecto */}
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg
+                        class="w-3.5 h-3.5 text-cyan-400 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                      <span
+                        class="text-gray-300 font-medium truncate"
+                        data-client={project.client || project.type}
+                      >
+                        {project.client || project.type}
+                      </span>
+                    </div>
+
+                    {/* Título */}
+                    <h3
+                      class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1"
+                      data-i18n={project.titleKey}
+                    />
+
+                    {/* Descripción */}
+                    <p
+                      class="text-gray-400 text-xs leading-relaxed line-clamp-2"
+                      data-i18n={project.descriptionKey}
+                    />
+
+                    {/* Tecnologías */}
+                    <div class="flex flex-wrap gap-1 pt-1">
+                      {project.tech.map((tech) => (
+                        <span
+                          class={`px-2 py-0.5 rounded-md text-[10px] font-medium transition-all duration-300 ${
+                            project.isPrivate
+                              ? "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30"
+                              : "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30"
+                          }`}
+                          data-tech={tech}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Botones de acción */}
+                  <div class="flex gap-1.5 pt-2 mt-2 border-t border-white/10">
+                    {project.link && project.link !== "null" ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-semibold transition-all duration-300 border border-white/20 hover:border-white/40 hover:scale-105"
+                      >
+                        <svg
+                          class="w-3 h-3"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                        <span>Código</span>
+                      </a>
+                    ) : (
+                      <div class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-gray-800/50 text-gray-500 text-[10px] cursor-not-allowed border border-gray-700/50">
+                        <svg
+                          class="w-3 h-3"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10 0v-4c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-8z" />
+                        </svg>
+                        <span>Privado</span>
+                      </div>
+                    )}
+
+                    {project.live && project.live !== "null" ? (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-300 text-[10px] font-semibold transition-all duration-300 border border-green-500/50 hover:border-green-400 hover:scale-105"
+                      >
+                        <svg
+                          class="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                        <span>Demo</span>
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila Inferior -->
+    <div
+      class="relative overflow-hidden w-full"
+      style="max-width: 1900px; margin: 0 auto;"
+    >
+      <!-- Gradiente fade izquierdo -->
+      <div
+        class="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-[#020617] via-[#020617]/95 to-transparent z-10 pointer-events-none"
+      >
+      </div>
+      <!-- Gradiente fade derecho -->
+      <div
+        class="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-[#020617] via-[#020617]/95 to-transparent z-10 pointer-events-none"
+      >
+      </div>
+
+      <div
+        class="overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing scroll-smooth py-2"
+        id="carousel-row-2"
+        data-dragging="false"
+      >
+        <div
+          class="flex gap-5 px-20"
+          style="width: max-content; min-width: 1600px;"
+        >
+          {
+            extendedProjects
+              .slice(11)
+              .reverse()
+              .map((project) => (
+                <article
+                  class={`w-[280px] flex-shrink-0 group relative rounded-xl overflow-hidden border transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${
+                    project.isPrivate
+                      ? "bg-gradient-to-br from-amber-950/40 to-orange-950/40 border-amber-500/30 hover:border-amber-400/60"
+                      : "bg-gradient-to-br from-gray-900/60 to-gray-800/60 border-white/10 hover:border-cyan-500/50"
+                  } backdrop-blur-sm`}
+                >
+                  {/* Badge superior */}
+                  <div class="absolute top-2 right-2 z-10">
                     <span
-                      class="text-sm font-semibold"
-                      data-i18n="proyectoPrivado"
+                      class={`px-2.5 py-1 rounded-full text-xs font-bold backdrop-blur-md shadow-lg ${
+                        project.isPrivate
+                          ? "bg-amber-500/30 text-amber-200 border border-amber-400/50"
+                          : "bg-cyan-500/30 text-cyan-200 border border-cyan-400/50"
+                      }`}
                     >
-                      Proyecto Confidencial
+                      {project.type}
                     </span>
                   </div>
-                ) : (
-                  <a
-                    href={project.link}
-                    class="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    <span data-i18n="codigoFuente">Código</span>
-                  </a>
-                )}
-                {project.live ? (
-                  <a
-                    href={project.live}
-                    class="flex items-center gap-2 text-green-400 hover:text-green-300 font-semibold transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                    <span data-i18n="demo">Demo</span>
-                  </a>
-                ) : (
-                  !project.isPrivate && (
-                    <span
-                      class="text-gray-500 italic text-sm"
-                      data-i18n="demoNoDisponible"
-                    >
-                      Demo no disponible
-                    </span>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-        ))
-      }
-      {/* Duplicar proyectos para efecto infinito */}
-      {
-        projects.map((project) => (
-          <div
-            class={`flex-shrink-0 w-[400px] bg-gradient-to-br rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border ${project.isPrivate ? "from-amber-900/30 to-orange-900/30 border-amber-500/30" : "from-gray-800/50 to-gray-900/50 border-white/10"} backdrop-blur-sm`}
-          >
-            {/* Badge de tipo de proyecto */}
-            <div class="absolute top-3 right-3 z-10">
-              <span
-                class={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${project.isPrivate ? "bg-amber-500/20 text-amber-300 border border-amber-500/50" : "bg-blue-500/20 text-blue-300 border border-blue-500/50"}`}
-              >
-                {project.type}
-              </span>
-            </div>
 
-            <img
-              src={project.image}
-              alt={project.titleKey}
-              loading="lazy"
-              class={`w-full h-52 object-cover rounded-t-xl ${project.isPrivate ? "opacity-80" : ""}`}
-              onerror="this.onerror=null; this.src='/Portafolio/imagen/LogoPlasmaCeleste.png';"
-            />
-            <div class="p-5">
-              <h3
-                class="text-2xl font-semibold text-white mb-2"
-                data-i18n={project.titleKey}
-              >
-                {project.titleKey}
-              </h3>
-              <p
-                class="text-gray-300 text-sm mb-3 line-clamp-2"
-                data-i18n={project.descriptionKey}
-              >
-                {project.descriptionKey}
-              </p>
-
-              <div class="flex flex-wrap gap-2 mb-4">
-                {project.tech.map((tech) => (
-                  <span
-                    class={`px-3 py-1 rounded-full text-xs font-medium ${project.isPrivate ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" : "bg-blue-500/20 text-blue-300 border border-blue-500/30"}`}
-                    data-i18n={tech}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div class="flex justify-between items-center mt-4 pt-4 border-t border-white/10">
-                {project.isPrivate ? (
-                  <div class="flex items-center gap-2 text-amber-400">
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm9 13H6v-8h12v8z" />
-                    </svg>
-                    <span
-                      class="text-sm font-semibold"
-                      data-i18n="proyectoPrivado"
-                    >
-                      Proyecto Confidencial
-                    </span>
+                  {/* Imagen del proyecto */}
+                  <div class="relative h-32 overflow-hidden bg-gradient-to-br from-black/30 to-black/50">
+                    <img
+                      src={project.image}
+                      alt={project.titleKey}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      onerror="this.onerror=null; this.src='/Portafolio/icons/LogoPlasmaCeleste.png';"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
-                ) : (
-                  <a
-                    href={project.link}
-                    class="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                    <span data-i18n="codigoFuente">Código</span>
-                  </a>
-                )}
-                {project.live ? (
-                  <a
-                    href={project.live}
-                    class="flex items-center gap-2 text-green-400 hover:text-green-300 font-semibold transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      class="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+
+                  {/* Contenido del proyecto */}
+                  <div class="p-3 flex flex-col">
+                    <div class="space-y-1.5">
+                      {/* Cliente o Tipo de proyecto */}
+                      <div class="flex items-center gap-2 text-xs">
+                        <svg
+                          class="w-3.5 h-3.5 text-cyan-400 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                        <span
+                          class="text-gray-300 font-medium truncate"
+                          data-client={project.client || project.type}
+                        >
+                          {project.client || project.type}
+                        </span>
+                      </div>
+
+                      {/* Título */}
+                      <h3
+                        class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1"
+                        data-i18n={project.titleKey}
                       />
-                    </svg>
-                    <span data-i18n="demo">Demo</span>
-                  </a>
-                ) : (
-                  !project.isPrivate && (
-                    <span
-                      class="text-gray-500 italic text-sm"
-                      data-i18n="demoNoDisponible"
-                    >
-                      Demo no disponible
-                    </span>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-        ))
-      }
+
+                      {/* Descripción */}
+                      <p
+                        class="text-gray-400 text-xs leading-relaxed line-clamp-2"
+                        data-i18n={project.descriptionKey}
+                      />
+
+                      {/* Tecnologías */}
+                      <div class="flex flex-wrap gap-1 pt-1">
+                        {project.tech.map((tech) => (
+                          <span
+                            class={`px-2 py-0.5 rounded-md text-[10px] font-medium transition-all duration-300 ${
+                              project.isPrivate
+                                ? "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30"
+                                : "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30"
+                            }`}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Botones de acción */}
+                    <div class="flex gap-1.5 pt-2 mt-2 border-t border-white/10">
+                      {project.link && project.link !== "null" ? (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] font-semibold transition-all duration-300 border border-white/20 hover:border-white/40 hover:scale-105"
+                        >
+                          <svg
+                            class="w-3 h-3"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                          <span>Código</span>
+                        </a>
+                      ) : (
+                        <div class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-gray-800/50 text-gray-500 text-[10px] cursor-not-allowed border border-gray-700/50">
+                          <svg
+                            class="w-3 h-3"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10 0v-4c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-8z" />
+                          </svg>
+                          <span>Privado</span>
+                        </div>
+                      )}
+
+                      {project.live && project.live !== "null" ? (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex-1 flex items-center justify-center gap-1 px-2 py-1 rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-300 text-[10px] font-semibold transition-all duration-300 border border-green-500/50 hover:border-green-400 hover:scale-105"
+                        >
+                          <svg
+                            class="w-3 h-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                          </svg>
+                          <span>Demo</span>
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                </article>
+              ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Ocultar scrollbar */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
-  /* Limitar líneas de texto */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 </style>
 
 <script is:inline>
-  // @ts-nocheck
-  // Auto-scroll del carrusel con soporte para scroll manual
   (function () {
-    const carousel = document.getElementById("projects-carousel");
+    var CHARS =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
 
-    if (!carousel) return;
-
-    let scrollSpeed = 1;
-    let animationId = 0;
-    let isPlaying = true;
-    let userInteracting = false;
-
-    function autoScroll() {
-      if (!isPlaying || userInteracting) return;
-
-      carousel.scrollLeft += scrollSpeed;
-
-      const maxScroll = carousel.scrollWidth / 2;
-      if (carousel.scrollLeft >= maxScroll) {
-        carousel.scrollLeft = 0;
+    function randomText(length) {
+      var result = "";
+      for (var i = 0; i < length; i++) {
+        result += CHARS[Math.floor(Math.random() * CHARS.length)];
       }
-
-      animationId = requestAnimationFrame(autoScroll);
+      return result;
     }
 
-    carousel.addEventListener("mouseenter", () => {
-      userInteracting = true;
-      cancelAnimationFrame(animationId);
-    });
+    function hackerEffect(element, finalText, duration, interval) {
+      if (!element || !finalText) return;
+      var frame = 0;
+      var totalFrames = Math.floor(duration / interval);
+      var textLength = finalText.length;
 
-    carousel.addEventListener("mouseleave", () => {
-      userInteracting = false;
-      if (isPlaying) {
-        autoScroll();
+      function animate() {
+        var progress = frame / totalFrames;
+        var revealedCount = Math.floor(progress * textLength);
+        var result = "";
+        for (var i = 0; i < textLength; i++) {
+          if (i < revealedCount) {
+            result += finalText[i];
+          } else {
+            result += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+        element.textContent = result;
+        frame++;
+        if (frame <= totalFrames) {
+          setTimeout(animate, interval);
+        } else {
+          element.textContent = finalText;
+        }
+      }
+      animate();
+    }
+
+    function translate(key) {
+      if (window.i18next && window.i18next.isInitialized) {
+        var translated = window.i18next.t(key);
+        if (translated && translated !== key) return translated;
+      }
+      return key;
+    }
+
+    function scrambleProjectsTexts() {
+      var section = document.getElementById("proyectos");
+      if (!section) return;
+
+      // Título principal
+      var titleSpan = document.getElementById("typed-projects-title");
+      if (titleSpan) {
+        var finalText = titleSpan.getAttribute("data-final") || "Mis Proyectos";
+        var translated = translate("mis_proyectos");
+        if (translated && translated !== "mis_proyectos")
+          finalText = translated;
+
+        titleSpan.setAttribute("data-final-text", finalText);
+        titleSpan.textContent = randomText(finalText.length); // Mostrar texto aleatorio inicial
+        titleSpan.classList.add("scrambled");
+      }
+
+      // Títulos de proyectos
+      section.querySelectorAll("h3[data-i18n]").forEach(function (h3) {
+        var key = h3.getAttribute("data-i18n");
+        var value = translate(key) || key;
+        h3.setAttribute("data-final-text", value);
+        h3.textContent = randomText(value.length); // Mostrar texto aleatorio inicial
+      });
+
+      // Descripciones
+      section.querySelectorAll("p[data-i18n]").forEach(function (p) {
+        var key = p.getAttribute("data-i18n");
+        var value = translate(key) || key;
+        p.setAttribute("data-final-text", value);
+        p.textContent = randomText(Math.min(value.length, 80)); // Mostrar texto aleatorio inicial
+      });
+
+      // Clientes
+      section.querySelectorAll("span[data-client]").forEach(function (span) {
+        var value = span.getAttribute("data-client");
+        if (value) {
+          span.setAttribute("data-final-text", value);
+          span.textContent = randomText(value.length); // Mostrar texto aleatorio inicial
+        }
+      });
+
+      // Tecnologías
+      section.querySelectorAll("span[data-tech]").forEach(function (span) {
+        var value = span.getAttribute("data-tech");
+        if (value) {
+          span.setAttribute("data-final-text", value);
+          span.textContent = randomText(value.length); // Mostrar texto aleatorio inicial
+        }
+      });
+    }
+
+    function setupProjectsObserver() {
+      var section = document.getElementById("proyectos");
+      if (!section) return;
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !entry.target.dataset.hackerApplied) {
+              entry.target.dataset.hackerApplied = "true";
+
+              // Título principal
+              var titleSpan = document.getElementById("typed-projects-title");
+              if (titleSpan) {
+                var finalText = titleSpan.getAttribute("data-final-text");
+                if (finalText) {
+                  hackerEffect(titleSpan, finalText, 800, 25);
+                }
+              }
+
+              // Títulos
+              section
+                .querySelectorAll("h3[data-i18n]")
+                .forEach(function (h3, index) {
+                  var finalText = h3.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      function () {
+                        hackerEffect(h3, finalText, 700, 25);
+                      },
+                      index * 100 + 200,
+                    );
+                  }
+                });
+
+              // Descripciones
+              section
+                .querySelectorAll("p[data-i18n]")
+                .forEach(function (p, index) {
+                  var finalText = p.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      function () {
+                        hackerEffect(p, finalText, 1000, 15);
+                      },
+                      index * 100 + 400,
+                    );
+                  }
+                });
+
+              // Clientes
+              section
+                .querySelectorAll("span[data-client]")
+                .forEach(function (span, index) {
+                  var finalText = span.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      function () {
+                        hackerEffect(span, finalText, 600, 20);
+                      },
+                      index * 80 + 300,
+                    );
+                  }
+                });
+
+              // Tecnologías
+              section
+                .querySelectorAll("span[data-tech]")
+                .forEach(function (span, index) {
+                  var finalText = span.getAttribute("data-final-text");
+                  if (finalText) {
+                    setTimeout(
+                      function () {
+                        hackerEffect(span, finalText, 500, 20);
+                      },
+                      index * 50 + 500,
+                    );
+                  }
+                });
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      observer.observe(section);
+    }
+
+    function initProjects() {
+      scrambleProjectsTexts();
+      setupProjectsObserver();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initProjects);
+    } else {
+      initProjects();
+    }
+
+    window.addEventListener("languageChanged", function () {
+      var section = document.getElementById("proyectos");
+      if (section) {
+        section.removeAttribute("data-hacker-applied");
+        scrambleProjectsTexts();
       }
     });
+  })();
+</script>
 
-    let scrollTimeout = 0;
-    carousel.addEventListener("scroll", () => {
-      userInteracting = true;
-      clearTimeout(scrollTimeout);
+<script is:inline>
+  // Drag to scroll functionality for carousel rows
+  (function () {
+    function setupDragScroll(carouselId) {
+      var carousel = document.getElementById(carouselId);
+      if (!carousel) return;
 
-      scrollTimeout = setTimeout(() => {
-        userInteracting = false;
-        if (isPlaying) {
-          autoScroll();
+      var isDown = false;
+      var startX;
+      var scrollLeft;
+
+      carousel.addEventListener("mousedown", function (e) {
+        // Evitar drag en enlaces y botones
+        if (
+          e.target.closest("a") ||
+          e.target.closest("button") ||
+          e.target.tagName === "A" ||
+          e.target.tagName === "BUTTON"
+        ) {
+          return;
         }
-      }, 2000);
-    });
 
-    autoScroll();
+        isDown = true;
+        carousel.setAttribute("data-dragging", "true");
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+        carousel.style.scrollBehavior = "auto";
+      });
+
+      carousel.addEventListener("mouseleave", function () {
+        if (isDown) {
+          isDown = false;
+          carousel.setAttribute("data-dragging", "false");
+          carousel.style.scrollBehavior = "smooth";
+        }
+      });
+
+      carousel.addEventListener("mouseup", function () {
+        if (isDown) {
+          isDown = false;
+          carousel.setAttribute("data-dragging", "false");
+          carousel.style.scrollBehavior = "smooth";
+        }
+      });
+
+      carousel.addEventListener("mousemove", function (e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - carousel.offsetLeft;
+        var walk = (x - startX) * 2;
+        carousel.scrollLeft = scrollLeft - walk;
+      });
+
+      // Prevenir click después de drag
+      carousel.addEventListener(
+        "click",
+        function (e) {
+          if (carousel.getAttribute("data-dragging") === "true") {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        },
+        true,
+      );
+    }
+
+    function initCarousels() {
+      setupDragScroll("carousel-row-1");
+      setupDragScroll("carousel-row-2");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCarousels);
+    } else {
+      initCarousels();
+    }
   })();
 </script>

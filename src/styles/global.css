@@ -34,7 +34,7 @@ body {
 /* Contenedor principal con max-width */
 main {
   width: 100%;
-  max-width: 1280px;
+  max-width: 2400px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -97,4 +97,14 @@ section[id] {
   .animate-spin-slow {
     animation: spin 8s linear infinite;
   }
+}
+
+/* Efecto Hacker - Ocultar texto hasta que esté scrambled */
+.hacker-text {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.hacker-text.scrambled {
+  opacity: 1;
 }

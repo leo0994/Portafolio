@@ -12,20 +12,25 @@ const { dateKey, titleKey, link, descriptionKey } = Astro.props;
   class="absolute w-3 h-3 bg-[rgb(240,240,240)] rounded-full mt-1.5 -start-1.5 border border-white"
 >
 </div>
-<time
-  class="mb-1 text-sm font-normal leading-none text-[rgb(220,220,220)]"
-  data-i18n={dateKey}
+<div class="mb-1 flex items-center">
+  <span
+    id={`typed-exp-date-${dateKey}`}
+    class="hacker-text px-2 py-0.5 rounded bg-[rgb(30,30,30)] text-xs font-bold text-cyan-300 tracking-widest shadow-md"
+    data-final={dateKey}></span>
+</div>
+<h3
+  class="text-lg font-semibold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
 >
-  {dateKey}
-</time>
-<h3 class="text-lg font-semibold text-[rgb(240,240,240)]" data-i18n={titleKey}>
-  {titleKey}
+  <span
+    id={`typed-exp-title-${titleKey}`}
+    class="hacker-text"
+    data-final={titleKey}></span>
 </h3>
 <p
-  class="mb-4 text-base font-normal text-[rgb(200,200,200)]"
+  class="hacker-text mb-4 text-base font-normal text-[rgb(200,200,200)]"
   data-i18n={descriptionKey}
+  data-final={descriptionKey}
 >
-  {descriptionKey}
 </p>
 {
   link && (

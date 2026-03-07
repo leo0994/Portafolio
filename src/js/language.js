@@ -57,6 +57,8 @@ function toggleIdioma() {
   i18next.changeLanguage(nuevoIdioma).then(() => {
     actualizarTextos();
     actualizarBotonesIdioma();
+    // Emitir evento para que otros componentes se actualicen
+    window.dispatchEvent(new Event("languageChanged"));
     console.log("✅ Textos actualizados al idioma:", nuevoIdioma);
   }).catch((error) => {
     console.error("❌ Error al cambiar idioma:", error);

@@ -52,18 +52,18 @@ const { description, title } = Astro.props;
   </head>
   <body>
     <!-- Loading Screen con Logo Girando (Sobrepuesto) -->
-    <div id="loading-screen" class="loading-screen">
+    <div
+      id="loading-screen"
+      class="loading-screen"
+      style="position: fixed; bottom: 24px; left: 24px; z-index: 9999; display: flex; align-items: flex-end; justify-content: flex-start; width: auto; height: auto; background: none; box-shadow: none;"
+    >
       <img
         src="/Portafolio/icons/LogoPlasmaCeleste.png"
         alt="Loading..."
         class="loading-logo"
+        style="width: 32px; height: auto; margin: 0;"
       />
     </div>
-
-    <!-- Fondo interactivo con gradiente que sigue al mouse -->
-    <div class="mouse-gradient-overlay" id="mouse-gradient"></div>
-
-    <!-- Canvas para partículas -->
     <canvas id="particles-canvas"></canvas>
 
     <!-- Cursor personalizado -->
@@ -121,9 +121,6 @@ const { description, title } = Astro.props;
         </filter>
       </defs>
     </svg>
-
-    <!-- Contenedor para logos fantasmales flotantes -->
-    <div id="ghost-logos-container"></div>
 
     <Header />
     <slot />
@@ -326,7 +323,7 @@ const { description, title } = Astro.props;
         const extra = 0;
         document.documentElement.style.setProperty(
           "--anchor-offset",
-          `${h + extra}px`
+          `${h + extra}px`,
         );
       }
 
@@ -351,7 +348,7 @@ const { description, title } = Astro.props;
         console.log(
           "🚀 Intentando inicializar Typed.js... (intento " +
             (retryCount + 1) +
-            ")"
+            ")",
         );
         console.log("Typed disponible?", typeof Typed);
 
@@ -372,14 +369,14 @@ const { description, title } = Astro.props;
                 retryCount +
                 "/" +
                 maxRetries +
-                ")"
+                ")",
             );
             setTimeout(initTyped, 300);
           } else {
             console.error(
               "❌ Typed.js no se pudo cargar después de " +
                 maxRetries +
-                " intentos"
+                " intentos",
             );
           }
           return;
@@ -403,7 +400,7 @@ const { description, title } = Astro.props;
           "Desarrollador Full Stack",
           "Ingeniero de Software",
           "Desarrollador Web",
-          "Arquitecto de Soluciones",
+          "Apasionado por la tecnología",
         ];
 
         if (currentLang === "en") {
@@ -411,7 +408,7 @@ const { description, title } = Astro.props;
             "Full Stack Developer",
             "Software Engineer",
             "Web Developer",
-            "Solutions Architect",
+            "Passionate about technology",
           ];
         }
 
@@ -422,12 +419,17 @@ const { description, title } = Astro.props;
         try {
           typedInstance = new Typed("#typed-text", {
             strings: strings,
-            typeSpeed: 50,
-            backSpeed: 30,
-            backDelay: 2000,
+            typeSpeed: 25,
+            backSpeed: 15,
+            backDelay: 3500,
             loop: true,
             showCursor: true,
             cursorChar: "|",
+            onBegin: function () {
+              document
+                .getElementById("typed-text")
+                .classList.remove("invisible");
+            },
           });
 
           console.log("✅ Typed.js inicializado correctamente!", typedInstance);
@@ -446,15 +448,64 @@ const { description, title } = Astro.props;
         setTimeout(initTyped, 100);
       };
 
-      // Inicializar cuando el DOM esté listo
+      // Inicializar Typed.js en el hero
+      function initAllTyped() {
+        // Typed.js para el título 'Mis Proyectos'
+        const projectsTitle = document.getElementById("typed-projects-title");
+        if (projectsTitle) {
+          projectsTitle.textContent = "";
+          projectsTitle.classList.add("invisible");
+          const text =
+            projectsTitle.nextElementSibling?.innerText || "Mis Proyectos";
+          new Typed(projectsTitle, {
+            strings: [text],
+            typeSpeed: 50,
+            showCursor: false,
+            onBegin: function () {
+              projectsTitle.classList.remove("invisible");
+            },
+            preStringTyped: function () {
+              projectsTitle.classList.remove("invisible");
+            },
+          });
+        }
+        initTyped();
+        // Mostrar los textos normales en títulos y fechas de experiencia
+        const expTitles = [
+          "exp1_titulo",
+          "exp2_titulo",
+          "exp3_titulo",
+          "exp4_titulo",
+          "exp5_titulo",
+        ];
+        expTitles.forEach((key) => {
+          const el = document.getElementById(`typed-exp-title-${key}`);
+          if (el) {
+            el.textContent = el.nextElementSibling?.innerText || key;
+            el.classList.remove("invisible");
+          }
+        });
+        const expDates = [
+          "exp1_fecha",
+          "exp2_fecha",
+          "exp3_fecha",
+          "exp4_fecha",
+          "exp5_fecha",
+        ];
+        expDates.forEach((key) => {
+          const el = document.getElementById(`typed-exp-date-${key}`);
+          if (el) {
+            el.textContent = el.nextElementSibling?.innerText || key;
+            el.classList.remove("invisible");
+          }
+        });
+      }
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", function () {
-          console.log("📄 DOM cargado");
-          setTimeout(initTyped, 1500);
+          setTimeout(initAllTyped, 1500);
         });
       } else {
-        console.log("📄 DOM ya estaba cargado");
-        setTimeout(initTyped, 1500);
+        setTimeout(initAllTyped, 1500);
       }
 
       // Reinicializar cuando cambie el idioma
@@ -502,7 +553,7 @@ const { description, title } = Astro.props;
               "ring-2",
               "ring-white",
               "ring-offset-2",
-              "ring-offset-black/90"
+              "ring-offset-black/90",
             );
             btn.style.transform = "scale(1.05)";
 
@@ -518,7 +569,7 @@ const { description, title } = Astro.props;
               "ring-2",
               "ring-white",
               "ring-offset-2",
-              "ring-offset-black/90"
+              "ring-offset-black/90",
             );
             btn.style.transform = "scale(1)";
 
@@ -651,7 +702,7 @@ const { description, title } = Astro.props;
             0,
             x,
             y,
-            this.maxRadius
+            this.maxRadius,
           );
           this.gradient.addColorStop(0, accentPrimary);
           this.gradient.addColorStop(0.5, accentSecondary);
@@ -692,11 +743,11 @@ const { description, title } = Astro.props;
               0,
               this.x,
               this.y,
-              30
+              30,
             );
             glowGradient.addColorStop(
               0,
-              `rgba(59, 130, 246, ${this.opacity * 0.8})`
+              `rgba(59, 130, 246, ${this.opacity * 0.8})`,
             );
             glowGradient.addColorStop(1, "rgba(59, 130, 246, 0)");
 
@@ -760,7 +811,7 @@ const { description, title } = Astro.props;
             0,
             this.x,
             this.y,
-            this.size * 2
+            this.size * 2,
           );
           glowGradient.addColorStop(0, this.color);
           glowGradient.addColorStop(1, "rgba(59, 130, 246, 0)");
@@ -819,309 +870,6 @@ const { description, title } = Astro.props;
     })();
   </script>
 
-  <!-- Script de efecto de texto Scramble (estilo Digimon) -->
-  <script is:inline>
-    // @ts-nocheck
-    (function () {
-      console.log("🔤 Inicializando efecto de texto scramble estilo Digimon");
-
-      // Caracteres aleatorios para el efecto (símbolos, letras, números)
-      const chars =
-        "!<>-_\\/[]{}—=+*^?#________ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$%&";
-
-      class TextScramble {
-        constructor(el) {
-          this.el = el;
-          this.chars = chars;
-          this.update = this.update.bind(this);
-        }
-
-        setText(newText) {
-          const oldText = this.el.innerText;
-          const length = Math.max(oldText.length, newText.length);
-          const promise = new Promise((resolve) => (this.resolve = resolve));
-          this.queue = [];
-          for (let i = 0; i < length; i++) {
-            const from = oldText[i] || "";
-            const to = newText[i] || "";
-            const start = Math.floor(Math.random() * 40);
-            const end = start + Math.floor(Math.random() * 40);
-            this.queue.push({ from, to, start, end });
-          }
-          cancelAnimationFrame(this.frameRequest);
-          this.frame = 0;
-          this.update();
-          return promise;
-        }
-
-        update() {
-          let output = "";
-          let complete = 0;
-          for (let i = 0, n = this.queue.length; i < n; i++) {
-            let { from, to, start, end, char } = this.queue[i];
-            if (this.frame >= end) {
-              complete++;
-              output += to;
-            } else if (this.frame >= start) {
-              if (!char || Math.random() < 0.28) {
-                char = this.randomChar();
-                this.queue[i].char = char;
-              }
-              output += `<span class="scramble-char">${char}</span>`;
-            } else {
-              output += from;
-            }
-          }
-          this.el.innerHTML = output;
-          if (complete === this.queue.length) {
-            this.resolve();
-          } else {
-            this.frameRequest = requestAnimationFrame(this.update);
-            this.frame++;
-          }
-        }
-
-        randomChar() {
-          return this.chars[Math.floor(Math.random() * this.chars.length)];
-        }
-      }
-
-      // Función para aplicar efecto scramble a un elemento
-      function applyScrambleEffect(element, delay = 0) {
-        const originalText =
-          element.getAttribute("data-text") || element.innerText;
-        if (!element.getAttribute("data-text")) {
-          element.setAttribute("data-text", originalText);
-        }
-
-        const fx = new TextScramble(element);
-
-        setTimeout(() => {
-          // Primero mostrar símbolos aleatorios
-          const randomText = Array(originalText.length)
-            .fill(0)
-            .map(() => chars[Math.floor(Math.random() * chars.length)])
-            .join("");
-
-          element.innerText = randomText;
-
-          // Luego revelar el texto real
-          setTimeout(() => {
-            fx.setText(originalText);
-          }, 100);
-        }, delay);
-      }
-
-      // Elementos a los que NO aplicar el efecto (inputs, botones pequeños, etc)
-      const excludeSelectors = [
-        "input",
-        "textarea",
-        "button:not(.nav-link):not([data-scramble])",
-        "select",
-        ".no-scramble",
-        "script",
-        "style",
-        "svg",
-        "path",
-        "#typed-text", // Excluir el elemento de Typed.js
-        ".typed-cursor", // Excluir el cursor de Typed.js
-      ];
-
-      // Función para verificar si un elemento debe ser excluido
-      function shouldExclude(element) {
-        // Excluir si tiene el id typed-text o es hijo de un elemento con typed
-        if (element.id === "typed-text" || element.closest("#typed-text")) {
-          return true;
-        }
-
-        // Excluir si tiene clase no-scramble o está dentro de un elemento con esa clase
-        if (
-          element.classList.contains("no-scramble") ||
-          element.closest(".no-scramble")
-        ) {
-          return true;
-        }
-
-        // Excluir si tiene atributo data-typed o clase typed-cursor
-        if (
-          element.hasAttribute("data-typed") ||
-          element.classList.contains("typed-cursor")
-        ) {
-          return true;
-        }
-
-        // Excluir si es un elemento de la lista
-        for (const selector of excludeSelectors) {
-          if (element.matches(selector)) return true;
-        }
-
-        // Excluir si está dentro de un elemento excluido
-        for (const selector of excludeSelectors) {
-          if (element.closest(selector)) return true;
-        }
-
-        // Excluir textos muy cortos (menos de 2 caracteres)
-        const text = element.innerText?.trim();
-        if (!text || text.length < 2) return true;
-
-        return false;
-      }
-
-      // Aplicar efecto a todos los elementos de texto visibles
-      function scrambleAllText() {
-        // Selectores principales de texto (incluyendo nav links del header)
-        const textSelectors = [
-          "h1:not(.no-scramble)",
-          "h2:not(.no-scramble)",
-          "h3:not(.no-scramble)",
-          "h4:not(.no-scramble)",
-          "h5:not(.no-scramble)",
-          "h6:not(.no-scramble)",
-          "p:not(.no-scramble)",
-          "a.nav-link", // Links de navegación
-          "header a", // Todos los enlaces del header
-          "#language-toggle", // Botón de idioma desktop
-          "#language-toggle-mobile", // Botón de idioma móvil
-          "button[id^='language-toggle']", // Cualquier botón de idioma
-          "span:not(.scramble-char):not(.no-scramble):not(#typed-text):not(.typed-cursor)",
-          ".text-scramble",
-          "[data-scramble]",
-        ];
-
-        let delay = 0; // Empezar sin delay para que todo se anime simultáneamente
-
-        textSelectors.forEach((selector) => {
-          const elements = document.querySelectorAll(selector);
-          elements.forEach((element) => {
-            // Solo aplicar a elementos que tienen texto directo (no hijos)
-            const hasTextContent = Array.from(element.childNodes).some(
-              (node) =>
-                node.nodeType === Node.TEXT_NODE && node.textContent.trim()
-            );
-
-            if (!shouldExclude(element) && element.offsetParent !== null) {
-              applyScrambleEffect(element, delay);
-              delay += 20; // Delay muy corto para efecto casi simultáneo
-            }
-          });
-        });
-      }
-
-      // Variable para controlar si ya se ejecutó el efecto inicial
-      let initialScrambleDone = false;
-
-      // Ejecutar cuando el loading screen desaparece
-      window.addEventListener("loadingComplete", () => {
-        if (!initialScrambleDone) {
-          setTimeout(scrambleAllText, 100);
-          initialScrambleDone = true;
-        }
-      });
-
-      // Re-aplicar cuando cambia el idioma
-      window.addEventListener("languageChanged", () => {
-        setTimeout(scrambleAllText, 200);
-      });
-
-      console.log("✅ Efecto scramble estilo Digimon activado");
-    })();
-  </script>
-
-  <!-- Script de Logos Fantasmales Flotantes -->
-  <script>
-    (function () {
-      console.log("👻 Inicializando sistema de logos fantasmales");
-
-      const container = document.getElementById("ghost-logos-container");
-      const logoSrc = "/Portafolio/icons/LogoPlasmaCeleste.png";
-
-      // Configuración
-      const config = {
-        initialDelay: 2000,
-        fadeInOutInterval: 3000,
-        maxLogos: 1, // Solo 1 logo
-      };
-
-      let activeLogos = 0;
-
-      class GhostLogo {
-        element: HTMLImageElement;
-        targetOpacity: number;
-        pulseInterval: number | undefined;
-
-        constructor() {
-          this.element = document.createElement("img");
-          this.element.src = logoSrc;
-          this.element.className = "ghost-logo";
-
-          const size = 150;
-          this.element.style.width = `${size}px`;
-          this.element.style.height = `${size}px`;
-
-          // Mayor opacidad para mejor visibilidad
-          this.targetOpacity = 0.6;
-          this.element.style.opacity = "0";
-          this.element.style.transition = "opacity 2.5s ease-in-out";
-
-          // Posición inicial - centro derecha
-          this.element.style.position = "fixed";
-          this.element.style.left = "0";
-          this.element.style.top = "0";
-          this.element.style.zIndex = "10";
-
-          // Animación elegante: movimiento por toda la pantalla + giro constante
-          this.element.style.animation =
-            "ghost-elegant-float 25s ease-in-out infinite, ghost-spin-continuous 4s linear infinite";
-
-          if (container) {
-            container.appendChild(this.element);
-          }
-          activeLogos++;
-
-          // Fade in inicial más suave
-          setTimeout(() => {
-            this.element.style.opacity = String(this.targetOpacity);
-          }, 200);
-
-          // Pulsar: desvanece y aparece continuamente
-          this.startPulsing();
-        }
-
-        startPulsing() {
-          this.pulseInterval = setInterval(() => {
-            // Fade out suave
-            this.element.style.opacity = "0.2";
-
-            setTimeout(() => {
-              // Fade in suave
-              this.element.style.opacity = String(this.targetOpacity);
-            }, 2000);
-          }, 6000); // Pulsa cada 6 segundos
-        }
-
-        destroy() {
-          if (this.pulseInterval) {
-            clearInterval(this.pulseInterval);
-          }
-          if (this.element.parentNode) {
-            this.element.parentNode.removeChild(this.element);
-            activeLogos--;
-          }
-        }
-      }
-
-      // Crear un único logo permanente
-      setTimeout(() => {
-        if (activeLogos < config.maxLogos) {
-          new GhostLogo();
-          console.log("👻 Logo fantasmal único creado");
-        }
-      }, config.initialDelay);
-
-      console.log("✅ Sistema de logos fantasmales activado");
-    })();
-  </script>
-
   <!-- Script de Scroll Reveal para componentes -->
   <script is:inline>
     // @ts-nocheck
@@ -1149,7 +897,7 @@ const { description, title } = Astro.props;
       function initScrollReveal() {
         // Seleccionar elementos a revelar
         const revealElements = document.querySelectorAll(
-          "section, .experience-item, article, .project-card, h1, h2, h3"
+          "section, .experience-item, article, .project-card, h1, h2, h3",
         );
 
         revealElements.forEach((el, index) => {
@@ -1164,7 +912,7 @@ const { description, title } = Astro.props;
         });
 
         console.log(
-          `✅ ${revealElements.length} elementos configurados para reveal`
+          `✅ ${revealElements.length} elementos configurados para reveal`,
         );
       }
 

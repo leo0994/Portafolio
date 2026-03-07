@@ -2,17 +2,13 @@
   <div
     class="header-container flex justify-center py-6 w-full xl:w-[1120] items-center gap-8 md:gap-12 max-w-7xl mx-auto"
   >
-    <!-- Logo en video -->
-    <video
-      class="rounded-full border-4 border-white shadow-lg"
-      autoplay
-      loop
-      muted
-      playsinline
-    >
-      <source src="/Portafolio/videos/LogoFavorito1.mp4" type="video/mp4" />
-      Tu navegador no soporta videos.
-    </video>
+    <!-- Logo en video tipo cápsula -->
+    <div class="header-logo-container flex-shrink-0">
+      <video autoplay loop muted playsinline>
+        <source src="/Portafolio/videos/LogoFavorito1.mp4" type="video/mp4" />
+        Tu navegador no soporta videos.
+      </video>
+    </div>
 
     <!-- Botón menú hamburguesa -->
     <button id="menu-toggle" class="menu-toggle">☰</button>
@@ -176,3 +172,112 @@
     </nav>
   </div>
 </header>
+
+<script type="module">
+  import { hackerTextEffect } from "/src/js/hackerTextEffect.js";
+
+  // Función para generar texto aleatorio
+  function randomText(length) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=<>?/";
+    return Array(length)
+      .fill(0)
+      .map(() => chars[Math.floor(Math.random() * chars.length)])
+      .join("");
+  }
+
+  // Esperar a que i18next esté listo y aplicar efectos
+  function waitForI18next(callback, maxAttempts = 50) {
+    let attempts = 0;
+    const check = () => {
+      attempts++;
+      if (window.i18next && window.i18next.isInitialized) {
+        callback();
+      } else if (attempts < maxAttempts) {
+        setTimeout(check, 100);
+      }
+    };
+    check();
+  }
+
+  // Inicializar textos con scrambled (solo links de navegación)
+  function initHeaderScrambled() {
+    const navLinks = document.querySelectorAll(
+      ".nav-link[data-i18n], #desktop-nav a[data-i18n], #mobile-menu a[data-i18n]",
+    );
+    navLinks.forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const finalText = window.i18next
+        ? window.i18next.t(key)
+        : el.textContent.trim();
+      if (finalText && finalText.length > 0) {
+        el.setAttribute("data-final-text", finalText);
+        el.textContent = randomText(finalText.length);
+      }
+    });
+  }
+
+  // Aplicar efecto de revelación (solo links de navegación)
+  function applyHeaderEffect() {
+    const navLinks = document.querySelectorAll(
+      ".nav-link[data-i18n], #desktop-nav a[data-i18n], #mobile-menu a[data-i18n]",
+    );
+    navLinks.forEach((el, index) => {
+      const key = el.getAttribute("data-i18n");
+      // Usar i18next global si está disponible
+      const finalText = window.i18next
+        ? window.i18next.t(key)
+        : el.getAttribute("data-final-text");
+      if (finalText && finalText.length > 0) {
+        el.setAttribute("data-final-text", finalText);
+        setTimeout(() => {
+          hackerTextEffect(el, finalText, 800, 25);
+        }, index * 100);
+      }
+    });
+  }
+
+  // Inicializar scrambled con textos por defecto primero
+  const navLinks = document.querySelectorAll(
+    ".nav-link[data-i18n], #desktop-nav a[data-i18n], #mobile-menu a[data-i18n]",
+  );
+  navLinks.forEach((el) => {
+    const originalText = el.textContent.trim();
+    if (originalText && originalText.length > 0) {
+      el.setAttribute("data-final-text", originalText);
+      el.textContent = randomText(originalText.length);
+    }
+  });
+
+  // Esperar a i18next y aplicar efecto
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      waitForI18next(() => {
+        setTimeout(applyHeaderEffect, 100);
+      });
+    });
+  } else {
+    waitForI18next(() => {
+      setTimeout(applyHeaderEffect, 100);
+    });
+  }
+
+  // Re-aplicar cuando cambie el idioma
+  window.addEventListener("languageChanged", () => {
+    if (!window.i18next) return;
+
+    const navLinks = document.querySelectorAll(
+      ".nav-link[data-i18n], #desktop-nav a[data-i18n], #mobile-menu a[data-i18n]",
+    );
+    navLinks.forEach((el, index) => {
+      const key = el.getAttribute("data-i18n");
+      const finalText = window.i18next.t(key);
+      if (finalText && finalText.length > 0) {
+        el.setAttribute("data-final-text", finalText);
+        setTimeout(() => {
+          hackerTextEffect(el, finalText, 600, 25);
+        }, index * 50);
+      }
+    });
+  });
+</script>
