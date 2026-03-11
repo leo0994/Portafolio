@@ -19,7 +19,7 @@ const projects: Project[] = [
     titleKey: "adrianPortillaTattoo",
     descriptionKey: "proyecto_adrian_tattoo_descripcion",
     tech: ["Astro", "Prisma ORM", "Cloudinary", "Google Auth"],
-    image: `${base}icons/LogoPlasmaCeleste.png`,
+    image: `${base}icons/logo-plasma-celeste.png`,
     link: null,
     live: null,
     isPrivate: false,
@@ -41,7 +41,7 @@ const projects: Project[] = [
     titleKey: "digimonApi",
     descriptionKey: "proyecto2_descripcion",
     tech: [".NET", "API"],
-    image: `${base}imagen/digimonApi.jpg`,
+    image: `${base}imagen/digimon-api.jpg`,
     link: null,
     live: null,
     isPrivate: true,
@@ -51,7 +51,7 @@ const projects: Project[] = [
     titleKey: "TicTacToeV2",
     descriptionKey: "proyecto3_descripcion",
     tech: ["React", "Tailwind CSS"],
-    image: `${base}imagen/TicTacToeV2.jpg`,
+    image: `${base}imagen/tic-tac-toe-v2.jpg`,
     link: null,
     live: null,
     isPrivate: false,
@@ -71,7 +71,7 @@ const projects: Project[] = [
     titleKey: "RubiProyecto",
     descriptionKey: "proyecto4_descripcion",
     tech: ["Ruby on Rails", "Bootstrap"],
-    image: `${base}imagen/RubiProyecto.jpg`,
+    image: `${base}imagen/rubi-proyecto.jpg`,
     link: null,
     live: null,
     isPrivate: false,
@@ -81,7 +81,7 @@ const projects: Project[] = [
     titleKey: "TicTacToeV3",
     descriptionKey: "proyecto3_descripcion",
     tech: ["React", "Tailwind CSS"],
-    image: `${base}imagen/TicTacToeV3.jpg`,
+    image: `${base}imagen/tic-tac-toe-v3.jpg`,
     link: null,
     live: null,
     isPrivate: false,
@@ -91,7 +91,7 @@ const projects: Project[] = [
     titleKey: "TicTacToeimagenJuego",
     descriptionKey: "proyecto3_descripcion",
     tech: ["React", "Tailwind CSS"],
-    image: `${base}imagen/TicTacToeimagenJuego.jpg`,
+    image: `${base}imagen/tic-tac-toe-imagen-juego.jpg`,
     link: null,
     live: null,
     isPrivate: false,
@@ -101,7 +101,7 @@ const projects: Project[] = [
     titleKey: "PortafolioBackground",
     descriptionKey: "proyecto6_descripcion",
     tech: ["Astro", "Tailwind CSS"],
-    image: `${base}imagen/PortafolioBackground.jpg`,
+    image: `${base}imagen/portafolio-background.jpg`,
     link: null,
     live: null,
     isPrivate: false,
@@ -111,7 +111,7 @@ const projects: Project[] = [
     titleKey: "LogoPersonalV2Recortado",
     descriptionKey: "proyecto7_descripcion",
     tech: ["Diseño", "Branding"],
-    image: `${base}imagen/LogoPersonalV2Recortado.png`,
+    image: `${base}imagen/logo-personal-v2-recortado.png`,
     link: null,
     live: null,
     isPrivate: false,
@@ -121,7 +121,7 @@ const projects: Project[] = [
     titleKey: "LogoPlasmaCeleste",
     descriptionKey: "proyecto8_descripcion",
     tech: ["Diseño", "Animación"],
-    image: `${base}imagen/LogoPlasmaCeleste.png`,
+    image: `${base}imagen/logo-plasma-celeste.png`,
     link: null,
     live: null,
     isPrivate: false,
@@ -141,7 +141,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
   <!-- Título -->
   <div class="flex justify-center items-center mb-8 sm:mb-12 gap-3 sm:gap-4">
     <img
-      src={`${base}icons/LogoPlasmaCeleste.png`}
+      src={`${base}icons/logo-plasma-celeste.png`}
       alt="Logo animado"
       class="w-10 h-10 sm:w-12 sm:h-12 animate-spin-slow hover:scale-110 transition duration-300"
     />
@@ -212,7 +212,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                     alt={project.titleKey}
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
-                    onerror={`this.onerror=null; this.src='${base}icons/LogoPlasmaCeleste.png';`}
+                    onerror={`this.onerror=null; this.src='${base}icons/logo-plasma-celeste.png';`}
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 </div>
@@ -392,7 +392,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                       alt={project.titleKey}
                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
-                      onerror={`this.onerror=null; this.src='${base}icons/LogoPlasmaCeleste.png';`}
+                      onerror={`this.onerror=null; this.src='${base}icons/logo-plasma-celeste.png';`}
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   </div>
