@@ -1,3 +1,7 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
 <header>
   <div
     class="header-container flex justify-center py-6 w-full xl:w-[1120] items-center gap-8 md:gap-12 max-w-7xl mx-auto"
@@ -5,13 +9,17 @@
     <!-- Logo en video tipo cápsula -->
     <div class="header-logo-container flex-shrink-0">
       <video autoplay loop muted playsinline>
-        <source src="/Portafolio/videos/LogoFavorito1.mp4" type="video/mp4" />
+        <source src={`${base}videos/LogoFavorito1.mp4`} type="video/mp4" />
         Tu navegador no soporta videos.
       </video>
     </div>
 
     <!-- Botón menú hamburguesa -->
-    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <button id="menu-toggle" class="menu-toggle md:hidden">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
 
     <!-- Menú de navegación para escritorio -->
     <nav
@@ -88,67 +96,84 @@
       <div class="underline"></div>
     </nav>
 
-    <!-- Menú de navegación móvil -->
-    <nav
-      id="mobile-menu"
-      class="hidden fixed top-0 right-0 h-screen w-64 bg-black/90 text-white flex-col p-6 transform translate-x-full transition-transform duration-300 ease-in-out z-50"
-    >
-      <button id="close-menu" class="self-end text-2xl">✖</button>
-      <a href="#inicio" class="py-3 text-lg" data-i18n="inicio">Inicio</a>
-      <a href="#proyectos" class="py-3 text-lg" data-i18n="proyectos"
-        >Proyectos</a
-      >
-      <a href="#experiencia" class="py-3 text-lg" data-i18n="experiencia"
-        >Experiencia</a
-      >
-      <a href="#contacto" class="py-3 text-lg" data-i18n="contacto">Contacto</a>
+    <!-- Overlay para cerrar menú móvil -->
+    <div id="mobile-overlay" class="mobile-overlay"></div>
 
-      <!-- Selector de temas móvil -->
-      <div class="mt-4 pt-4 border-t border-white/20">
-        <p class="text-xs text-gray-400 mb-2">Temas</p>
-        <div class="space-y-1">
-          <button
-            data-theme-btn="default"
-            class="theme-option w-full text-left px-3 py-2 rounded text-sm text-gray-300 hover:bg-blue-500/20 hover:text-blue-300 transition flex items-center gap-2"
+    <!-- Menú de navegación móvil -->
+    <nav id="mobile-menu" class="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-logo">
+          <img
+            src={`${base}icons/LogoPlasmaCeleste.png`}
+            alt="Leo Barrantes Logo"
+            class="mobile-logo-img animate-spin-slow hover:scale-110 transition duration-300"
+          />
+          <h3 class="text-lg font-bold text-white">Menú</h3>
+        </div>
+        <button id="close-menu" class="close-menu-btn" aria-label="Cerrar menú">
+          <span class="close-icon">✕</span>
+        </button>
+      </div>
+
+      <div class="mobile-menu-content">
+        <div class="mobile-menu-links">
+          <a href="#inicio" class="mobile-nav-link" data-i18n="inicio">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">Inicio</span>
+            <span class="nav-arrow">→</span>
+          </a>
+          <a
+            href="#experiencia"
+            class="mobile-nav-link"
+            data-i18n="experiencia"
           >
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span><span
-              data-i18n="theme_default">Default</span
-            >
-          </button>
-          <button
-            data-theme-btn="solarized"
-            class="theme-option w-full text-left px-3 py-2 rounded text-sm text-gray-300 hover:bg-cyan-500/20 hover:text-cyan-300 transition flex items-center gap-2"
-          >
-            <span class="w-2 h-2 rounded-full bg-green-400"></span><span
-              data-i18n="theme_green">Verde</span
-            >
-          </button>
-          <button
-            data-theme-btn="light"
-            class="theme-option w-full text-left px-3 py-2 rounded text-sm text-gray-300 hover:bg-blue-500/20 hover:text-blue-300 transition flex items-center gap-2"
-          >
-            <span class="w-2 h-2 rounded-full bg-blue-300"></span><span
-              data-i18n="theme_light">Claro</span
-            >
-          </button>
-          <button
-            data-theme-btn="radial-slate"
-            class="theme-option w-full text-left px-3 py-2 rounded text-sm text-gray-300 hover:bg-slate-500/20 hover:text-slate-300 transition flex items-center gap-2"
-          >
-            <span class="w-2 h-2 rounded-full bg-slate-400"></span><span
-              data-i18n="theme_dark">Oscuro</span
-            >
+            <span class="nav-icon">💼</span>
+            <span class="nav-text">Experiencia</span>
+            <span class="nav-arrow">→</span>
+          </a>
+          <a href="#proyectos" class="mobile-nav-link" data-i18n="proyectos">
+            <span class="nav-icon">🚀</span>
+            <span class="nav-text">Proyectos</span>
+            <span class="nav-arrow">→</span>
+          </a>
+          <a href="#contacto" class="mobile-nav-link" data-i18n="contacto">
+            <span class="nav-icon">📧</span>
+            <span class="nav-text">Contacto</span>
+            <span class="nav-arrow">→</span>
+          </a>
+        </div>
+
+        <!-- Selector de temas móvil -->
+        <div class="mobile-themes-section">
+          <p class="mobile-section-title">🎨 Temas</p>
+          <div class="mobile-themes-list">
+            <button data-theme-btn="default" class="mobile-theme-option">
+              <span class="theme-dot" style="background: #00d9ff;"></span>
+              <span data-i18n="theme_default" class="theme-label">Default</span>
+            </button>
+            <button data-theme-btn="light" class="mobile-theme-option">
+              <span class="theme-dot" style="background: #3b82f6;"></span>
+              <span data-i18n="theme_light" class="theme-label">Claro</span>
+            </button>
+            <button data-theme-btn="solarized" class="mobile-theme-option">
+              <span class="theme-dot" style="background: #2aa198;"></span>
+              <span data-i18n="theme_green" class="theme-label">Verde</span>
+            </button>
+            <button data-theme-btn="radial-slate" class="mobile-theme-option">
+              <span class="theme-dot" style="background: #60a5fa;"></span>
+              <span data-i18n="theme_dark" class="theme-label">Oscuro</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Botón idioma móvil -->
+        <div class="mobile-language-section">
+          <p class="mobile-section-title">🌐 Idioma</p>
+          <button id="language-toggle-mobile" class="mobile-language-btn">
+            <span class="text-lg font-bold">ES / EN</span>
           </button>
         </div>
       </div>
-
-      <!-- Botón idioma móvil -->
-      <button
-        id="language-toggle-mobile"
-        class="mt-6 px-3 py-1 text-white bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition duration-300"
-      >
-        EN
-      </button>
     </nav>
   </div>
 </header>
@@ -259,5 +284,82 @@
         }, index * 50);
       }
     });
+  });
+
+  // ==================== MENÚ MÓVIL ====================
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileOverlay = document.getElementById("mobile-overlay");
+  const closeMenu = document.getElementById("close-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+  // Función para abrir el menú
+  function openMobileMenu() {
+    menuToggle.classList.add("active");
+    mobileMenu.classList.add("active");
+    mobileOverlay.classList.add("active");
+    document.body.style.overflow = "hidden"; // Prevenir scroll
+  }
+
+  // Función para cerrar el menú
+  function closeMobileMenu() {
+    menuToggle.classList.remove("active");
+    mobileMenu.classList.remove("active");
+    mobileOverlay.classList.remove("active");
+    document.body.style.overflow = ""; // Restaurar scroll
+  }
+
+  // Event listeners
+  if (menuToggle) {
+    menuToggle.addEventListener("click", openMobileMenu);
+  }
+
+  if (closeMenu) {
+    closeMenu.addEventListener("click", closeMobileMenu);
+  }
+
+  if (mobileOverlay) {
+    mobileOverlay.addEventListener("click", closeMobileMenu);
+  }
+
+  // Cerrar menú al hacer clic en un enlace con scroll suave
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+
+      closeMobileMenu();
+
+      // Scroll suave después de cerrar el menú
+      setTimeout(() => {
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 400);
+    });
+  });
+
+  // Cerrar menú con tecla ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileMenu.classList.contains("active")) {
+      closeMobileMenu();
+    }
+  });
+
+  // Cerrar menú al cambiar a modo desktop (resize)
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    // Debounce para evitar múltiples llamadas
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // Si la ventana es mayor a 768px (modo desktop) y el menú está abierto, cerrarlo
+      if (window.innerWidth > 768 && mobileMenu.classList.contains("active")) {
+        closeMobileMenu();
+      }
+    }, 100);
   });
 </script>

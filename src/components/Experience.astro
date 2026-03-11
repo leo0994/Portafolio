@@ -54,6 +54,7 @@ const EXPERIENCE = [
 
     function hackerEffect(element, finalText, duration = 1000, fps = 30) {
       if (!element || !finalText) return;
+
       const frameInterval = 1000 / fps;
       const totalFrames = Math.ceil(duration / frameInterval);
       let currentFrame = 0;
@@ -77,9 +78,12 @@ const EXPERIENCE = [
         if (currentFrame < totalFrames) {
           setTimeout(animate, frameInterval);
         } else {
+          // Asegurar que el texto final se muestre correctamente
           element.textContent = finalText;
         }
       }
+
+      // Iniciar animación inmediatamente
       animate();
     }
 
@@ -97,7 +101,7 @@ const EXPERIENCE = [
     }
 
     function scrambleExperienceTexts() {
-      if (!window.i18next) return;
+      if (!window.i18next || !window.i18next.isInitialized) return;
 
       // Scramble fechas
       document.querySelectorAll('[id^="typed-exp-date-"]').forEach((span) => {
@@ -152,12 +156,25 @@ const EXPERIENCE = [
             if (entry.isIntersecting && !entry.target.dataset.hackerApplied) {
               entry.target.dataset.hackerApplied = "true";
 
+              // Verificar que i18next esté disponible antes de aplicar efectos
+              if (!window.i18next || !window.i18next.isInitialized) return;
+
               // Efecto en fechas
               document
                 .querySelectorAll('[id^="typed-exp-date-"]')
                 .forEach((span, index) => {
-                  const finalText = span.getAttribute("data-final-text");
-                  if (finalText) {
+                  let finalText = span.getAttribute("data-final-text");
+
+                  // Si no hay texto final guardado, intentar obtenerlo de nuevo
+                  if (!finalText) {
+                    const key = span.getAttribute("data-final");
+                    if (key) {
+                      finalText = window.i18next.t(key);
+                      span.setAttribute("data-final-text", finalText);
+                    }
+                  }
+
+                  if (finalText && finalText.length > 0) {
                     setTimeout(() => {
                       hackerEffect(span, finalText, 700, 25);
                     }, index * 150);
@@ -168,8 +185,18 @@ const EXPERIENCE = [
               document
                 .querySelectorAll('[id^="typed-exp-title-"]')
                 .forEach((span, index) => {
-                  const finalText = span.getAttribute("data-final-text");
-                  if (finalText) {
+                  let finalText = span.getAttribute("data-final-text");
+
+                  // Si no hay texto final guardado, intentar obtenerlo de nuevo
+                  if (!finalText) {
+                    const key = span.getAttribute("data-final");
+                    if (key) {
+                      finalText = window.i18next.t(key);
+                      span.setAttribute("data-final-text", finalText);
+                    }
+                  }
+
+                  if (finalText && finalText.length > 0) {
                     setTimeout(
                       () => {
                         hackerEffect(span, finalText, 900, 25);
@@ -183,8 +210,18 @@ const EXPERIENCE = [
               section
                 .querySelectorAll("p.hacker-text[data-final]")
                 .forEach((p, index) => {
-                  const finalText = p.getAttribute("data-final-text");
-                  if (finalText) {
+                  let finalText = p.getAttribute("data-final-text");
+
+                  // Si no hay texto final guardado, intentar obtenerlo de nuevo
+                  if (!finalText) {
+                    const key = p.getAttribute("data-final");
+                    if (key) {
+                      finalText = window.i18next.t(key);
+                      p.setAttribute("data-final-text", finalText);
+                    }
+                  }
+
+                  if (finalText && finalText.length > 0) {
                     setTimeout(
                       () => {
                         hackerEffect(p, finalText, 1500, 15);

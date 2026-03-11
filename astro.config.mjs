@@ -6,7 +6,8 @@ import i18nConfig from "./src/i18n/config.js";
 export default defineConfig({
     output: 'static',
     site: 'https://leo0994.github.io',
-    base: '/Portafolio',
+    // Solo usar base en producción
+    base: process.env.NODE_ENV === 'production' ? '/Portafolio' : '/',
     integrations: [
         tailwind(),
         i18nextIntegration({ config: i18nConfig })

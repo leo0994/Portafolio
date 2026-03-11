@@ -8,6 +8,7 @@ import "@fontsource/work-sans/400.css";
 import Footer from "../components/Footer.astro";
 
 const { description, title } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -20,7 +21,7 @@ const { description, title } = Astro.props;
     <link
       rel="icon"
       type="image/png"
-      href="/Portafolio/icons/logoplasmaceleste.png"
+      href={`${base}icons/LogoPlasmaCeleste.png`}
     />
 
     <meta name="generator" content={Astro.generator} />
@@ -49,6 +50,49 @@ const { description, title } = Astro.props;
         }
       })();
     </script>
+
+    <!-- Script para animar el favicon giratorio -->
+    <script is:inline define:vars={{ base }}>
+      (function () {
+        const faviconPath = `${base}icons/LogoPlasmaCeleste.png`;
+        const img = new Image();
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        let angle = 0;
+        let lastTime = Date.now();
+
+        img.onload = function () {
+          canvas.width = 32;
+          canvas.height = 32;
+
+          function rotateFavicon() {
+            const now = Date.now();
+            const delta = (now - lastTime) / 1000; // segundos transcurridos
+            lastTime = now;
+
+            ctx.clearRect(0, 0, 32, 32);
+            ctx.save();
+            ctx.translate(16, 16);
+            ctx.rotate((angle * Math.PI) / 180);
+            ctx.drawImage(img, -16, -16, 32, 32);
+            ctx.restore();
+
+            const link = document.querySelector("link[rel*='icon']");
+            if (link) {
+              link.href = canvas.toDataURL();
+            }
+
+            // 45 grados por segundo = 8 segundos por rotación completa (igual que animate-spin-slow)
+            angle = (angle + 45 * delta) % 360;
+            requestAnimationFrame(rotateFavicon);
+          }
+
+          rotateFavicon();
+        };
+
+        img.src = faviconPath;
+      })();
+    </script>
   </head>
   <body>
     <!-- Loading Screen con Logo Girando (Sobrepuesto) -->
@@ -58,7 +102,7 @@ const { description, title } = Astro.props;
       style="position: fixed; bottom: 24px; left: 24px; z-index: 9999; display: flex; align-items: flex-end; justify-content: flex-start; width: auto; height: auto; background: none; box-shadow: none;"
     >
       <img
-        src="/Portafolio/icons/LogoPlasmaCeleste.png"
+        src={`${base}icons/LogoPlasmaCeleste.png`}
         alt="Loading..."
         class="loading-logo"
         style="width: 32px; height: auto; margin: 0;"
@@ -128,7 +172,7 @@ const { description, title } = Astro.props;
     <div class="h-10"></div>
   </body>
 
-  <script is:inline>
+  <script is:inline define:vars={{ base: import.meta.env.BASE_URL }}>
     document.addEventListener("DOMContentLoaded", () => {
       console.log("🚀 DOM cargado, iniciando i18next...");
 
@@ -136,10 +180,14 @@ const { description, title } = Astro.props;
       const userLang =
         savedLang || (navigator.language.startsWith("en") ? "en" : "es");
 
+      // Usar base path de Astro (se ajusta automáticamente a desarrollo/producción)
+      const basePath = base.endsWith("/") ? base.slice(0, -1) : base;
+      console.log("🔧 Base path:", basePath);
+
       // Cargar traducciones primero
       Promise.all([
-        fetch("/Portafolio/locales/es/translation.json").then((r) => r.json()),
-        fetch("/Portafolio/locales/en/translation.json").then((r) => r.json()),
+        fetch(`${basePath}/locales/es/translation.json`).then((r) => r.json()),
+        fetch(`${basePath}/locales/en/translation.json`).then((r) => r.json()),
       ])
         .then(([esData, enData]) => {
           console.log("✅ Traducciones descargadas");
@@ -394,8 +442,7 @@ const { description, title } = Astro.props;
         // Limpiar cualquier contenido previo
         typedElement.textContent = "";
 
-        // Obtener las strings traducidas
-        const currentLang = localStorage.getItem("lang") || "es";
+        // Obtener las strings traducidas desde i18next
         let strings = [
           "Desarrollador Full Stack",
           "Ingeniero de Software",
@@ -403,16 +450,25 @@ const { description, title } = Astro.props;
           "Apasionado por la tecnología",
         ];
 
-        if (currentLang === "en") {
-          strings = [
-            "Full Stack Developer",
-            "Software Engineer",
-            "Web Developer",
-            "Passionate about technology",
-          ];
+        // Intentar obtener las strings desde i18next si está disponible
+        if (window.i18next && window.i18next.isInitialized) {
+          const typedStrings = window.i18next.t("typed_strings", {
+            returnObjects: true,
+          });
+          if (Array.isArray(typedStrings) && typedStrings.length > 0) {
+            strings = typedStrings;
+            console.log("✅ Strings obtenidas de i18next:", strings);
+          } else {
+            console.warn("⚠️ No se pudieron obtener typed_strings de i18next");
+          }
+        } else {
+          console.warn(
+            "⚠️ i18next no está disponible, usando strings por defecto",
+          );
         }
 
         console.log("📝 Strings a usar:", strings);
+        const currentLang = localStorage.getItem("lang") || "es";
         console.log("🌐 Idioma actual:", currentLang);
 
         // Inicializar Typed.js

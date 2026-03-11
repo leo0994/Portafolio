@@ -1,3 +1,7 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
 <section
   id="contacto"
   class="max-w-4xl mx-auto px-6 py-16 pb-64"
@@ -5,7 +9,7 @@
 >
   <div class="flex justify-center items-center mb-8 gap-4">
     <img
-      src="/Portafolio/icons/LogoPlasmaCeleste.png"
+      src={`${base}icons/LogoPlasmaCeleste.png`}
       alt="Logo animado"
       class="w-12 h-12 animate-spin-slow hover:scale-110 transition duration-300"
     />
@@ -97,7 +101,7 @@
             const key = heading.getAttribute("data-final");
             const text =
               window.i18next.t(key) ||
-              "Trabajemos juntos hagamos realidad tu proyecto!";
+              "¡Trabajemos juntos, hagamos realidad tu proyecto!";
             heading.textContent = randomText(text.length);
             heading.classList.add("scrambled");
             heading.setAttribute("data-final-text", text);

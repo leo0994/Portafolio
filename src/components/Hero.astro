@@ -1,79 +1,10 @@
 ---
-import LinkedinInIcon from "../icons/linkedin.astro";
-import GithubInIcon from "../icons/github.astro";
-import FileCVico from "../icons/filecvico.astro";
-import SocialPill from "./SocialPill.astro";
 import SectionContainer from "./SectionContainer.astro";
+import HeroSection from "./HeroSection.astro";
 ---
 
 <SectionContainer id="inicio" class="pt-64 pb-40">
-  <div
-    class="flex flex-col items-center justify-center gap-y-8 max-w-5xl mx-auto"
-  >
-    <!-- Bloque alineado -->
-    <div class="w-full max-w-[700px] text-left">
-      <h1
-        class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 whitespace-nowrap"
-      >
-        <span class="text-gray-300">Hola, Soy </span>
-        <span
-          id="name-text"
-          class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent hacker-text"
-          data-final="Leo Barrantes"
-        >
-        </span>
-      </h1>
-
-      <div class="flex items-center mt-2 min-h-[3.5rem]">
-        <h2
-          class="text-2xl sm:text-3xl lg:text-4xl font-semibold flex items-center gap-2"
-        >
-          <span class="text-gray-300 ml-2">Soy&nbsp;</span>
-          <span id="typed-text" class="text-blue-400 invisible"></span>
-        </h2>
-      </div>
-
-      <p
-        id="description-text"
-        class="text-gray-400 text-lg sm:text-xl leading-relaxed mt-4 text-left max-w-[700px] hacker-text"
-        data-final="3+ years of experience. From San José, Costa Rica."
-        data-i18n-key="descripcion_principal"
-      >
-      </p>
-    </div>
-
-    <!-- Social Buttons -->
-    <div
-      id="social-buttons"
-      class="flex items-center justify-center gap-3 mt-4 flex-wrap"
-    >
-      <SocialPill href="https://www.linkedin.com/in/leo-barrantes-928aa122a">
-        <LinkedinInIcon class="w-6 h-6" />
-        <span class="social-text">LinkedIn</span>
-      </SocialPill>
-
-      <SocialPill href="https://github.com/leo0994">
-        <GithubInIcon class="w-6 h-6" />
-        <span class="social-text">Github</span>
-      </SocialPill>
-
-      <SocialPill
-        href="/Portafolio/cv/leobarrantescv_english.pdf"
-        target="_blank"
-      >
-        <FileCVico class="w-6 h-6" />
-        <span class="social-text">English</span>
-      </SocialPill>
-
-      <SocialPill
-        href="/Portafolio/cv/leobarrantescv_español.pdf"
-        target="_blank"
-      >
-        <FileCVico class="w-6 h-6" />
-        <span class="social-text">Spanish</span>
-      </SocialPill>
-    </div>
-  </div>
+  <HeroSection />
 </SectionContainer>
 
 <!-- Script para efecto hacker en la sección inicio - se ejecuta inmediatamente -->
@@ -154,6 +85,24 @@ import SectionContainer from "./SectionContainer.astro";
 
     // Aplicar revelación con efecto
     function applyRevealEffect() {
+      // Saludo intro
+      var saludoIntro = document.getElementById("saludo-intro");
+      if (saludoIntro && window.i18next && window.i18next.isInitialized) {
+        var translated = window.i18next.t("saludo_intro");
+        if (translated) {
+          saludoIntro.textContent = translated;
+        }
+      }
+
+      // Prefijo "Soy"
+      var soyPrefix = document.getElementById("soy-prefix");
+      if (soyPrefix && window.i18next && window.i18next.isInitialized) {
+        var translated = window.i18next.t("soy_prefix");
+        if (translated) {
+          soyPrefix.textContent = translated;
+        }
+      }
+
       // Nombre
       var nameText = document.getElementById("name-text");
       if (nameText) {
@@ -208,6 +157,25 @@ import SectionContainer from "./SectionContainer.astro";
 
     // Re-ejecutar cuando cambie el idioma
     window.addEventListener("languageChanged", function () {
+      // Actualizar saludo intro
+      var saludoIntro = document.getElementById("saludo-intro");
+      if (saludoIntro && window.i18next) {
+        var translated = window.i18next.t("saludo_intro");
+        if (translated) {
+          saludoIntro.textContent = translated;
+        }
+      }
+
+      // Actualizar prefijo "Soy"
+      var soyPrefix = document.getElementById("soy-prefix");
+      if (soyPrefix && window.i18next) {
+        var translated = window.i18next.t("soy_prefix");
+        if (translated) {
+          soyPrefix.textContent = translated;
+        }
+      }
+
+      // Actualizar descripción con efecto hacker
       var descText = document.getElementById("description-text");
       if (descText && window.i18next) {
         var i18nKey = descText.getAttribute("data-i18n-key");
