@@ -77,6 +77,8 @@
     "digimonApi": "Digimon API",
     "TicTacToeV2": "Tic-Tac-Toe V2",
     "farmacia": "Pharmacy System",
+    "gymSystem": "GYM Management System",
+    "gym_system_descripcion": "Comprehensive gym management system to handle clients, memberships, payments, and trainers. The system centralizes information and facilitates payment control with multiple methods, including planned PayPal integration.",
     "RubiProyecto": "Ruby Space Suites",
     "TicTacToeV3": "Tic-Tac-Toe V3",
     "TicTacToeimagenJuego": "Tic-Tac-Toe with Images",
