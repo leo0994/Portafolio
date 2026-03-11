@@ -65,6 +65,8 @@
   "proyecto7_descripcion": "Landing page moderna y visualmente atractiva para una finca turística en Costa Rica. Incluye galería de fotos, información de tours, integración con WhatsApp y formulario de reservas.",
   "proyecto8_descripcion": "Portafolio personal desarrollado con Astro y Tailwind CSS. Incluye efectos interactivos, animaciones y diseño responsivo.",
   "proyectoPrivado": "Proyecto Confidencial",
+  "fincaEsmeralda": "Finca Esmeralda",
+  "finca_esmeralda_descripcion": "Sitio web desarrollado con Astro para gestión turística. Incluye autenticación con Google, galería de fotos con Cloudinary y arquitectura MVC para organización del código.",
   "adrianPortillaTattoo": "Estudio de Tatuajes Adrian Portilla",
   "proyecto_adrian_tattoo_descripcion": "Sitio web profesional para tatuador en Canadá. Incluye galería de trabajos, autenticación con Google, gestión de imágenes con Cloudinary y backend robusto con Prisma ORM.",
   "mentana": "Mentana",
