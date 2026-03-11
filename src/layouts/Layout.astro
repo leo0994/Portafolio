@@ -538,7 +538,181 @@ const { description, title } = Astro.props;
         // Actualizar botones activos
         updateThemeButtons(themeName);
 
+        // Actualizar gradientes del carrusel
+        updateCarouselGradients();
+
         console.log("✅ Tema aplicado:", themeName);
+      }
+
+      function updateCarouselGradients() {
+        // Obtener el color de fondo del tema actual
+        const bgColor = getComputedStyle(document.documentElement)
+          .getPropertyValue("--bg-primary")
+          .trim();
+
+        console.log(
+          "🎨 Actualizando gradientes del carrusel con color:",
+          bgColor,
+        );
+
+        // Convertir el color HEX a RGB si es necesario
+        const rgb = hexToRgb(bgColor);
+        if (!rgb) {
+          console.warn("⚠️ No se pudo convertir el color:", bgColor);
+          return;
+        }
+
+        // Actualizar gradientes de la primera fila con gradiente mejorado
+        const leftGradients = document.querySelectorAll(
+          ".carousel-gradient-left",
+        );
+        const rightGradients = document.querySelectorAll(
+          ".carousel-gradient-right",
+        );
+
+        // Obtener el tema actual
+        const currentTheme =
+          document.documentElement.getAttribute("data-theme");
+
+        // Para temas Light y Solarized, usar gradientes más suaves y sin blur
+        const isLightOrSolarized =
+          currentTheme === "light" || currentTheme === "solarized";
+
+        if (isLightOrSolarized) {
+          // Gradientes ultra suaves con múltiples stops para evitar cortes bruscos
+          leftGradients.forEach((el) => {
+            el.style.background = `linear-gradient(to right, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 8%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.92) 18%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.82) 30%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.68) 45%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3) 75%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12) 88%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.03) 96%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0) 100%)`;
+          });
+
+          rightGradients.forEach((el) => {
+            el.style.background = `linear-gradient(to left, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 8%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.92) 18%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.82) 30%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.68) 45%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3) 75%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12) 88%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.03) 96%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0) 100%)`;
+          });
+        } else {
+          // Gradiente estándar para otros temas
+          leftGradients.forEach((el) => {
+            el.style.background = `linear-gradient(to right, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 20%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.95) 40%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.8) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5) 80%,
+              transparent 100%)`;
+          });
+
+          rightGradients.forEach((el) => {
+            el.style.background = `linear-gradient(to left, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 20%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.95) 40%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.8) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5) 80%,
+              transparent 100%)`;
+          });
+        }
+
+        // Actualizar gradientes de la segunda fila
+        const leftGradients2 = document.querySelectorAll(
+          ".carousel-gradient-left-2",
+        );
+        const rightGradients2 = document.querySelectorAll(
+          ".carousel-gradient-right-2",
+        );
+
+        if (isLightOrSolarized) {
+          // Gradientes ultra suaves para la segunda fila con múltiples stops
+          leftGradients2.forEach((el) => {
+            el.style.background = `linear-gradient(to right, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 10%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.94) 20%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.85) 32%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.72) 46%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.55) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.35) 75%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15) 87%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05) 95%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0) 100%)`;
+          });
+
+          rightGradients2.forEach((el) => {
+            el.style.background = `linear-gradient(to left, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 10%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.94) 20%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.85) 32%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.72) 46%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.55) 60%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.35) 75%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15) 87%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05) 95%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0) 100%)`;
+          });
+        } else {
+          // Gradiente estándar más denso para otros temas
+          leftGradients2.forEach((el) => {
+            el.style.background = `linear-gradient(to right, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 25%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 45%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.9) 65%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.6) 85%,
+              transparent 100%)`;
+          });
+
+          rightGradients2.forEach((el) => {
+            el.style.background = `linear-gradient(to left, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 0%, 
+              rgb(${rgb.r}, ${rgb.g}, ${rgb.b}) 25%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.98) 45%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.9) 65%,
+              rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.6) 85%,
+              transparent 100%)`;
+          });
+        }
+
+        console.log("✅ Gradientes del carrusel actualizados");
+      }
+
+      function hexToRgb(hex) {
+        // Remover espacios y #
+        hex = hex.replace(/\s/g, "").replace("#", "");
+
+        // Si es formato corto (ej: #fff), expandir a formato largo
+        if (hex.length === 3) {
+          hex = hex
+            .split("")
+            .map((c) => c + c)
+            .join("");
+        }
+
+        const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+            }
+          : null;
       }
 
       function updateThemeButtons(activeTheme) {
@@ -595,6 +769,11 @@ const { description, title } = Astro.props;
 
         // Aplicar tema inicial (ya se aplicó en el head, solo actualizamos botones)
         updateThemeButtons(savedTheme);
+
+        // Actualizar gradientes del carrusel con el tema inicial
+        setTimeout(() => {
+          updateCarouselGradients();
+        }, 100);
 
         // Agregar event listeners a los botones
         const buttons = document.querySelectorAll("[data-theme-btn]");

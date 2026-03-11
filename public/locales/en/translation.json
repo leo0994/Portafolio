@@ -81,6 +81,10 @@
     "TicTacToeimagenJuego": "Tic-Tac-Toe with Images",
     "PortafolioBackground": "Personal Portfolio",
     "LogoPersonalV2Recortado": "Personal Logo V2",
-    "LogoPlasmaCeleste": "Plasma Cyan Logo"
-  }
+  "LogoPlasmaCeleste": "Plasma Cyan Logo",
+  "theme_default": "Default",
+  "theme_light": "Light",
+  "theme_green": "Green",
+  "theme_dark": "Dark"
+}
   

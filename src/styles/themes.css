@@ -1,16 +1,16 @@
 /* Temas de colores para el portafolio */
 
-/* Tema por defecto - Slate oscuro con burbujas rosa */
+/* Tema por defecto - Slate oscuro con burbujas cyan del logo */
 :root {
   --bg-primary: #020617;
   --bg-secondary: rgba(2, 6, 23, 0.8);
   --text-primary: #ffffff;
   --text-secondary: #e0e0e0;
-  --accent-primary: #ff00b6;
-  --accent-secondary: #ff66d9;
+  --accent-primary: #00d9ff;
+  --accent-secondary: #66e7ff;
   --border-color: rgba(255, 255, 255, 0.1);
   --card-bg: rgba(15, 23, 42, 0.8);
-  --hover-bg: rgba(255, 0, 182, 0.1);
+  --hover-bg: rgba(0, 217, 255, 0.1);
 }
 
 body {
@@ -27,7 +27,7 @@ body::before {
   top: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle farthest-side, rgba(255, 0, 182, 0.15), rgba(255, 255, 255, 0));
+  background: radial-gradient(circle farthest-side, rgba(0, 217, 255, 0.15), rgba(255, 255, 255, 0));
   border-radius: 50%;
   z-index: -1;
   animation: float 20s ease-in-out infinite;
@@ -42,39 +42,18 @@ body::after {
   top: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle farthest-side, rgba(255, 0, 182, 0.15), rgba(255, 255, 255, 0));
+  background: radial-gradient(circle farthest-side, rgba(0, 217, 255, 0.15), rgba(255, 255, 255, 0));
   border-radius: 50%;
   z-index: -1;
   animation: float 15s ease-in-out infinite reverse;
   pointer-events: none;
 }
 
-/* Tema Dracula */
-[data-theme="dracula"] {
-  --bg-primary: #282a36;
-  --bg-secondary: rgba(40, 42, 54, 0.9);
-  --text-primary: #f8f8f2;
-  --text-secondary: #f8f8f2;
-  --accent-primary: #bd93f9;
-  --accent-secondary: #ff79c6;
-  --border-color: #44475a;
-  --card-bg: rgba(68, 71, 90, 0.5);
-  --hover-bg: rgba(189, 147, 249, 0.1);
-  --dracula-cyan: #8be9fd;
-  --dracula-green: #50fa7b;
-  --dracula-orange: #ffb86c;
-  --dracula-pink: #ff79c6;
-  --dracula-purple: #bd93f9;
-  --dracula-red: #ff5555;
-  --dracula-yellow: #f1fa8c;
-}
-
-[data-theme="dracula"] body {
-  background: #282a36;
-  background-image: 
-    radial-gradient(at 40% 20%, rgba(189, 147, 249, 0.2) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(255, 121, 198, 0.2) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(139, 233, 253, 0.15) 0px, transparent 50%);
+/* Círculos de la timeline en tema por defecto */
+:root ol.border-s .absolute.rounded-full,
+body ol.border-s .absolute.rounded-full {
+  background-color: #00d9ff !important;
+  border-color: #66e7ff !important;
 }
 
 /* Tema Solarized Dark */
@@ -108,87 +87,323 @@ body::after {
     radial-gradient(at 90% 80%, rgba(133, 153, 0, 0.1) 0px, transparent 50%);
 }
 
-/* Tema Matrix */
-[data-theme="matrix"] {
-  --bg-primary: #0d0208;
-  --bg-secondary: rgba(13, 2, 8, 0.95);
-  --text-primary: #00ff41;
-  --text-secondary: #00cc33;
-  --accent-primary: #00ff41;
-  --accent-secondary: #39ff14;
-  --border-color: #003b00;
-  --card-bg: rgba(0, 20, 0, 0.7);
-  --hover-bg: rgba(0, 255, 65, 0.1);
-  --matrix-bright: #39ff14;
-  --matrix-dim: #008f11;
+/* Ocultar pelotas flotantes del tema default en Solarized */
+[data-theme="solarized"] body::before,
+[data-theme="solarized"] body::after {
+  display: none !important;
 }
 
-[data-theme="matrix"] body {
-  background: #0d0208;
+/* Tema Light (Claro) */
+[data-theme="light"] {
+  --bg-primary: #f2f2f2;
+  --bg-secondary: rgba(242, 242, 242, 0.95);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #2563eb;
+  --border-color: #e2e8f0;
+  --card-bg: rgba(242, 242, 242, 0.95);
+  --hover-bg: rgba(59, 130, 246, 0.1);
+  --light-blue-50: #eff6ff;
+  --light-blue-100: #dbeafe;
+  --light-blue-500: #3b82f6;
+  --light-gray-100: #f1f5f9;
+  --light-gray-200: #e2e8f0;
+  --light-gray-700: #334155;
+  --light-gray-900: #0f172a;
+}
+
+[data-theme="light"] body {
+  background: #f2f2f2;
   background-image:
-    linear-gradient(to bottom, transparent 0%, rgba(0, 255, 65, 0.03) 100%),
-    radial-gradient(ellipse at top, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom, rgba(57, 255, 20, 0.08) 0%, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.06) 0px, transparent 50%);
   position: relative;
 }
 
-[data-theme="matrix"] body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 255, 65, 0.03) 2px,
-      rgba(0, 255, 65, 0.03) 4px
-    );
-  z-index: -1;
-  pointer-events: none;
+/* Ocultar pelotas flotantes del tema default en Light */
+[data-theme="light"] body::before,
+[data-theme="light"] body::after {
+  display: none !important;
 }
 
-/* Tema Catppuccin Mocha */
-[data-theme="catppuccin"] {
-  --bg-primary: #1e1e2e;
-  --bg-secondary: rgba(30, 30, 46, 0.9);
-  --text-primary: #cdd6f4;
-  --text-secondary: #bac2de;
-  --accent-primary: #89b4fa;
-  --accent-secondary: #b4befe;
-  --border-color: #313244;
-  --card-bg: rgba(49, 50, 68, 0.6);
-  --hover-bg: rgba(137, 180, 250, 0.1);
-  --ctp-rosewater: #f5e0dc;
-  --ctp-flamingo: #f2cdcd;
-  --ctp-pink: #f5c2e7;
-  --ctp-mauve: #cba6f7;
-  --ctp-red: #f38ba8;
-  --ctp-maroon: #eba0ac;
-  --ctp-peach: #fab387;
-  --ctp-yellow: #f9e2af;
-  --ctp-green: #a6e3a1;
-  --ctp-teal: #94e2d5;
-  --ctp-sky: #89dceb;
-  --ctp-sapphire: #74c7ec;
-  --ctp-blue: #89b4fa;
-  --ctp-lavender: #b4befe;
+/* Ajustes específicos para elementos en tema Light */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4 {
+  color: var(--text-primary) !important;
 }
 
-[data-theme="catppuccin"] body {
-  background: #1e1e2e;
-  background-image:
-    radial-gradient(at 0% 0%, rgba(137, 180, 250, 0.15) 0px, transparent 50%),
-    radial-gradient(at 50% 0%, rgba(180, 190, 254, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(245, 194, 231, 0.12) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(166, 227, 161, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 50%, rgba(250, 179, 135, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(148, 226, 213, 0.12) 0px, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(203, 166, 247, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(137, 220, 235, 0.12) 0px, transparent 50%);
+[data-theme="light"] p,
+[data-theme="light"] span {
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .text-white {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="light"] .text-gray-300,
+[data-theme="light"] .text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] article {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] article:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Estilos específicos para todos los temas */
+
+/* === TEMA SOLARIZED === */
+[data-theme="solarized"] h1,
+[data-theme="solarized"] h2,
+[data-theme="solarized"] h3,
+[data-theme="solarized"] h4 {
+  color: #839496 !important;
+}
+
+[data-theme="solarized"] .text-white {
+  color: #839496 !important;
+}
+
+[data-theme="solarized"] .text-gray-300 {
+  color: #93a1a1 !important;
+}
+
+[data-theme="solarized"] .text-gray-400 {
+  color: #657b83 !important;
+}
+
+[data-theme="solarized"] .text-cyan-400,
+[data-theme="solarized"] .text-cyan-300 {
+  color: #2aa198 !important;
+}
+
+[data-theme="solarized"] .text-blue-400 {
+  color: #268bd2 !important;
+}
+
+[data-theme="solarized"] .border-gray-400 {
+  border-color: #586e75 !important;
+}
+
+[data-theme="solarized"] article {
+  background: rgba(7, 54, 66, 0.3);
+  border-color: #073642;
+}
+
+/* Eliminar fondos oscuros de tarjetas de proyectos en tema Solarized */
+[data-theme="solarized"] section#proyectos article.bg-gradient-to-br {
+  background: #002b36;
+  background-image: none;
+  border-color: rgba(42, 161, 152, 0.25);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Ajustar bordes internos de tarjetas en tema Solarized */
+[data-theme="solarized"] section#proyectos article .border-t {
+  border-color: rgba(131, 148, 150, 0.15);
+}
+
+/* Ocultar completamente el blur/gradiente del carrusel en tema Solarized */
+[data-theme="solarized"] .carousel-gradient-left,
+[data-theme="solarized"] .carousel-gradient-right,
+[data-theme="solarized"] .carousel-gradient-left-2,
+[data-theme="solarized"] .carousel-gradient-right-2 {
+  display: none;
+}
+
+[data-theme="solarized"] .bg-white\/10,
+[data-theme="solarized"] .bg-white\/20 {
+  background-color: rgba(131, 148, 150, 0.1) !important;
+}
+
+[data-theme="solarized"] .bg-gray-900\/60 {
+  background-color: rgba(7, 54, 66, 0.6) !important;
+}
+
+[data-theme="solarized"] .bg-gradient-to-r.from-blue-400.to-cyan-300 {
+  background: linear-gradient(to right, #268bd2, #2aa198) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* Círculos de la timeline en tema Solarized */
+[data-theme="solarized"] ol.border-s .absolute.rounded-full {
+  background-color: #2aa198 !important;
+  border-color: #268bd2 !important;
+}
+
+/* === TEMA LIGHT === */
+[data-theme="light"] .text-cyan-400,
+[data-theme="light"] .text-cyan-300 {
+  color: #3b82f6 !important;
+}
+
+[data-theme="light"] .text-blue-400 {
+  color: #2563eb !important;
+}
+
+[data-theme="light"] .border-gray-400 {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .bg-cyan-500\/20 {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+[data-theme="light"] .hover\:border-cyan-500\/50:hover {
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+[data-theme="light"] .bg-white\/10,
+[data-theme="light"] .bg-white\/20 {
+  background-color: rgba(242, 242, 242, 0.7) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .bg-gray-900\/60 {
+  background-color: rgba(242, 242, 242, 0.95) !important;
+}
+
+[data-theme="light"] article {
+  background: rgba(242, 242, 242, 0.95);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Eliminar fondos oscuros de tarjetas de proyectos en tema Light */
+[data-theme="light"] section#proyectos article.bg-gradient-to-br {
+  background: #f2f2f2;
+  background-image: none;
+  border-color: rgba(59, 130, 246, 0.2);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Ajustar bordes internos de tarjetas en tema Light */
+[data-theme="light"] section#proyectos article .border-t {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Ocultar completamente el blur/gradiente del carrusel en tema Light */
+[data-theme="light"] .carousel-gradient-left,
+[data-theme="light"] .carousel-gradient-right,
+[data-theme="light"] .carousel-gradient-left-2,
+[data-theme="light"] .carousel-gradient-right-2 {
+  display: none;
+}
+
+[data-theme="light"] .bg-gradient-to-r.from-blue-400.to-cyan-300 {
+  background: linear-gradient(to right, #2563eb, #3b82f6) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* === TEMA RADIAL SLATE === */
+[data-theme="radial-slate"] h1,
+[data-theme="radial-slate"] h2,
+[data-theme="radial-slate"] h3,
+[data-theme="radial-slate"] h4 {
+  color: #f8fafc !important;
+}
+
+[data-theme="radial-slate"] .text-white {
+  color: #f8fafc !important;
+}
+
+[data-theme="radial-slate"] .text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="radial-slate"] .text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+[data-theme="radial-slate"] .text-cyan-400,
+[data-theme="radial-slate"] .text-cyan-300 {
+  color: #60a5fa !important;
+}
+
+[data-theme="radial-slate"] .text-blue-400 {
+  color: #3b82f6 !important;
+}
+
+[data-theme="radial-slate"] .border-gray-400 {
+  color: #475569 !important;
+}
+
+[data-theme="radial-slate"] article {
+  background: rgba(30, 41, 59, 0.4);
+  border-color: #334155;
+}
+
+/* Eliminar fondos oscuros de tarjetas de proyectos en tema Radial Slate */
+[data-theme="radial-slate"] section#proyectos article.bg-gradient-to-br {
+  background: #020617;
+  background-image: none;
+  border-color: rgba(96, 165, 250, 0.25);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Ajustar bordes internos de tarjetas en tema Radial Slate */
+[data-theme="radial-slate"] section#proyectos article .border-t {
+  border-color: rgba(51, 65, 85, 0.3);
+}
+
+[data-theme="radial-slate"] .bg-white\/10,
+[data-theme="radial-slate"] .bg-white\/20 {
+  background-color: rgba(248, 250, 252, 0.1) !important;
+}
+
+[data-theme="radial-slate"] .bg-gray-900\/60 {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+}
+
+[data-theme="radial-slate"] .bg-gradient-to-r.from-blue-400.to-cyan-300 {
+  background: linear-gradient(to right, #3b82f6, #60a5fa) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* Círculos de la timeline en tema Radial Slate */
+[data-theme="radial-slate"] ol.border-s .absolute.rounded-full {
+  background-color: #60a5fa !important;
+  border-color: #3b82f6 !important;
+}
+
+/* === ESTILOS GLOBALES PARA TODOS LOS TEMAS (EXCEPTO DEFAULT) === */
+[data-theme] input,
+[data-theme] textarea {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme] input::placeholder,
+[data-theme] textarea::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.7;
+}
+
+[data-theme] button {
+  transition: all 0.3s ease;
+}
+
+[data-theme] .bg-slate-900\/95 {
+  background-color: var(--card-bg) !important;
+}
+
+[data-theme] .border-pink-500\/30 {
+  border-color: var(--border-color) !important;
 }
 
 /* Tema Radial Slate */
@@ -216,16 +431,10 @@ body::after {
   overflow-x: hidden;
 }
 
-[data-theme="radial-slate"] body::before {
-  content: '';
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  background: radial-gradient(circle 500px at 50% 200px, #3e3e3e, transparent);
-  z-index: -1;
-  pointer-events: none;
+/* Ocultar pelotas flotantes del tema default en Radial Slate */
+[data-theme="radial-slate"] body::before,
+[data-theme="radial-slate"] body::after {
+  display: none !important;
 }
 
 /* Animación flotante para gradientes */
@@ -250,4 +459,124 @@ body::after {
 
 * {
   transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* === ESTILOS ADICIONALES PARA LOGOS E ÍCONOS EN TEMA LIGHT === */
+
+/* Invertir íconos SVG blancos en tema light */
+[data-theme="light"] svg[fill="currentColor"] {
+  color: #334155;
+}
+
+[data-theme="light"] .text-cyan-400 svg,
+[data-theme="light"] .text-blue-400 svg {
+  color: #3b82f6 !important;
+}
+
+/* Ajustar footer en tema light */
+[data-theme="light"] footer {
+  background: rgba(242, 242, 242, 0.95) !important;
+}
+
+[data-theme="light"] footer p,
+[data-theme="light"] footer span,
+[data-theme="light"] footer a {
+  color: #334155 !important;
+}
+
+[data-theme="light"] footer .text-gray-500 {
+  color: #64748b !important;
+}
+
+/* Cambiar color de iconos SVG en footer para tema light */
+[data-theme="light"] footer svg {
+  fill: #334155;
+}
+
+/* Menu móvil en tema light */
+[data-theme="light"] #mobile-menu {
+  background: rgba(242, 242, 242, 0.98) !important;
+}
+
+[data-theme="light"] #mobile-menu a {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] #mobile-menu .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Badges y etiquetas en tema light */
+[data-theme="light"] .bg-cyan-500\/30,
+[data-theme="light"] .bg-cyan-500\/20 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+[data-theme="light"] .text-cyan-200,
+[data-theme="light"] .text-cyan-300 {
+  color: #2563eb !important;
+}
+
+[data-theme="light"] .border-cyan-400\/50,
+[data-theme="light"] .border-cyan-500\/30 {
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Botones en tema light */
+[data-theme="light"] .bg-green-500\/20 {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+}
+
+[data-theme="light"] .text-green-300 {
+  color: #16a34a !important;
+}
+
+[data-theme="light"] .border-green-500\/50 {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+}
+
+[data-theme="light"] .bg-gray-800\/50 {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .text-gray-500 {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .border-gray-700\/50 {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Experiencia timeline en tema light */
+[data-theme="light"] .border-s {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .ms-4 time {
+  color: #64748b !important;
+}
+
+/* Círculos de la timeline en tema light - hacerlos visibles */
+[data-theme="light"] ol.border-s .absolute.rounded-full {
+  background-color: #3b82f6 !important;
+  border-color: #2563eb !important;
+}
+
+/* Social pills en tema light */
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Cambiar color de iconos y texto en social pills para tema light */
+[data-theme="light"] #social-buttons a svg {
+  fill: #0f172a;
+}
+
+[data-theme="light"] #social-buttons a span,
+[data-theme="light"] #social-buttons a .social-text {
+  color: #0f172a;
 }
