@@ -21,3 +21,8 @@
   border-color: #f2f2f2;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
+
+/* Prevent text width jitter while footer hacker effect is active */
+.footer-hacker-target.scrambled {
+  white-space: nowrap;
+}

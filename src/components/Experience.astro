@@ -169,8 +169,11 @@ const EXPERIENCE = [
                   if (!finalText) {
                     const key = span.getAttribute("data-final");
                     if (key) {
-                      finalText = window.i18next.t(key);
-                      span.setAttribute("data-final-text", finalText);
+                      const translated = window.i18next.t(key);
+                      if (translated && translated !== key) {
+                        finalText = translated;
+                        span.setAttribute("data-final-text", finalText);
+                      }
                     }
                   }
 
@@ -191,8 +194,11 @@ const EXPERIENCE = [
                   if (!finalText) {
                     const key = span.getAttribute("data-final");
                     if (key) {
-                      finalText = window.i18next.t(key);
-                      span.setAttribute("data-final-text", finalText);
+                      const translated = window.i18next.t(key);
+                      if (translated && translated !== key) {
+                        finalText = translated;
+                        span.setAttribute("data-final-text", finalText);
+                      }
                     }
                   }
 
@@ -216,8 +222,11 @@ const EXPERIENCE = [
                   if (!finalText) {
                     const key = p.getAttribute("data-final");
                     if (key) {
-                      finalText = window.i18next.t(key);
-                      p.setAttribute("data-final-text", finalText);
+                      const translated = window.i18next.t(key);
+                      if (translated && translated !== key) {
+                        finalText = translated;
+                        p.setAttribute("data-final-text", finalText);
+                      }
                     }
                   }
 
