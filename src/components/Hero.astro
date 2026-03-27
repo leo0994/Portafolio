@@ -108,7 +108,7 @@ import HeroSection from "./HeroSection.astro";
       if (nameText) {
         var finalName = nameText.getAttribute("data-final") || "Leo Barrantes";
         setTimeout(function () {
-          hackerEffect(nameText, finalName, 1200, 30);
+          hackerEffect(nameText, finalName, 1050, 30);
         }, 200);
       }
 
@@ -125,7 +125,7 @@ import HeroSection from "./HeroSection.astro";
               finalDesc = translated;
             }
           }
-          hackerEffect(descText, finalDesc, 1500, 20);
+          hackerEffect(descText, finalDesc, 1300, 20);
         }, 600);
       }
 
@@ -136,7 +136,7 @@ import HeroSection from "./HeroSection.astro";
         if (finalText) {
           setTimeout(
             function () {
-              hackerEffect(span, finalText, 700, 25);
+              hackerEffect(span, finalText, 620, 25);
             },
             500 + index * 100,
           );
@@ -182,7 +182,7 @@ import HeroSection from "./HeroSection.astro";
         if (i18nKey) {
           var finalDesc = window.i18next.t(i18nKey);
           if (finalDesc && finalDesc !== i18nKey) {
-            hackerEffect(descText, finalDesc, 800, 20);
+            hackerEffect(descText, finalDesc, 700, 20);
           }
         }
       }

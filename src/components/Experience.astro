@@ -52,6 +52,15 @@ const EXPERIENCE = [
         .join("");
     }
 
+    function randomTextFromTemplate(template) {
+      return Array.from(template)
+        .map((char) => {
+          if (/\s/.test(char)) return char;
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        })
+        .join("");
+    }
+
     function hackerEffect(element, finalText, duration = 1000, fps = 30) {
       if (!element || !finalText) return;
 
@@ -67,6 +76,8 @@ const EXPERIENCE = [
 
         for (let i = 0; i < finalText.length; i++) {
           if (i < revealedCount) {
+            displayText += finalText[i];
+          } else if (/\s/.test(finalText[i])) {
             displayText += finalText[i];
           } else {
             displayText += CHARS[Math.floor(Math.random() * CHARS.length)];
@@ -137,7 +148,7 @@ const EXPERIENCE = [
           if (key) {
             const value = window.i18next.t(key);
             if (value && value !== key) {
-              p.textContent = randomText(Math.min(value.length, 100));
+              p.textContent = randomTextFromTemplate(value);
               p.classList.add("scrambled");
               p.setAttribute("data-final-text", value);
             }
@@ -179,7 +190,7 @@ const EXPERIENCE = [
 
                   if (finalText && finalText.length > 0) {
                     setTimeout(() => {
-                      hackerEffect(span, finalText, 700, 25);
+                      hackerEffect(span, finalText, 620, 25);
                     }, index * 150);
                   }
                 });
@@ -205,7 +216,7 @@ const EXPERIENCE = [
                   if (finalText && finalText.length > 0) {
                     setTimeout(
                       () => {
-                        hackerEffect(span, finalText, 900, 25);
+                        hackerEffect(span, finalText, 780, 25);
                       },
                       index * 150 + 100,
                     );
@@ -233,7 +244,7 @@ const EXPERIENCE = [
                   if (finalText && finalText.length > 0) {
                     setTimeout(
                       () => {
-                        hackerEffect(p, finalText, 1500, 15);
+                        hackerEffect(p, finalText, 1300, 15);
                       },
                       index * 200 + 300,
                     );
@@ -242,7 +253,10 @@ const EXPERIENCE = [
             }
           });
         },
-        { threshold: 0.3 },
+        {
+          threshold: 0.01,
+          rootMargin: "0px 0px -25% 0px",
+        },
       );
 
       observer.observe(section);

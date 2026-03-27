@@ -560,6 +560,19 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
       return result;
     }
 
+    function randomTextFromTemplate(template) {
+      var result = "";
+      for (var i = 0; i < template.length; i++) {
+        var char = template[i];
+        if (/\s/.test(char)) {
+          result += char;
+        } else {
+          result += CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
+      return result;
+    }
+
     function hackerEffect(element, finalText, duration, interval) {
       if (!element || !finalText) return;
       var frame = 0;
@@ -572,6 +585,8 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
         var result = "";
         for (var i = 0; i < textLength; i++) {
           if (i < revealedCount) {
+            result += finalText[i];
+          } else if (/\s/.test(finalText[i])) {
             result += finalText[i];
           } else {
             result += CHARS[Math.floor(Math.random() * CHARS.length)];
@@ -626,7 +641,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
         var key = p.getAttribute("data-i18n");
         var value = translate(key) || key;
         p.setAttribute("data-final-text", value);
-        p.textContent = randomText(Math.min(value.length, 80)); // Mostrar texto aleatorio inicial
+        p.textContent = randomTextFromTemplate(value); // Mantener estructura del parrafo
       });
 
       // Clientes
@@ -663,7 +678,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
               if (titleSpan) {
                 var finalText = titleSpan.getAttribute("data-final-text");
                 if (finalText) {
-                  hackerEffect(titleSpan, finalText, 800, 25);
+                  hackerEffect(titleSpan, finalText, 700, 25);
                 }
               }
 
@@ -675,7 +690,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                   if (finalText) {
                     setTimeout(
                       function () {
-                        hackerEffect(h3, finalText, 700, 25);
+                        hackerEffect(h3, finalText, 620, 25);
                       },
                       index * 100 + 200,
                     );
@@ -690,7 +705,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                   if (finalText) {
                     setTimeout(
                       function () {
-                        hackerEffect(p, finalText, 1000, 15);
+                        hackerEffect(p, finalText, 850, 15);
                       },
                       index * 100 + 400,
                     );
@@ -705,7 +720,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                   if (finalText) {
                     setTimeout(
                       function () {
-                        hackerEffect(span, finalText, 600, 20);
+                        hackerEffect(span, finalText, 520, 20);
                       },
                       index * 80 + 300,
                     );
@@ -720,7 +735,7 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
                   if (finalText) {
                     setTimeout(
                       function () {
-                        hackerEffect(span, finalText, 500, 20);
+                        hackerEffect(span, finalText, 430, 20);
                       },
                       index * 50 + 500,
                     );
@@ -729,7 +744,10 @@ const extendedProjects = [...projects, ...projects.map((p) => ({ ...p }))];
             }
           });
         },
-        { threshold: 0.3 },
+        {
+          threshold: 0.01,
+          rootMargin: "0px 0px -25% 0px",
+        },
       );
 
       observer.observe(section);

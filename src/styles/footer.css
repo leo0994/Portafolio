@@ -26,3 +26,77 @@
 .footer-hacker-target.scrambled {
   white-space: nowrap;
 }
+
+.scroll-top-btn {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  color: #0ba9ff;
+  position: relative;
+  box-shadow: none;
+}
+
+.scroll-top-btn__inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 2px;
+  filter: drop-shadow(0 0 12px rgba(0, 126, 255, 0.38));
+}
+
+.scroll-top-btn__logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 160, 255, 0.65));
+}
+
+.scroll-top-btn__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 0.94;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.45px;
+  color: #2dbdff;
+  text-shadow: 0 0 8px rgba(18, 167, 245, 0.35);
+  animation: scroll-top-text-pulse 1.8s ease-in-out infinite;
+}
+
+.scroll-top-btn__text span + span {
+  margin-top: 2px;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-1px) scale(1.06);
+}
+
+.scroll-top-btn--mobile {
+  right: 12px;
+  bottom: 12px;
+}
+
+.scroll-top-btn--mobile .scroll-top-btn__logo {
+  width: 48px;
+  height: 48px;
+}
+
+.scroll-top-btn--mobile .scroll-top-btn__text {
+  font-size: 10px;
+}
+
+@keyframes scroll-top-text-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    text-shadow: 0 0 8px rgba(18, 167, 245, 0.28);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 14px rgba(18, 167, 245, 0.5);
+  }
+}
