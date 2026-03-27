@@ -1,0 +1,234 @@
+---
+interface Props {
+  size?: "md" | "sm";
+  className?: string;
+}
+
+const { size = "md", className = "" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div
+  class={`leo-dev-logo leo-dev-logo--${size} ${className}`.trim()}
+  data-leo-dev-logo
+>
+  <img
+    src={`${base}imagen/logo-plasma-celeste.png`}
+    alt="Logo Leo Barrantes"
+    class="leo-dev-logo__icon animate-spin-slow"
+  />
+  <div class="leo-dev-logo__copy">
+    <span class="leo-dev-logo__name" data-final="Leo Barrantes"
+      >Leo Barrantes</span
+    >
+    <span class="leo-dev-logo__role" data-final="Software Developer"
+      >Software Developer</span
+    >
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const CHARS =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+
+    function randomFromTemplate(text) {
+      return Array.from(text)
+        .map((char) => {
+          if (/\s/.test(char)) return char;
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        })
+        .join("");
+    }
+
+    function revealText(el, finalText, duration = 520, fps = 30) {
+      if (!el || !finalText) return;
+
+      const frameInterval = 1000 / fps;
+      const totalFrames = Math.ceil(duration / frameInterval);
+      let currentFrame = 0;
+
+      function animate() {
+        currentFrame++;
+        const progress = currentFrame / totalFrames;
+        const revealedCount = Math.floor(progress * finalText.length);
+        let result = "";
+
+        for (let i = 0; i < finalText.length; i++) {
+          if (i < revealedCount || /\s/.test(finalText[i])) {
+            result += finalText[i];
+          } else {
+            result += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+
+        el.textContent = result;
+
+        if (currentFrame < totalFrames) {
+          setTimeout(animate, frameInterval);
+        } else {
+          el.textContent = finalText;
+        }
+      }
+
+      el.textContent = randomFromTemplate(finalText);
+      animate();
+    }
+
+    function initLogoBlocks() {
+      document.querySelectorAll("[data-leo-dev-logo]").forEach((block) => {
+        if (block.dataset.logoInitialized) return;
+        block.dataset.logoInitialized = "true";
+
+        const name = block.querySelector(".leo-dev-logo__name");
+        const role = block.querySelector(".leo-dev-logo__role");
+
+        if (name) {
+          const nameFinal =
+            name.getAttribute("data-final") || name.textContent || "";
+          revealText(name, nameFinal, 560, 30);
+        }
+
+        if (role) {
+          const roleFinal =
+            role.getAttribute("data-final") || role.textContent || "";
+          setTimeout(() => {
+            revealText(role, roleFinal, 640, 30);
+          }, 90);
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initLogoBlocks);
+    } else {
+      initLogoBlocks();
+    }
+  })();
+</script>
+
+<style>
+  .leo-dev-logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 9999px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .leo-dev-logo__icon {
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(25, 178, 255, 0.52));
+    flex-shrink: 0;
+  }
+
+  .leo-dev-logo__copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.02;
+    font-family: "Inter", "Work Sans", "Onest", sans-serif;
+  }
+
+  .leo-dev-logo__name {
+    position: relative;
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 0.22px;
+    color: var(--brand-blue, #2dbdff);
+    text-shadow: 0 0 8px rgba(18, 167, 245, 0.3);
+    animation: logo-name-shimmer 2.8s ease-in-out infinite;
+  }
+
+  .leo-dev-logo__role {
+    position: relative;
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    color: rgba(202, 233, 255, 0.95);
+    text-shadow: 0 0 8px rgba(18, 167, 245, 0.16);
+    animation: logo-role-pulse 2.4s ease-in-out infinite;
+  }
+
+  .leo-dev-logo--md {
+    min-width: 228px;
+    padding: 10px 14px;
+  }
+
+  .leo-dev-logo--md .leo-dev-logo__icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .leo-dev-logo--sm {
+    min-width: 210px;
+    padding: 8px 12px;
+  }
+
+  .leo-dev-logo--sm .leo-dev-logo__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .leo-dev-logo--sm .leo-dev-logo__name {
+    font-size: 15px;
+  }
+
+  .leo-dev-logo--sm .leo-dev-logo__role {
+    font-size: 11px;
+  }
+
+  @media (max-width: 640px) {
+    .leo-dev-logo--md {
+      min-width: 194px;
+      padding: 8px 11px;
+      gap: 6px;
+    }
+
+    .leo-dev-logo--md .leo-dev-logo__icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .leo-dev-logo--md .leo-dev-logo__name {
+      font-size: 15px;
+    }
+
+    .leo-dev-logo--md .leo-dev-logo__role {
+      font-size: 11px;
+    }
+  }
+
+  @keyframes logo-name-shimmer {
+    0% {
+      opacity: 0.88;
+      text-shadow: 0 0 6px rgba(45, 189, 255, 0.18);
+    }
+    50% {
+      opacity: 1;
+      text-shadow: 0 0 12px rgba(45, 189, 255, 0.45);
+    }
+    100% {
+      opacity: 0.88;
+      text-shadow: 0 0 6px rgba(45, 189, 255, 0.18);
+    }
+  }
+
+  @keyframes logo-role-pulse {
+    0%,
+    100% {
+      opacity: 0.8;
+      transform: translateY(0);
+      text-shadow: 0 0 6px rgba(18, 167, 245, 0.12);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-0.4px);
+      text-shadow: 0 0 10px rgba(18, 167, 245, 0.24);
+    }
+  }
+</style>

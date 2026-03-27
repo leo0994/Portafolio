@@ -12,36 +12,37 @@ const base = import.meta.env.BASE_URL;
 >
   <!-- Bloque alineado -->
   <div class="w-full max-w-[700px] text-left">
-    <h1
-      class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 whitespace-nowrap"
-    >
-      <span class="text-gray-300" id="saludo-intro" data-i18n-key="saludo_intro"
+    <h1 class="hero-title mb-2 whitespace-nowrap">
+      <span
+        class="standard-body-text"
+        id="saludo-intro"
+        data-i18n-key="saludo_intro"
         >Hola, soy
       </span>
       <span
         id="name-text"
-        class="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent hacker-text"
+        class="text-[var(--brand-blue)] hacker-text"
         data-final="Leo Barrantes"
       >
       </span>
     </h1>
 
-    <div class="flex items-center mt-2 min-h-[3.5rem]">
-      <h2
-        class="text-2xl sm:text-3xl lg:text-4xl font-semibold flex items-center gap-2"
-      >
+    <div class="mt-2 min-h-[5.2rem] sm:min-h-[5.8rem]">
+      <h2 class="hero-subtitle leading-tight">
         <span
-          class="text-gray-300 ml-2"
+          class="standard-body-text ml-2"
           id="soy-prefix"
           data-i18n-key="soy_prefix">Soy&nbsp;</span
         >
-        <span id="typed-text" class="text-blue-400 invisible"></span>
+        <span
+          id="typed-text"
+          class="text-[var(--brand-blue)] invisible typed-home-text"></span>
       </h2>
     </div>
 
     <p
       id="description-text"
-      class="text-gray-400 text-lg sm:text-xl leading-relaxed mt-4 text-left max-w-[700px] hacker-text"
+      class="hero-description standard-body-text leading-relaxed mt-4 text-left max-w-[700px] hacker-text"
       data-final=""
       data-i18n-key="descripcion_principal"
     >
@@ -74,3 +75,52 @@ const base = import.meta.env.BASE_URL;
     </SocialPill>
   </div>
 </div>
+
+<style>
+  .hero-title {
+    font-family: "Inter", "Work Sans", "Onest", sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    line-height: 1.06;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-subtitle {
+    font-family: "Inter", "Work Sans", "Onest", sans-serif;
+    font-size: clamp(1.72rem, 3.8vw, 2.7rem);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: 0.008em;
+  }
+
+  .hero-description {
+    font-size: clamp(1.06rem, 1.52vw, 1.2rem);
+    font-weight: 300;
+    letter-spacing: 0.004em;
+    line-height: 1.45;
+  }
+
+  #saludo-intro,
+  #soy-prefix {
+    font-weight: 300;
+    letter-spacing: 0.005em;
+  }
+
+  #name-text,
+  #typed-text {
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .typed-home-text {
+    display: inline;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  :global(.typed-cursor) {
+    margin-left: 2px;
+    vertical-align: baseline;
+  }
+</style>

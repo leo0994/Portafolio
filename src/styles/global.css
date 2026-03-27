@@ -5,6 +5,14 @@
   color-scheme: light dark;
   /* Offset global para anclas bajo header fijo */
   --anchor-offset: 120px;
+  --leo-font-family: "Inter", "Work Sans", "Onest", sans-serif;
+  --leo-font-weight-body: 300;
+  --leo-font-weight-title: 400;
+  --brand-blue: #2dbdff;
+  --header-text-white: #f8fafc;
+  --hero-title-size: clamp(2.15rem, 4.9vw, 3.55rem);
+  --hero-subtitle-size: clamp(1.72rem, 3.9vw, 2.85rem);
+  --hero-description-size: clamp(1.12rem, 2.2vw, 1.48rem);
 }
 
 /* Tailwind CSS */
@@ -19,7 +27,7 @@ body {
   min-height: 100vh;
 
   /* El fondo se gestiona desde themes.css */
-  font-family: "Work Sans", sans-serif;
+  font-family: var(--leo-font-family);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,6 +37,31 @@ body {
   padding-right: 0;
   text-align: left;
   color: var(--text-primary);
+  font-weight: var(--leo-font-weight-body);
+}
+
+/* Unificar la misma fuente del logo en toda la UI */
+html,
+body,
+button,
+input,
+textarea,
+select,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+li,
+label,
+small,
+strong,
+em {
+  font-family: var(--leo-font-family);
 }
 
 /* Contenedor principal con max-width */
@@ -55,7 +88,7 @@ main {
 a {
   text-decoration: none;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: var(--leo-font-weight-body);
   color: white;
 }
 
@@ -84,6 +117,7 @@ section[id] {
   html {
     scroll-behavior: auto;
   }
+
   /* Animación lenta personalizada */
   @keyframes spin {
     from {
@@ -107,4 +141,37 @@ section[id] {
 
 .hacker-text.scrambled {
   opacity: 1;
+}
+
+.standard-title-text {
+  font-family: var(--leo-font-family);
+  color: var(--header-text-white);
+  font-weight: var(--leo-font-weight-title);
+  letter-spacing: 0.008em;
+}
+
+.standard-body-text {
+  font-family: var(--leo-font-family);
+  color: var(--header-text-white);
+  font-weight: var(--leo-font-weight-body);
+  letter-spacing: 0.004em;
+}
+
+:where(p, span, li, label, small, strong, em, a, button, input, textarea) {
+  font-weight: var(--leo-font-weight-body);
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  font-weight: var(--leo-font-weight-title);
+}
+
+.font-black,
+.font-extrabold,
+.font-bold,
+.font-semibold {
+  font-weight: var(--leo-font-weight-title) !important;
+}
+
+.font-medium {
+  font-weight: var(--leo-font-weight-body) !important;
 }

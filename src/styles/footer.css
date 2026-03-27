@@ -1,27 +1,3 @@
-.footer-logo-pill {
-  border-radius: 35px;
-  border: 3px solid white;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
-  width: 160px;
-  height: 65px;
-  overflow: hidden;
-  margin-left: 0;
-}
-
-.footer-logo-pill video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  display: block;
-}
-
-/* Estilos para tema Light - borde gris claro en el logo */
-[data-theme="light"] .footer-logo-pill {
-  border-color: #f2f2f2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
 /* Prevent text width jitter while footer hacker effect is active */
 .footer-hacker-target.scrambled {
   white-space: nowrap;

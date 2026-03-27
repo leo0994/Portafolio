@@ -4,7 +4,13 @@ import "../styles/global.css";
 import "../styles/themes.css";
 import "../styles/interactive-effects.css";
 import "../styles/header.css";
-import "@fontsource/work-sans/400.css";
+import "@fontsource/inter/100.css";
+import "@fontsource/inter/300.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
 import Footer from "../components/Footer.astro";
 
 const { description, title } = Astro.props;
@@ -94,7 +100,7 @@ const base = import.meta.env.BASE_URL;
       })();
     </script>
   </head>
-  <body>
+  <body class="site-text-effects">
     <!-- Loading Screen con Logo Girando (Sobrepuesto) -->
     <div
       id="loading-screen"
@@ -526,42 +532,13 @@ const base = import.meta.env.BASE_URL;
           });
         }
         initTyped();
-        // Mostrar los textos normales en títulos y fechas de experiencia
-        const expTitles = [
-          "exp1_titulo",
-          "exp2_titulo",
-          "exp3_titulo",
-          "exp4_titulo",
-          "exp5_titulo",
-        ];
-        expTitles.forEach((key) => {
-          const el = document.getElementById(`typed-exp-title-${key}`);
-          if (el) {
-            el.textContent = el.nextElementSibling?.innerText || key;
-            el.classList.remove("invisible");
-          }
-        });
-        const expDates = [
-          "exp1_fecha",
-          "exp2_fecha",
-          "exp3_fecha",
-          "exp4_fecha",
-          "exp5_fecha",
-        ];
-        expDates.forEach((key) => {
-          const el = document.getElementById(`typed-exp-date-${key}`);
-          if (el) {
-            el.textContent = el.nextElementSibling?.innerText || key;
-            el.classList.remove("invisible");
-          }
-        });
       }
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", function () {
-          setTimeout(initAllTyped, 1500);
+          setTimeout(initAllTyped, 220);
         });
       } else {
-        setTimeout(initAllTyped, 1500);
+        setTimeout(initAllTyped, 220);
       }
 
       // Reinicializar cuando cambie el idioma

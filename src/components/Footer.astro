@@ -2,6 +2,7 @@
 import Linkedin from "../icons/linkedin.astro";
 import Github from "../icons/github.astro";
 import FileCVico from "../icons/filecvico.astro";
+import LeoDeveloperLogo from "./LeoDeveloperLogo.astro";
 import "../styles/footer.css";
 
 const base = import.meta.env.BASE_URL;
@@ -200,15 +201,9 @@ const base = import.meta.env.BASE_URL;
       <div
         class="flex-1 w-full border border-white/20 rounded-xl p-6 flex flex-col lg:flex-row items-center justify-between gap-6 bg-transparent"
       >
-        <!-- Logo a la izquierda -->
-        <div class="footer-logo-pill flex-shrink-0">
-          <video autoplay loop muted playsinline>
-            <source
-              src={`${base}videos/logo-favorito-1.mp4`}
-              type="video/mp4"
-            />
-            Tu navegador no soporta videos.
-          </video>
+        <!-- Logo/Marca a la izquierda -->
+        <div class="flex-shrink-0">
+          <LeoDeveloperLogo size="sm" />
         </div>
 
         <!-- Botones centrados -->

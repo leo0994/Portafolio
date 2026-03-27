@@ -1,4 +1,5 @@
 ---
+import LeoDeveloperLogo from "./LeoDeveloperLogo.astro";
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -6,12 +7,9 @@ const base = import.meta.env.BASE_URL;
   <div
     class="header-container flex justify-center py-6 w-full xl:w-[1120] items-center gap-8 md:gap-12 max-w-7xl mx-auto"
   >
-    <!-- Logo en video tipo cápsula -->
+    <!-- Logo JS reutilizable -->
     <div class="header-logo-container flex-shrink-0">
-      <video autoplay loop muted playsinline>
-        <source src={`${base}videos/logo-favorito-1.mp4`} type="video/mp4" />
-        Tu navegador no soporta videos.
-      </video>
+      <LeoDeveloperLogo size="md" />
     </div>
 
     <!-- Botón menú hamburguesa -->

@@ -15,19 +15,17 @@ const { dateKey, titleKey, link, descriptionKey } = Astro.props;
 <div class="mb-1 flex items-center">
   <span
     id={`typed-exp-date-${dateKey}`}
-    class="hacker-text px-2 py-0.5 rounded bg-[rgb(30,30,30)] text-xs font-bold text-cyan-300 tracking-widest shadow-md"
+    class="hacker-text px-2 py-0.5 rounded bg-[rgb(30,30,30)] text-xs font-bold text-[#2dbdff] tracking-widest shadow-md"
     data-final={dateKey}></span>
 </div>
-<h3
-  class="text-lg font-semibold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent"
->
+<h3 class="text-lg font-semibold text-[#2dbdff]">
   <span
     id={`typed-exp-title-${titleKey}`}
     class="hacker-text"
     data-final={titleKey}></span>
 </h3>
 <p
-  class="hacker-text mb-4 text-base font-normal text-[rgb(200,200,200)]"
+  class="hacker-text standard-body-text mb-4 text-base"
   data-i18n={descriptionKey}
   data-final={descriptionKey}
 >
@@ -36,7 +34,7 @@ const { dateKey, titleKey, link, descriptionKey } = Astro.props;
   link && (
     <a
       href={link}
-      class="inline-flex items-center px-4 py-2 text-sm font-medium text-[rgb(240,240,240)] bg-[rgb(25,25,25)] border border-[rgb(220,220,220)] rounded-lg hover:bg-[rgb(50,50,50)] hover:text-blue-400 focus:z-10 focus:ring-4 focus:outline-none focus:ring-[rgb(100,100,100)]"
+      class="inline-flex items-center px-4 py-2 text-sm font-medium text-[rgb(240,240,240)] bg-[rgb(25,25,25)] border border-[rgb(220,220,220)] rounded-lg hover:bg-[rgb(50,50,50)] hover:text-[#2dbdff] focus:z-10 focus:ring-4 focus:outline-none focus:ring-[rgb(100,100,100)]"
     >
       Saber más...
       <svg
