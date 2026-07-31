@@ -88,6 +88,11 @@
   "proyectos_filtro_todos": "Todos",
   "proyectos_filtro_cliente": "Con cliente",
   "proyectos_filtro_propio": "Propios",
-  "proyectos_cliente_label": "Cliente"
+  "proyectos_cliente_label": "Cliente",
+  "ver_frontend": "Ver Frontend",
+  "ver_backend": "Ver Backend",
+  "proyectoEnDesarrollo": "En Desarrollo",
+  "fintrack": "Fintrack",
+  "fintrack_descripcion": "Proyecto personal en desarrollo — más detalles próximamente."
 }
   

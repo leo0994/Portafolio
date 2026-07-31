@@ -6,11 +6,12 @@ type Project = {
   descriptionKey: string;
   tech: string[];
   images: string[];
-  link: string | null;
+  links: { labelKey: string; url: string }[];
   live: string | null;
   isPrivate: boolean;
   category: "cliente" | "propio";
   client?: string;
+  inProgress?: boolean;
 };
 
 const projects: Project[] = [
@@ -19,7 +20,7 @@ const projects: Project[] = [
     descriptionKey: "finca_esmeralda_descripcion",
     tech: ["Astro", "Google Auth", "Cloudinary", "MVC"],
     images: [`${base}imagen/finca-esmeralda.jpg`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: false,
     category: "cliente",
@@ -30,7 +31,7 @@ const projects: Project[] = [
     descriptionKey: "proyecto_adrian_tattoo_descripcion",
     tech: ["Astro", "Prisma ORM", "Cloudinary", "Google Auth"],
     images: [`${base}imagen/adrian-tatuajes.png`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: false,
     category: "cliente",
@@ -41,7 +42,16 @@ const projects: Project[] = [
     descriptionKey: "proyecto1_descripcion",
     tech: ["Spring Boot", "Angular"],
     images: [`${base}imagen/mentana.jpg`],
-    link: null,
+    links: [
+      {
+        labelKey: "ver_frontend",
+        url: "https://github.com/javier25arroyo/CodeCrafters-FrontEnd",
+      },
+      {
+        labelKey: "ver_backend",
+        url: "https://github.com/javier25arroyo/CodeCrafters-BackEnd",
+      },
+    ],
     live: null,
     isPrivate: false,
     category: "cliente",
@@ -52,17 +62,28 @@ const projects: Project[] = [
     descriptionKey: "gym_system_descripcion",
     tech: ["C#", ".NET", "SQL Server", "Azure SQL"],
     images: [`${base}imagen/gym-system-cover.svg`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: true,
     category: "cliente",
+  },
+  {
+    titleKey: "fintrack",
+    descriptionKey: "fintrack_descripcion",
+    tech: [],
+    images: [`${base}imagen/fintrack-cover.svg`],
+    links: [],
+    live: null,
+    isPrivate: false,
+    category: "propio",
+    inProgress: true,
   },
   {
     titleKey: "digimonApi",
     descriptionKey: "proyecto2_descripcion",
     tech: [".NET", "API"],
     images: [`${base}imagen/digimon-api.jpg`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: true,
     category: "propio",
@@ -76,7 +97,7 @@ const projects: Project[] = [
       `${base}imagen/tic-tac-toe-v2.jpg`,
       `${base}imagen/tic-tac-toe-imagen-juego.jpg`,
     ],
-    link: null,
+    links: [],
     live: null,
     isPrivate: false,
     category: "propio",
@@ -86,7 +107,7 @@ const projects: Project[] = [
     descriptionKey: "proyecto5_descripcion",
     tech: ["Spring Boot", "MVC"],
     images: [`${base}imagen/farmacia.jpg`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: true,
     category: "propio",
@@ -96,7 +117,7 @@ const projects: Project[] = [
     descriptionKey: "proyecto4_descripcion",
     tech: ["Ruby on Rails", "Bootstrap"],
     images: [`${base}imagen/rubi-proyecto.jpg`],
-    link: null,
+    links: [],
     live: null,
     isPrivate: false,
     category: "propio",
@@ -169,6 +190,12 @@ const projects: Project[] = [
         >
           Proyecto Confidencial
         </span>
+        <span
+          data-proyecto-progreso
+          class="proyecto-badge-progreso hidden text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+        >
+          🚧 <span data-i18n="proyectoEnDesarrollo">En Desarrollo</span>
+        </span>
       </div>
 
       <p data-proyecto-cliente class="hidden text-xs text-[#2dbdff] font-medium mt-1"></p>
@@ -176,16 +203,8 @@ const projects: Project[] = [
 
       <div class="flex flex-wrap gap-2 mt-4" data-proyecto-tech></div>
 
-      <div class="flex items-center gap-x-6 mt-6 min-h-[1.75rem]">
-        <a
-          data-proyecto-link
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hidden text-[#2dbdff] hover:brightness-125 font-semibold"
-        >
-          🔗 <span data-i18n="codigoFuente">Código Fuente</span>
-        </a>
+      <div class="flex items-center gap-x-6 gap-y-2 mt-6 min-h-[1.75rem] flex-wrap">
+        <div data-proyecto-links class="flex items-center gap-x-6 gap-y-2 flex-wrap"></div>
         <a
           data-proyecto-live
           href="#"
@@ -214,11 +233,14 @@ const projects: Project[] = [
           aria-selected={i === 0 ? "true" : "false"}
           class="proyecto-tab shrink-0 md:shrink text-left px-4 py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition whitespace-nowrap md:whitespace-normal"
         >
-          <span class="block text-sm font-semibold text-white" data-i18n={project.titleKey}>
-            {project.titleKey}
+          <span class="flex items-center gap-1.5 text-sm font-semibold text-white">
+            <span data-i18n={project.titleKey}>{project.titleKey}</span>
+            {project.inProgress && (
+              <span class="proyecto-tab-dot" title="En desarrollo" />
+            )}
           </span>
           <span class="hidden md:block text-xs text-gray-400 mt-0.5">
-            {project.client ?? project.tech[0]}
+            {project.client ?? project.tech[0] ?? ""}
           </span>
         </button>
       ))}
@@ -236,16 +258,63 @@ const projects: Project[] = [
     border-color: rgba(45, 189, 255, 0.5);
     color: white;
   }
+
+  @keyframes proyecto-pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 5px rgba(52, 211, 153, 0);
+    }
+  }
+
+  .proyecto-badge-progreso {
+    animation: proyecto-pulse-glow 2s ease-in-out infinite;
+  }
+
+  .proyecto-tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #34d399;
+    animation: proyecto-pulse-glow 1.6s ease-in-out infinite;
+  }
+
+  @keyframes proyecto-shimmer-sweep {
+    0% {
+      transform: translateX(-120%) skewX(-15deg);
+    }
+    100% {
+      transform: translateX(220%) skewX(-15deg);
+    }
+  }
+
+  .proyecto-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 35%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.22),
+      transparent
+    );
+    animation: proyecto-shimmer-sweep 2.5s ease-in-out infinite;
+    pointer-events: none;
+  }
 </style>
 
 <script define:vars={{ projects }}>
   const panelFotos = document.querySelector("[data-proyecto-fotos]");
   const titulo = document.querySelector("[data-proyecto-titulo]");
   const privadoBadge = document.querySelector("[data-proyecto-privado]");
+  const progresoBadge = document.querySelector("[data-proyecto-progreso]");
   const clienteLine = document.querySelector("[data-proyecto-cliente]");
   const desc = document.querySelector("[data-proyecto-desc]");
   const techWrap = document.querySelector("[data-proyecto-tech]");
-  const linkCodigo = document.querySelector("[data-proyecto-link]");
+  const linksWrap = document.querySelector("[data-proyecto-links]");
   const linkDemo = document.querySelector("[data-proyecto-live]");
   const tabs = Array.from(document.querySelectorAll(".proyecto-tab"));
   const filtros = Array.from(document.querySelectorAll(".proyecto-filtro"));
@@ -261,18 +330,19 @@ const projects: Project[] = [
     return null;
   }
 
-  function mosaicMarkup(images, title) {
+  function mosaicMarkup(images, title, inProgress) {
     const cellClass = "h-full w-full object-cover rounded-xl";
+    const shimmerClass = inProgress ? "proyecto-shimmer" : "";
     if (images.length <= 1) {
-      return `<div class="h-72 sm:h-80"><img src="${images[0]}" alt="${title}" class="${cellClass}" /></div>`;
+      return `<div class="relative overflow-hidden rounded-xl h-72 sm:h-80 ${shimmerClass}"><img src="${images[0]}" alt="${title}" class="${cellClass}" /></div>`;
     }
     if (images.length === 2) {
-      return `<div class="grid grid-cols-2 gap-2 h-72 sm:h-80">${images
+      return `<div class="relative overflow-hidden grid grid-cols-2 gap-2 h-72 sm:h-80 ${shimmerClass}">${images
         .map((src) => `<img src="${src}" alt="${title}" class="${cellClass}" />`)
         .join("")}</div>`;
     }
     const [first, ...rest] = images;
-    return `<div class="grid grid-cols-2 grid-rows-2 gap-2 h-72 sm:h-80">
+    return `<div class="relative overflow-hidden grid grid-cols-2 grid-rows-2 gap-2 h-72 sm:h-80 ${shimmerClass}">
       <img src="${first}" alt="${title}" class="row-span-2 ${cellClass}" />
       ${rest
         .slice(0, 2)
@@ -289,7 +359,7 @@ const projects: Project[] = [
 
     panelFotos.style.opacity = "0";
     window.setTimeout(() => {
-      panelFotos.innerHTML = mosaicMarkup(project.images, title);
+      panelFotos.innerHTML = mosaicMarkup(project.images, title, project.inProgress);
       panelFotos.style.opacity = "1";
     }, 120);
 
@@ -297,6 +367,7 @@ const projects: Project[] = [
     desc.textContent = description;
 
     privadoBadge.classList.toggle("hidden", !project.isPrivate);
+    progresoBadge.classList.toggle("hidden", !project.inProgress);
 
     if (project.client) {
       clienteLine.textContent = `${translate("proyectos_cliente_label") || "Cliente"}: ${project.client}`;
@@ -312,12 +383,12 @@ const projects: Project[] = [
       )
       .join("");
 
-    if (project.link) {
-      linkCodigo.href = project.link;
-      linkCodigo.classList.remove("hidden");
-    } else {
-      linkCodigo.classList.add("hidden");
-    }
+    linksWrap.innerHTML = project.links
+      .map((link) => {
+        const label = translate(link.labelKey) || link.labelKey;
+        return `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="text-[#2dbdff] hover:brightness-125 font-semibold">🔗 <span>${label}</span></a>`;
+      })
+      .join("");
 
     if (project.live) {
       linkDemo.href = project.live;
@@ -375,5 +446,20 @@ const projects: Project[] = [
 
   window.addEventListener("languageChanged", () => render(currentIndex));
 
-  render(0);
+  function waitForI18next(callback, maxAttempts = 50) {
+    let attempts = 0;
+    const check = () => {
+      attempts++;
+      if (window.i18next && window.i18next.isInitialized) {
+        callback();
+      } else if (attempts < maxAttempts) {
+        setTimeout(check, 100);
+      } else {
+        callback();
+      }
+    };
+    check();
+  }
+
+  waitForI18next(() => render(0));
 </script>

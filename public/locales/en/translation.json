@@ -92,6 +92,11 @@
   "proyectos_filtro_todos": "All",
   "proyectos_filtro_cliente": "Client work",
   "proyectos_filtro_propio": "Personal",
-  "proyectos_cliente_label": "Client"
+  "proyectos_cliente_label": "Client",
+  "ver_frontend": "View Frontend",
+  "ver_backend": "View Backend",
+  "proyectoEnDesarrollo": "In Progress",
+  "fintrack": "Fintrack",
+  "fintrack_descripcion": "Personal project in progress — more details coming soon."
 }
   
