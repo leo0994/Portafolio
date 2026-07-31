@@ -133,28 +133,6 @@ nav a:hover {
 
 /* === ESTILOS DE HEADER PARA DIFERENTES TEMAS === */
 
-/* Tema Solarized */
-[data-theme="solarized"] header {
-  background: rgba(0, 43, 54, 0.7);
-}
-
-[data-theme="solarized"] nav a,
-[data-theme="solarized"] .nav-link {
-  color: #839496 !important;
-}
-
-[data-theme="solarized"] .menu-toggle {
-  color: #839496;
-}
-
-[data-theme="solarized"] .bg-slate-900\/95 {
-  background-color: rgba(0, 43, 54, 0.95) !important;
-}
-
-[data-theme="solarized"] .border-pink-500\/30 {
-  border-color: rgba(42, 161, 152, 0.3) !important;
-}
-
 /* Tema Light */
 [data-theme="light"] header {
   background: rgba(242, 242, 242, 0.85);
@@ -915,57 +893,6 @@ nav a:hover {
 
 [data-theme="light"] .mobile-language-btn::before {
   background: rgba(59, 130, 246, 0.3);
-}
-
-[data-theme="solarized"] .mobile-menu {
-  background: linear-gradient(135deg, rgba(0, 43, 54, 0.98) 0%, rgba(7, 54, 66, 0.98) 100%);
-}
-
-[data-theme="solarized"] .mobile-menu-header {
-  border-bottom-color: rgba(42, 161, 152, 0.2);
-}
-
-[data-theme="solarized"] .mobile-nav-link:hover,
-[data-theme="solarized"] .mobile-nav-link:active {
-  color: #2aa198;
-  background: rgba(42, 161, 152, 0.12);
-  border-color: rgba(42, 161, 152, 0.3);
-}
-
-[data-theme="solarized"] .mobile-nav-link::before {
-  background: linear-gradient(180deg, #2aa198 0%, #268bd2 100%);
-}
-
-[data-theme="solarized"] .nav-arrow {
-  color: #2aa198;
-}
-
-[data-theme="solarized"] .mobile-themes-section,
-[data-theme="solarized"] .mobile-language-section {
-  border-top-color: rgba(42, 161, 152, 0.15);
-}
-
-[data-theme="solarized"] .mobile-theme-option:hover,
-[data-theme="solarized"] .mobile-theme-option:active {
-  background: rgba(42, 161, 152, 0.12);
-  border-color: rgba(42, 161, 152, 0.35);
-  box-shadow: 0 4px 12px rgba(42, 161, 152, 0.15);
-}
-
-[data-theme="solarized"] .mobile-language-btn {
-  background: linear-gradient(135deg, rgba(42, 161, 152, 0.08) 0%, rgba(38, 139, 210, 0.08) 100%);
-  border-color: rgba(42, 161, 152, 0.2);
-}
-
-[data-theme="solarized"] .mobile-language-btn:hover,
-[data-theme="solarized"] .mobile-language-btn:active {
-  background: linear-gradient(135deg, rgba(42, 161, 152, 0.18) 0%, rgba(38, 139, 210, 0.18) 100%);
-  border-color: rgba(42, 161, 152, 0.4);
-  box-shadow: 0 8px 20px rgba(42, 161, 152, 0.3);
-}
-
-[data-theme="solarized"] .mobile-language-btn::before {
-  background: rgba(42, 161, 152, 0.3);
 }
 
 [data-theme="radial-slate"] .mobile-menu {

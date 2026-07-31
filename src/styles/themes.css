@@ -56,43 +56,6 @@ body ol.border-s .absolute.rounded-full {
   border-color: #66e7ff !important;
 }
 
-/* Tema Solarized Dark */
-[data-theme="solarized"] {
-  --bg-primary: #002b36;
-  --bg-secondary: rgba(0, 43, 54, 0.9);
-  --text-primary: #839496;
-  --text-secondary: #93a1a1;
-  --accent-primary: #268bd2;
-  --accent-secondary: #2aa198;
-  --border-color: #073642;
-  --card-bg: rgba(7, 54, 66, 0.6);
-  --hover-bg: rgba(38, 139, 210, 0.1);
-  --solarized-cyan: #2aa198;
-  --solarized-blue: #268bd2;
-  --solarized-green: #859900;
-  --solarized-yellow: #b58900;
-  --solarized-orange: #cb4b16;
-  --solarized-red: #dc322f;
-  --solarized-magenta: #d33682;
-  --solarized-violet: #6c71c4;
-}
-
-[data-theme="solarized"] body {
-  background: #002b36;
-  background-image:
-    radial-gradient(at 27% 37%, rgba(38, 139, 210, 0.12) 0px, transparent 50%),
-    radial-gradient(at 97% 21%, rgba(42, 161, 152, 0.12) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, rgba(108, 113, 196, 0.12) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, rgba(181, 137, 0, 0.1) 0px, transparent 50%),
-    radial-gradient(at 90% 80%, rgba(133, 153, 0, 0.1) 0px, transparent 50%);
-}
-
-/* Ocultar pelotas flotantes del tema default en Solarized */
-[data-theme="solarized"] body::before,
-[data-theme="solarized"] body::after {
-  display: none !important;
-}
-
 /* Tema Light (Claro) */
 [data-theme="light"] {
   --bg-primary: #f2f2f2;
@@ -161,86 +124,6 @@ body ol.border-s .absolute.rounded-full {
 
 /* Estilos específicos para todos los temas */
 
-/* === TEMA SOLARIZED === */
-[data-theme="solarized"] h1,
-[data-theme="solarized"] h2,
-[data-theme="solarized"] h3,
-[data-theme="solarized"] h4 {
-  color: #839496 !important;
-}
-
-[data-theme="solarized"] .text-white {
-  color: #839496 !important;
-}
-
-[data-theme="solarized"] .text-gray-300 {
-  color: #93a1a1 !important;
-}
-
-[data-theme="solarized"] .text-gray-400 {
-  color: #657b83 !important;
-}
-
-[data-theme="solarized"] .text-cyan-400,
-[data-theme="solarized"] .text-cyan-300 {
-  color: #2aa198 !important;
-}
-
-[data-theme="solarized"] .text-blue-400 {
-  color: #268bd2 !important;
-}
-
-[data-theme="solarized"] .border-gray-400 {
-  border-color: #586e75 !important;
-}
-
-[data-theme="solarized"] article {
-  background: rgba(7, 54, 66, 0.3);
-  border-color: #073642;
-}
-
-/* Galería de proyectos (panel + lista) en tema Solarized */
-[data-theme="solarized"] [data-proyecto-panel] {
-  background: rgba(7, 54, 66, 0.5) !important;
-  border-color: #073642 !important;
-}
-
-[data-theme="solarized"] .proyecto-tab {
-  border-color: #073642 !important;
-}
-
-[data-theme="solarized"] .proyecto-tab[aria-selected="true"],
-[data-theme="solarized"] .proyecto-filtro[aria-pressed="true"] {
-  background-color: rgba(38, 139, 210, 0.18) !important;
-  border-color: rgba(38, 139, 210, 0.5) !important;
-}
-
-[data-theme="solarized"] [data-proyecto-cliente],
-[data-theme="solarized"] [data-proyecto-links] a {
-  color: #2aa198 !important;
-}
-
-[data-theme="solarized"] .bg-white\/10,
-[data-theme="solarized"] .bg-white\/20 {
-  background-color: rgba(131, 148, 150, 0.1) !important;
-}
-
-[data-theme="solarized"] .bg-gray-900\/60 {
-  background-color: rgba(7, 54, 66, 0.6) !important;
-}
-
-[data-theme="solarized"] .bg-gradient-to-r.from-blue-400.to-cyan-300 {
-  background: linear-gradient(to right, #268bd2, #2aa198) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-}
-
-/* Círculos de la timeline en tema Solarized */
-[data-theme="solarized"] ol.border-s .absolute.rounded-full {
-  background-color: #2aa198 !important;
-  border-color: #268bd2 !important;
-}
-
 /* === TEMA LIGHT === */
 [data-theme="light"] .text-cyan-400,
 [data-theme="light"] .text-cyan-300 {
@@ -290,13 +173,24 @@ body ol.border-s .absolute.rounded-full {
 
 [data-theme="light"] .proyecto-tab[aria-selected="true"],
 [data-theme="light"] .proyecto-filtro[aria-pressed="true"] {
-  background-color: rgba(59, 130, 246, 0.15) !important;
-  border-color: rgba(59, 130, 246, 0.4) !important;
+  background-color: rgba(46, 162, 218, 0.15) !important;
+  border-color: rgba(46, 162, 218, 0.45) !important;
 }
 
 [data-theme="light"] [data-proyecto-cliente],
 [data-theme="light"] [data-proyecto-links] a {
-  color: #2563eb !important;
+  color: #2380a5 !important;
+}
+
+/* Fechas de la línea de tiempo de Experiencia ("Actualmente", "2024"...)
+   en tema Light: el fondo casi negro no combinaba con el resto de la
+   pagina. Usa el mismo tratamiento "pastilla azul" que el proyecto
+   seleccionado en la galeria de Proyectos. */
+[data-theme="light"] #experiencia [id^="typed-exp-date-"] {
+  background-color: rgba(46, 162, 218, 0.15) !important;
+  border: 1px solid rgba(46, 162, 218, 0.4) !important;
+  color: #0e7490 !important;
+  box-shadow: none !important;
 }
 
 [data-theme="light"] [data-proyecto-tech] span,
@@ -607,19 +501,6 @@ body::after {
 
 [data-theme="light"] .leo-dev-logo__icon {
   filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.3)) !important;
-}
-
-[data-theme="solarized"] .leo-dev-logo__name {
-  color: #268bd2 !important;
-  text-shadow: 0 0 8px rgba(38, 139, 210, 0.25) !important;
-}
-
-[data-theme="solarized"] .leo-dev-logo__role {
-  color: #93a1a1 !important;
-}
-
-[data-theme="solarized"] .leo-dev-logo__icon {
-  filter: drop-shadow(0 0 8px rgba(42, 161, 152, 0.45)) !important;
 }
 
 [data-theme="radial-slate"] .leo-dev-logo__name {

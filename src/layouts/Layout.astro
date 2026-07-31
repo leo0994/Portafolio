@@ -607,9 +607,8 @@ const base = import.meta.env.BASE_URL;
         const currentTheme =
           document.documentElement.getAttribute("data-theme");
 
-        // Para temas Light y Solarized, usar gradientes más suaves y sin blur
-        const isLightOrSolarized =
-          currentTheme === "light" || currentTheme === "solarized";
+        // Para tema Light, usar gradientes más suaves y sin blur
+        const isLightOrSolarized = currentTheme === "light";
 
         if (isLightOrSolarized) {
           // Gradientes ultra suaves con múltiples stops para evitar cortes bruscos
