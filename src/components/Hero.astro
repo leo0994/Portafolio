@@ -83,6 +83,24 @@ import HeroSection from "./HeroSection.astro";
       });
     }
 
+    // Espera a que i18next esté listo (con reintentos) antes de revelar
+    // textos traducidos; si tarda demasiado, revela igual con el fallback
+    // en español para que el texto nunca quede scrambled para siempre.
+    function waitForI18next(callback, maxAttempts = 30) {
+      let attempts = 0;
+      const check = () => {
+        attempts++;
+        if (window.i18next && window.i18next.isInitialized) {
+          callback();
+        } else if (attempts < maxAttempts) {
+          setTimeout(check, 100);
+        } else {
+          callback();
+        }
+      };
+      check();
+    }
+
     // Aplicar revelación con efecto
     function applyRevealEffect() {
       // Saludo intro
@@ -115,10 +133,10 @@ import HeroSection from "./HeroSection.astro";
       // Descripción - usar traducción si está disponible
       var descText = document.getElementById("description-text");
       if (descText) {
-        var finalDesc = descText.getAttribute("data-final");
         var i18nKey = descText.getAttribute("data-i18n-key");
 
-        setTimeout(function () {
+        waitForI18next(function () {
+          var finalDesc = descText.getAttribute("data-final");
           if (window.i18next && window.i18next.isInitialized && i18nKey) {
             var translated = window.i18next.t(i18nKey);
             if (translated && translated !== i18nKey) {
@@ -126,7 +144,7 @@ import HeroSection from "./HeroSection.astro";
             }
           }
           hackerEffect(descText, finalDesc, 1300, 20);
-        }, 600);
+        });
       }
 
       // Botones sociales

@@ -137,6 +137,21 @@ const base = import.meta.env.BASE_URL;
           }
         }
 
+        function revealFooterTexts(footer) {
+          if (footer.dataset.hackerApplied) return;
+          footer.dataset.hackerApplied = "true";
+
+          const targets = footer.querySelectorAll("span[data-i18n]");
+          targets.forEach((el, index) => {
+            const finalText = el.getAttribute("data-final-text");
+            if (finalText && finalText.length > 0) {
+              setTimeout(() => {
+                hackerEffect(el, finalText, 700, 25);
+              }, index * 100);
+            }
+          });
+        }
+
         function setupFooterObserver() {
           const footer = document.querySelector("footer");
           if (!footer) return;
@@ -148,31 +163,27 @@ const base = import.meta.env.BASE_URL;
           footerObserver = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
-                if (
-                  entry.isIntersecting &&
-                  !entry.target.dataset.hackerApplied
-                ) {
-                  entry.target.dataset.hackerApplied = "true";
-
-                  const targets = footer.querySelectorAll("span[data-i18n]");
-                  targets.forEach((el, index) => {
-                    const finalText = el.getAttribute("data-final-text");
-                    if (finalText && finalText.length > 0) {
-                      setTimeout(() => {
-                        hackerEffect(el, finalText, 700, 25);
-                      }, index * 100);
-                    }
-                  });
+                if (entry.isIntersecting) {
+                  revealFooterTexts(footer);
                 }
               });
             },
             {
-              threshold: 0.01,
-              rootMargin: "0px 0px -25% 0px",
+              threshold: 0,
+              rootMargin: "0px 0px 200px 0px",
             },
           );
 
           footerObserver.observe(footer);
+
+          // Respaldo: si el footer ya está visible al momento de observar
+          // (o si por lo que sea el observer nunca reporta intersección),
+          // igual revelamos el texto real en vez de dejarlo scrambled.
+          const rect = footer.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            revealFooterTexts(footer);
+          }
+          setTimeout(() => revealFooterTexts(footer), 4000);
         }
 
         function init() {

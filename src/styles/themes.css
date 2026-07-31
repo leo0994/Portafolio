@@ -199,26 +199,25 @@ body ol.border-s .absolute.rounded-full {
   border-color: #073642;
 }
 
-/* Eliminar fondos oscuros de tarjetas de proyectos en tema Solarized */
-[data-theme="solarized"] section#proyectos article.bg-gradient-to-br {
-  background: #002b36;
-  background-image: none;
-  border-color: rgba(42, 161, 152, 0.25);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+/* Galería de proyectos (panel + lista) en tema Solarized */
+[data-theme="solarized"] [data-proyecto-panel] {
+  background: rgba(7, 54, 66, 0.5) !important;
+  border-color: #073642 !important;
 }
 
-/* Ajustar bordes internos de tarjetas en tema Solarized */
-[data-theme="solarized"] section#proyectos article .border-t {
-  border-color: rgba(131, 148, 150, 0.15);
+[data-theme="solarized"] .proyecto-tab {
+  border-color: #073642 !important;
 }
 
-/* Ocultar completamente el blur/gradiente del carrusel en tema Solarized */
-[data-theme="solarized"] .carousel-gradient-left,
-[data-theme="solarized"] .carousel-gradient-right,
-[data-theme="solarized"] .carousel-gradient-left-2,
-[data-theme="solarized"] .carousel-gradient-right-2 {
-  display: none;
+[data-theme="solarized"] .proyecto-tab[aria-selected="true"],
+[data-theme="solarized"] .proyecto-filtro[aria-pressed="true"] {
+  background-color: rgba(38, 139, 210, 0.18) !important;
+  border-color: rgba(38, 139, 210, 0.5) !important;
+}
+
+[data-theme="solarized"] [data-proyecto-cliente],
+[data-theme="solarized"] [data-proyecto-links] a {
+  color: #2aa198 !important;
 }
 
 [data-theme="solarized"] .bg-white\/10,
@@ -279,26 +278,31 @@ body ol.border-s .absolute.rounded-full {
   border-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Eliminar fondos oscuros de tarjetas de proyectos en tema Light */
-[data-theme="light"] section#proyectos article.bg-gradient-to-br {
-  background: #f2f2f2;
-  background-image: none;
-  border-color: rgba(59, 130, 246, 0.2);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+/* Galería de proyectos (panel + lista) en tema Light */
+[data-theme="light"] [data-proyecto-panel] {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Ajustar bordes internos de tarjetas en tema Light */
-[data-theme="light"] section#proyectos article .border-t {
-  border-color: rgba(0, 0, 0, 0.1);
+[data-theme="light"] .proyecto-tab {
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Ocultar completamente el blur/gradiente del carrusel en tema Light */
-[data-theme="light"] .carousel-gradient-left,
-[data-theme="light"] .carousel-gradient-right,
-[data-theme="light"] .carousel-gradient-left-2,
-[data-theme="light"] .carousel-gradient-right-2 {
-  display: none;
+[data-theme="light"] .proyecto-tab[aria-selected="true"],
+[data-theme="light"] .proyecto-filtro[aria-pressed="true"] {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+[data-theme="light"] [data-proyecto-cliente],
+[data-theme="light"] [data-proyecto-links] a {
+  color: #2563eb !important;
+}
+
+[data-theme="light"] [data-proyecto-tech] span,
+[data-theme="light"] .bg-gray-700 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  color: #334155 !important;
 }
 
 [data-theme="light"] .bg-gradient-to-r.from-blue-400.to-cyan-300 {
@@ -345,18 +349,25 @@ body ol.border-s .absolute.rounded-full {
   border-color: #334155;
 }
 
-/* Eliminar fondos oscuros de tarjetas de proyectos en tema Radial Slate */
-[data-theme="radial-slate"] section#proyectos article.bg-gradient-to-br {
-  background: #020617;
-  background-image: none;
-  border-color: rgba(96, 165, 250, 0.25);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+/* Galería de proyectos (panel + lista) en tema Radial Slate */
+[data-theme="radial-slate"] [data-proyecto-panel] {
+  background: rgba(30, 41, 59, 0.4) !important;
+  border-color: #334155 !important;
 }
 
-/* Ajustar bordes internos de tarjetas en tema Radial Slate */
-[data-theme="radial-slate"] section#proyectos article .border-t {
-  border-color: rgba(51, 65, 85, 0.3);
+[data-theme="radial-slate"] .proyecto-tab {
+  border-color: #334155 !important;
+}
+
+[data-theme="radial-slate"] .proyecto-tab[aria-selected="true"],
+[data-theme="radial-slate"] .proyecto-filtro[aria-pressed="true"] {
+  background-color: rgba(96, 165, 250, 0.18) !important;
+  border-color: rgba(96, 165, 250, 0.5) !important;
+}
+
+[data-theme="radial-slate"] [data-proyecto-cliente],
+[data-theme="radial-slate"] [data-proyecto-links] a {
+  color: #60a5fa !important;
 }
 
 [data-theme="radial-slate"] .bg-white\/10,
@@ -579,4 +590,62 @@ body::after {
 [data-theme="light"] #social-buttons a span,
 [data-theme="light"] #social-buttons a .social-text {
   color: #0f172a;
+}
+
+/* === LOGO LEO DEVELOPER (LeoDeveloperLogo.astro) === */
+/* El logo nuevo usa colores fijos pensados para fondos oscuros; en temas
+   claros el subtitulo quedaba casi invisible. Se ajusta color por tema. */
+[data-theme="light"] .leo-dev-logo__name {
+  color: #2563eb !important;
+  text-shadow: 0 0 6px rgba(37, 99, 235, 0.18) !important;
+}
+
+[data-theme="light"] .leo-dev-logo__role {
+  color: #475569 !important;
+  text-shadow: none !important;
+}
+
+[data-theme="light"] .leo-dev-logo__icon {
+  filter: drop-shadow(0 0 6px rgba(37, 99, 235, 0.3)) !important;
+}
+
+[data-theme="solarized"] .leo-dev-logo__name {
+  color: #268bd2 !important;
+  text-shadow: 0 0 8px rgba(38, 139, 210, 0.25) !important;
+}
+
+[data-theme="solarized"] .leo-dev-logo__role {
+  color: #93a1a1 !important;
+}
+
+[data-theme="solarized"] .leo-dev-logo__icon {
+  filter: drop-shadow(0 0 8px rgba(42, 161, 152, 0.45)) !important;
+}
+
+[data-theme="radial-slate"] .leo-dev-logo__name {
+  color: #60a5fa !important;
+  text-shadow: 0 0 8px rgba(96, 165, 250, 0.3) !important;
+}
+
+[data-theme="radial-slate"] .leo-dev-logo__role {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="radial-slate"] .leo-dev-logo__icon {
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.5)) !important;
+}
+
+/* === BADGES DE PROYECTOS (Privado / En Desarrollo) EN TEMA LIGHT === */
+/* Los tonos pastel (amber-300 / emerald-300) estan pensados para fondos
+   oscuros; sobre el fondo claro quedaban con muy poco contraste. */
+[data-theme="light"] [data-proyecto-privado] {
+  color: #92400e !important;
+  background-color: rgba(217, 119, 6, 0.12) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
+}
+
+[data-theme="light"] [data-proyecto-progreso] {
+  color: #065f46 !important;
+  background-color: rgba(5, 150, 105, 0.12) !important;
+  border-color: rgba(5, 150, 105, 0.35) !important;
 }
