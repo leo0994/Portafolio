@@ -84,6 +84,10 @@
   "theme_default": "Default",
   "theme_light": "Claro",
   "theme_green": "Verde",
-  "theme_dark": "Oscuro"
+  "theme_dark": "Oscuro",
+  "proyectos_filtro_todos": "Todos",
+  "proyectos_filtro_cliente": "Con cliente",
+  "proyectos_filtro_propio": "Propios",
+  "proyectos_cliente_label": "Cliente"
 }
   

@@ -88,6 +88,10 @@
   "theme_default": "Default",
   "theme_light": "Light",
   "theme_green": "Green",
-  "theme_dark": "Dark"
+  "theme_dark": "Dark",
+  "proyectos_filtro_todos": "All",
+  "proyectos_filtro_cliente": "Client work",
+  "proyectos_filtro_propio": "Personal",
+  "proyectos_cliente_label": "Client"
 }
   
